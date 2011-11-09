@@ -34,7 +34,7 @@ Wikipedia article.
 %doc %_kde_docdir/HTML/en/marble
 #---------------------------------------------
 
-%define marblewidget_major 12
+%define marblewidget_major 13
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %libmarblewidget
