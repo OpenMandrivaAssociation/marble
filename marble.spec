@@ -25,13 +25,13 @@ Wikipedia article.
 
 %files
 %_kde_bindir/marble
-%_kde_bindir/geodatatest
 %_kde_bindir/tilecreator
 %_kde_bindir/routing-instructions
 %_kde_iconsdir/*/*/apps/marble.*
 %_kde_datadir/applications/kde4/marble.desktop
 %doc  LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
 %doc %_kde_docdir/HTML/en/marble
+
 #---------------------------------------------
 
 %define marblewidget_major 13
@@ -48,7 +48,6 @@ Runtime library for marble
 %files -n %libmarblewidget
 %defattr(-,root,root)
 %_kde_libdir/libmarblewidget.so.0.%{marblewidget_major}*
-%_kde_libdir/libmarblewidget.so.%{marblewidget_major}
 
 #---------------------------------------------
 
