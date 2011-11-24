@@ -25,10 +25,12 @@ Wikipedia article.
 
 %files
 %_kde_bindir/marble
+%_kde_bindir/marble-touch
 %_kde_bindir/tilecreator
 %_kde_bindir/routing-instructions
 %_kde_iconsdir/*/*/apps/marble.*
 %_kde_datadir/applications/kde4/marble.desktop
+
 %doc  LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
 %doc %_kde_docdir/HTML/en/marble
 
@@ -48,6 +50,7 @@ Runtime library for marble
 %files -n %libmarblewidget
 %defattr(-,root,root)
 %_kde_libdir/libmarblewidget.so.0.%{marblewidget_major}*
+%_kde_libdir/libmarblewidget.so.%{marblewidget_major}
 
 #---------------------------------------------
 
@@ -66,9 +69,11 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files -n marble-common
+%_kde_libdir/kde4/plasma_runner_marble.so
 %_kde_libdir/kde4/libmarble_part.*
 %_kde_datadir/config.kcfg/marble.kcfg
 %_kde_services/marble_part.desktop
+%_kde_services/plasma-runner-marble.desktop
 %_kde_libdir/kde4/plugins/marble
 %_kde_appsdir/marble
 %if %with marble_python
