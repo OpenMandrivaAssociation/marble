@@ -76,7 +76,6 @@ Wikipedia article.
 %_kde_services/plasma-runner-marble.desktop
 %_kde_libdir/kde4/plugins/marble
 %_kde_appsdir/marble
-%_kde_libdir/kde4/imports/org/kde/edu/marble
 %if %with marble_python
 %py_platsitedir/PyKDE4/marble.so
 %endif
