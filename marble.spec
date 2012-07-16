@@ -36,7 +36,7 @@ Wikipedia article.
 
 #---------------------------------------------
 
-%define marblewidget_major 13
+%define marblewidget_major 14
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %libmarblewidget
