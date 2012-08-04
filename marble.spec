@@ -2,12 +2,12 @@
 
 Name:		marble
 Summary:	A virtual globe and world atlas
-Version:	4.8.97
-Release:	1
+Version: 4.9.0
+Release: 1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 URL:		http://edu.kde.org
-Source:		ftp://ftp.kde.org/pub/kde/unstable/%{version}/src/%{name}-%{version}.tar.xz
+Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.xz
 BuildRequires:	kdelibs4-devel
 BuildRequires:	python-devel
 BuildRequires:	python-qt4-devel
