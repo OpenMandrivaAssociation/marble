@@ -2,8 +2,8 @@
 
 Name:		marble
 Summary:	A virtual globe and world atlas
-Version: 4.9.3
-Release: 1
+Version:	4.9.4
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 URL:		http://edu.kde.org
@@ -128,4 +128,74 @@ Files needed to build applications based on %{name}.
 
 %install
 %makeinstall_std -C build
+
+%changelog
+* Wed Dec 05 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.4-1
+- New version 4.9.4
+
+* Wed Nov 07 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.3-1
+- New version 4.9.3
+
+* Thu Oct 04 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.2-1
+- New version 4.9.2
+
+* Sat Sep 08 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.1-1
+- New version 4.9.1
+
+* Mon Aug 13 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.0-1
+- New version 4.9.0
+
+* Wed Jul 18 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.8.97-1
+- New version 4.8.97
+
+* Sat Jun 30 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.8.95-1
+- New version 4.8.95
+- Update libmarblewidget major from 13 to 14
+
+* Fri Jun 08 2012 Andrey Bondrov <bondrov@math.dvgu.ru> 4.8.4-69.1mib2010.2
+- New version 4.8.4
+- MIB (Mandriva International Backports)
+
+* Fri May 04 2012 Andrey Bondrov <bondrov@math.dvgu.ru> 4.8.3-69.1mib2010.2
+- New version 4.8.3
+- MIB (Mandriva International Backports)
+
+* Wed Apr 04 2012 Andrey Bondrov <bondrov@math.dvgu.ru> 4.8.2-69.1mib2010.2
+- New version 4.8.2
+- Add BuildConflicts qt4-qmlviewer
+- MIB (Mandriva International Backports)
+
+* Wed Mar 07 2012 Andrey Bondrov <bondrov@math.dvgu.ru> 4.8.1-69.1mib2010.2
+- New version 4.8.1
+- Update file list (kde4/imports/org/kde/edu/marble is not packaged in _libdir)
+- MIB (Mandriva International Backports)
+
+* Mon Feb 20 2012 Andrey Bondrov <bondrov@math.dvgu.ru> 4.8.0-69.1mib2010.2
++ Revision: 762496
+- Backport to 2010.2 for MIB users
+- We could add qt-mobility to BuildRequires but we don't do it for now
+- MIB (Mandriva International Backports)
+
+* Thu Jan 19 2012 Nicolas Lécureuil <nlecureuil@mandriva.com> 4.8.0-1
++ Revision: 762496
+- New upstream tarball
+
+* Fri Jan 06 2012 Nicolas Lécureuil <nlecureuil@mandriva.com> 4.7.97-1
++ Revision: 758084
+- New upstream tarball
+
+* Tue Jan 03 2012 Nicolas Lécureuil <nlecureuil@mandriva.com> 4.7.95-1
++ Revision: 748797
+- Fix file list
+- New upstream tarball
+- New upstream tarball $NEW_VERSION
+
+* Thu Nov 24 2011 Nicolas Lécureuil <nlecureuil@mandriva.com> 4.7.80-1
++ Revision: 733064
+- New upstream tarball 4.7.80
+
+* Wed Nov 09 2011 Nicolas Lécureuil <nlecureuil@mandriva.com> 4.7.41-1
++ Revision: 729225
+- Fix major
+- Import marble
 
