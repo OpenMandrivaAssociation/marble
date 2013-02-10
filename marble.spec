@@ -14,7 +14,7 @@ BuildRequires:	python-qt4-devel
 BuildRequires:	pkgconfig(libgpsd)
 BuildConflicts:	qt4-qmlviewer
 Requires:	libkdeedu
-Requires:	marble-common
+Requires:	marble-common = %{EVRD}
 
 %description
 Marble is a Virtual Globe and World Atlas that you can use to learn more
@@ -31,16 +31,23 @@ Wikipedia article.
 %{_kde_bindir}/routing-instructions
 %{_kde_iconsdir}/*/*/apps/marble.*
 %{_kde_applicationsdir}/marble.desktop
+%{_kde_applicationsdir}/marble_gpx.desktop
+%{_kde_applicationsdir}/marble_kml.desktop
+%{_kde_applicationsdir}/marble_osm.desktop
+%{_kde_services}/marble_part_gpx.desktop
+%{_kde_services}/marble_part_kml.desktop
+%{_kde_services}/marble_part_osm.desktop
 
 #---------------------------------------------
 
-%define marblewidget_major 14
+%define marblewidget_major 15
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
 Summary:	Runtime library for marble
 Group:		System/Libraries
-Obsoletes:	%{mklibname marblewidget 13}
+Obsoletes:	%{_lib}marblewidget13 < 4.9.0
+Obsoletes:	%{_lib}marblewidget14 < 4.10.0
 
 %description -n %{libmarblewidget}
 Runtime library for marble
@@ -69,6 +76,7 @@ Wikipedia article.
 %{_kde_libdir}/kde4/plasma_runner_marble.so
 %{_kde_libdir}/kde4/libmarble_part.*
 %{_kde_datadir}/config.kcfg/marble.kcfg
+%{_kde_datadir}/mime/packages/geo.xml
 %{_kde_services}/marble_part.desktop
 %{_kde_services}/plasma-runner-marble.desktop
 %{_kde_libdir}/kde4/plugins/marble
@@ -83,7 +91,7 @@ Wikipedia article.
 Summary:	plasma kworldclock Applet
 Group:		Graphical desktop/KDE
 Requires:	kdebase4-runtime
-Requires:	marble
+Requires:	marble = %{EVRD}
 Provides:	plasma-applet
 
 %description -n plasma-applet-kworldclock
@@ -132,6 +140,8 @@ Files needed to build applications based on %{name}.
 %changelog
 * Thu Feb 07 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.0-1
 - New version 4.10.0
+- New library major for libmarblewidget
+- Update files
 
 * Wed Dec 05 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.4-1
 - New version 4.9.4
