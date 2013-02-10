@@ -11,6 +11,7 @@ Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 BuildRequires:	kdelibs4-devel
 BuildRequires:	python-devel
 BuildRequires:	python-qt4-devel
+BuildRequires:	shapelib-devel
 BuildRequires:	pkgconfig(libgpsd)
 BuildConflicts:	qt4-qmlviewer
 Requires:	libkdeedu
@@ -34,9 +35,11 @@ Wikipedia article.
 %{_kde_applicationsdir}/marble_gpx.desktop
 %{_kde_applicationsdir}/marble_kml.desktop
 %{_kde_applicationsdir}/marble_osm.desktop
+%{_kde_applicationsdir}/marble_shp.desktop
 %{_kde_services}/marble_part_gpx.desktop
 %{_kde_services}/marble_part_kml.desktop
 %{_kde_services}/marble_part_osm.desktop
+%{_kde_services}/marble_part_shp.desktop
 
 #---------------------------------------------
 
@@ -141,6 +144,7 @@ Files needed to build applications based on %{name}.
 * Thu Feb 07 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.0-1
 - New version 4.10.0
 - New library major for libmarblewidget
+- Add shapelib-devel to BuildRequires for more features
 - Update files
 
 * Wed Dec 05 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.9.4-1
