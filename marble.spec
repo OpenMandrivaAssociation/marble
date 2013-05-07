@@ -2,7 +2,7 @@
 
 Name:		marble
 Summary:	A virtual globe and world atlas
-Version:	4.10.2
+Version:	4.10.3
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -141,6 +141,9 @@ Files needed to build applications based on %{name}.
 %makeinstall_std -C build
 
 %changelog
+* Tue May 07 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.3-1
+- New version 4.10.3
+
 * Wed Apr 03 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.2-1
 - New version 4.10.2
 
