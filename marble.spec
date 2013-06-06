@@ -1,12 +1,12 @@
 %bcond_with marble_python
 
-Name:		marble
 Summary:	A virtual globe and world atlas
-Version:	4.10.3
+Name:		marble
+Version:	4.10.4
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
-URL:		http://edu.kde.org
+Url:		http://edu.kde.org
 Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.xz
 BuildRequires:	kdelibs4-devel
 BuildRequires:	python-devel
@@ -141,6 +141,9 @@ Files needed to build applications based on %{name}.
 %makeinstall_std -C build
 
 %changelog
+* Wed Jun 05 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.4-1
+- New version 4.10.4
+
 * Tue May 07 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.3-1
 - New version 4.10.3
 
