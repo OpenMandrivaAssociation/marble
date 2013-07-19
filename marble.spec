@@ -13,6 +13,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-qt4-devel
 BuildRequires:	shapelib-devel
 BuildRequires:	pkgconfig(libgpsd)
+BuildRequires:	pkgconfig(QtLocation)
 BuildRequires:	qt4-qmlviewer
 Requires:	libkdeedu
 Requires:	marble-common = %{EVRD}
@@ -144,6 +145,7 @@ Files needed to build applications based on %{name}.
 %changelog
 * Fri Jul 19 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-2
 - Build QML import files properly (update BuildRequires and files)
+- Add pkgconfig(QtLocation) to BuildRequires
 
 * Wed Jul 03 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-1
 - New version 4.10.5
