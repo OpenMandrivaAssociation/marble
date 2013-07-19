@@ -3,7 +3,7 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	4.10.5
-Release:	1
+Release:	2
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -13,7 +13,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-qt4-devel
 BuildRequires:	shapelib-devel
 BuildRequires:	pkgconfig(libgpsd)
-BuildConflicts:	qt4-qmlviewer
+BuildRequires:	qt4-qmlviewer
 Requires:	libkdeedu
 Requires:	marble-common = %{EVRD}
 
@@ -64,7 +64,7 @@ Runtime library for marble
 %package common
 Summary:	A virtual globe and world atlas
 Group:		Graphical desktop/KDE
-%if %with marble_python
+%if %{with marble_python}
 BuildRequires:	python-kde4
 Requires:	python
 %endif
@@ -84,9 +84,10 @@ Wikipedia article.
 %{_kde_services}/plasma-runner-marble.desktop
 %{_kde_libdir}/kde4/plugins/marble
 %{_kde_appsdir}/marble
-%if %with marble_python
+%if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
+%{_qt_importdir}/org/kde/edu/marble
 
 #-----------------------------------------------------------------------------
 
@@ -128,7 +129,7 @@ Files needed to build applications based on %{name}.
 
 %build
 %cmake_kde4 \
-	%if %without marble_python
+	%if %{without marble_python}
 	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
 	-DBUILD_python=FALSE
 	%else
@@ -141,6 +142,9 @@ Files needed to build applications based on %{name}.
 %makeinstall_std -C build
 
 %changelog
+* Fri Jul 19 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-2
+- Build QML import files properly (update BuildRequires and files)
+
 * Wed Jul 03 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-1
 - New version 4.10.5
 
