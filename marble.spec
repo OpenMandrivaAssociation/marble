@@ -2,8 +2,8 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	4.10.5
-Release:	2
+Version:	4.11.0
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -143,6 +143,9 @@ Files needed to build applications based on %{name}.
 %makeinstall_std -C build
 
 %changelog
+* Wed Aug 14 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.11.0-1
+- New version 4.11.0
+
 * Fri Jul 19 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-2
 - Build QML import files properly (update BuildRequires and files)
 - Add pkgconfig(QtLocation) to BuildRequires
