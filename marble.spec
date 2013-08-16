@@ -44,7 +44,7 @@ Wikipedia article.
 
 #---------------------------------------------
 
-%define marblewidget_major 15
+%define marblewidget_major 16
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
@@ -52,6 +52,7 @@ Summary:	Runtime library for marble
 Group:		System/Libraries
 Obsoletes:	%{_lib}marblewidget13 < 4.9.0
 Obsoletes:	%{_lib}marblewidget14 < 4.10.0
+Obsoletes:	%{_lib}marblewidget15 < 4.11.0
 
 %description -n %{libmarblewidget}
 Runtime library for marble
@@ -145,6 +146,7 @@ Files needed to build applications based on %{name}.
 %changelog
 * Wed Aug 14 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.11.0-1
 - New version 4.11.0
+- New library major for libmarblewidget
 
 * Fri Jul 19 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-2
 - Build QML import files properly (update BuildRequires and files)
