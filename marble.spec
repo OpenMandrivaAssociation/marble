@@ -37,10 +37,12 @@ Wikipedia article.
 %{_kde_applicationsdir}/marble.desktop
 %{_kde_applicationsdir}/marble_gpx.desktop
 %{_kde_applicationsdir}/marble_kml.desktop
+%{_kde_applicationsdir}/marble_kmz.desktop
 %{_kde_applicationsdir}/marble_osm.desktop
 %{_kde_applicationsdir}/marble_shp.desktop
 %{_kde_services}/marble_part_gpx.desktop
 %{_kde_services}/marble_part_kml.desktop
+%{_kde_services}/marble_part_kmz.desktop
 %{_kde_services}/marble_part_osm.desktop
 %{_kde_services}/marble_part_shp.desktop
 
