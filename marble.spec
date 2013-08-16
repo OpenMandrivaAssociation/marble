@@ -28,6 +28,7 @@ Wikipedia article.
 %doc LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
 %doc %{_kde_docdir}/HTML/en/marble
 %{_kde_bindir}/marble
+%{_kde_bindir}/marble-qt
 %{_kde_bindir}/marble-touch
 %{_kde_bindir}/tilecreator
 %{_kde_bindir}/routing-instructions
@@ -55,7 +56,7 @@ Obsoletes:	%{_lib}marblewidget14 < 4.10.0
 Obsoletes:	%{_lib}marblewidget15 < 4.11.0
 
 %description -n %{libmarblewidget}
-Runtime library for marble
+Runtime library for marble.
 
 %files -n %{libmarblewidget}
 %{_kde_libdir}/libmarblewidget.so.0.%{marblewidget_major}*
@@ -147,6 +148,7 @@ Files needed to build applications based on %{name}.
 * Wed Aug 14 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.11.0-1
 - New version 4.11.0
 - New library major for libmarblewidget
+- Update files list
 
 * Fri Jul 19 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.10.5-2
 - Build QML import files properly (update BuildRequires and files)
