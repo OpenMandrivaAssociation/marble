@@ -29,10 +29,9 @@ Wikipedia article.
 %doc LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
 %doc %{_kde_docdir}/HTML/en/marble
 %{_kde_bindir}/marble
+%{_kde_bindir}/marble-mobile
 %{_kde_bindir}/marble-qt
 %{_kde_bindir}/marble-touch
-%{_kde_bindir}/tilecreator
-%{_kde_bindir}/routing-instructions
 %{_kde_iconsdir}/*/*/apps/marble.*
 %{_kde_applicationsdir}/marble.desktop
 %{_kde_applicationsdir}/marble_gpx.desktop
@@ -40,6 +39,9 @@ Wikipedia article.
 %{_kde_applicationsdir}/marble_kmz.desktop
 %{_kde_applicationsdir}/marble_osm.desktop
 %{_kde_applicationsdir}/marble_shp.desktop
+%{_kde_applicationsdir}/marble-mobile.desktop
+%{_kde_applicationsdir}/marble-qt.desktop
+%{_kde_applicationsdir}/marble-touch.desktop
 %{_kde_services}/marble_part_gpx.desktop
 %{_kde_services}/marble_part_kml.desktop
 %{_kde_services}/marble_part_kmz.desktop
@@ -48,7 +50,7 @@ Wikipedia article.
 
 #---------------------------------------------
 
-%define marblewidget_major 16
+%define marblewidget_major 17
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
@@ -57,6 +59,7 @@ Group:		System/Libraries
 Obsoletes:	%{_lib}marblewidget13 < 4.9.0
 Obsoletes:	%{_lib}marblewidget14 < 4.10.0
 Obsoletes:	%{_lib}marblewidget15 < 4.11.0
+Obsoletes:	%{_lib}marblewidget16 < 4.12.0
 
 %description -n %{libmarblewidget}
 Runtime library for marble.
@@ -125,6 +128,7 @@ Files needed to build applications based on %{name}.
 
 %files devel
 %{_kde_libdir}/libmarblewidget.so
+%{_kde_libdir}/kde4/plugins/designer/*.so
 %{_includedir}/marble
 %{_kde_appsdir}/cmake/modules/FindMarble.cmake
 
@@ -150,6 +154,8 @@ Files needed to build applications based on %{name}.
 %changelog
 * Tue Jan 14 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.12.1-1
 - New version 4.12.1
+- New library major 17
+- Update files
 
 * Wed Dec 04 2013 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.11.4-1
 - New version 4.11.4
