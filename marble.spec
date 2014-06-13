@@ -50,7 +50,7 @@ Wikipedia article.
 
 #---------------------------------------------
 
-%define marblewidget_major 17
+%define marblewidget_major 18
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
@@ -60,6 +60,7 @@ Obsoletes:	%{_lib}marblewidget13 < 4.9.0
 Obsoletes:	%{_lib}marblewidget14 < 4.10.0
 Obsoletes:	%{_lib}marblewidget15 < 4.11.0
 Obsoletes:	%{_lib}marblewidget16 < 4.12.0
+Obsoletes:	%{_lib}marblewidget17 < 4.13.0
 
 %description -n %{libmarblewidget}
 Runtime library for marble.
@@ -154,6 +155,7 @@ Files needed to build applications based on %{name}.
 %changelog
 * Wed Jun 11 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.13.2-1
 - New version 4.13.2
+- New library major 18
 
 * Wed Apr 02 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.12.4-1
 - New version 4.12.4
