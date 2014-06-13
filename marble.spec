@@ -34,11 +34,13 @@ Wikipedia article.
 %{_kde_bindir}/marble-touch
 %{_kde_iconsdir}/*/*/apps/marble.*
 %{_kde_applicationsdir}/marble.desktop
+%{_kde_applicationsdir}/marble_geo.desktop
 %{_kde_applicationsdir}/marble_gpx.desktop
 %{_kde_applicationsdir}/marble_kml.desktop
 %{_kde_applicationsdir}/marble_kmz.desktop
 %{_kde_applicationsdir}/marble_osm.desktop
 %{_kde_applicationsdir}/marble_shp.desktop
+%{_kde_applicationsdir}/marble_worldwind.desktop
 %{_kde_applicationsdir}/marble-mobile.desktop
 %{_kde_applicationsdir}/marble-qt.desktop
 %{_kde_applicationsdir}/marble-touch.desktop
@@ -176,6 +178,7 @@ Files needed to build applications based on %{name}.
 - New version 4.13.2
 - New library major 18
 - New library package libastro
+- Update files
 
 * Wed Apr 02 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.12.4-1
 - New version 4.12.4
