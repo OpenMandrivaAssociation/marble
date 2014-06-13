@@ -50,27 +50,6 @@ Wikipedia article.
 
 #---------------------------------------------
 
-%define marblewidget_major 18
-%define libmarblewidget %mklibname marblewidget %{marblewidget_major}
-
-%package -n %{libmarblewidget}
-Summary:	Runtime library for marble
-Group:		System/Libraries
-Obsoletes:	%{_lib}marblewidget13 < 4.9.0
-Obsoletes:	%{_lib}marblewidget14 < 4.10.0
-Obsoletes:	%{_lib}marblewidget15 < 4.11.0
-Obsoletes:	%{_lib}marblewidget16 < 4.12.0
-Obsoletes:	%{_lib}marblewidget17 < 4.13.0
-
-%description -n %{libmarblewidget}
-Runtime library for marble.
-
-%files -n %{libmarblewidget}
-%{_kde_libdir}/libmarblewidget.so.0.%{marblewidget_major}*
-%{_kde_libdir}/libmarblewidget.so.%{marblewidget_major}
-
-#---------------------------------------------
-
 %package common
 Summary:	A virtual globe and world atlas
 Group:		Graphical desktop/KDE
@@ -117,10 +96,48 @@ plasma kworldclock Applet
 
 #---------------------------------------------
 
+%define astro_major 1
+%define libastro %mklibname astro %{astro_major}
+
+%package -n %{libastro}
+Summary:	Runtime library for marble
+Group:		System/Libraries
+
+%description -n %{libastro}
+Runtime library for marble.
+
+%files -n %{libastro}
+%{_kde_libdir}/libastro.so.0.*
+%{_kde_libdir}/libastro.so.%{astro_major}
+
+#---------------------------------------------
+
+%define marblewidget_major 18
+%define libmarblewidget %mklibname marblewidget %{marblewidget_major}
+
+%package -n %{libmarblewidget}
+Summary:	Runtime library for marble
+Group:		System/Libraries
+Obsoletes:	%{_lib}marblewidget13 < 4.9.0
+Obsoletes:	%{_lib}marblewidget14 < 4.10.0
+Obsoletes:	%{_lib}marblewidget15 < 4.11.0
+Obsoletes:	%{_lib}marblewidget16 < 4.12.0
+Obsoletes:	%{_lib}marblewidget17 < 4.13.0
+
+%description -n %{libmarblewidget}
+Runtime library for marble.
+
+%files -n %{libmarblewidget}
+%{_kde_libdir}/libmarblewidget.so.0.*
+%{_kde_libdir}/libmarblewidget.so.%{marblewidget_major}
+
+#---------------------------------------------
+
 %package devel
 Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
 Requires:	kdelibs4-devel
+Requires:	%{libastro} = %{EVRD}
 Requires:	%{libmarblewidget} = %{EVRD}
 Conflicts:	kdeedu4-devel < 4.6.90
 
@@ -128,9 +145,11 @@ Conflicts:	kdeedu4-devel < 4.6.90
 Files needed to build applications based on %{name}.
 
 %files devel
+%{_kde_libdir}/libastro.so
 %{_kde_libdir}/libmarblewidget.so
 %{_kde_libdir}/kde4/plugins/designer/*.so
-%{_includedir}/marble
+%{_includedir}/astro/
+%{_includedir}/marble/
 %{_kde_appsdir}/cmake/modules/FindMarble.cmake
 
 #----------------------------------------------------------------------
@@ -156,6 +175,7 @@ Files needed to build applications based on %{name}.
 * Wed Jun 11 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.13.2-1
 - New version 4.13.2
 - New library major 18
+- New library package libastro
 
 * Wed Apr 02 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.12.4-1
 - New version 4.12.4
