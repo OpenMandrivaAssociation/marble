@@ -44,11 +44,18 @@ Wikipedia article.
 %{_kde_applicationsdir}/marble-mobile.desktop
 %{_kde_applicationsdir}/marble-qt.desktop
 %{_kde_applicationsdir}/marble-touch.desktop
+%{_kde_libdir}/kde4/marblethumbnail.so
 %{_kde_services}/marble_part_gpx.desktop
 %{_kde_services}/marble_part_kml.desktop
 %{_kde_services}/marble_part_kmz.desktop
 %{_kde_services}/marble_part_osm.desktop
 %{_kde_services}/marble_part_shp.desktop
+%{_kde_services}/marble_thumbnail_gpx.desktop
+%{_kde_services}/marble_thumbnail_kml.desktop
+%{_kde_services}/marble_thumbnail_kmz.desktop
+%{_kde_services}/marble_thumbnail_osm.desktop
+%{_kde_services}/marble_thumbnail_shp.desktop
+%{_kde_datadir}/appdata/marble.appdata.xml
 
 #---------------------------------------------
 
@@ -69,6 +76,7 @@ Wikipedia article.
 %files -n marble-common
 %{_kde_libdir}/kde4/plasma_runner_marble.so
 %{_kde_libdir}/kde4/libmarble_part.*
+%{_kde_libdir}/kde4/marblethumbnail.so
 %{_kde_datadir}/config.kcfg/marble.kcfg
 %{_kde_datadir}/mime/packages/geo.xml
 %{_kde_services}/marble_part.desktop
@@ -177,6 +185,7 @@ Files needed to build applications based on %{name}.
 * Mon Sep 29 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.14.1-1
 - New version 4.14.1
 - New library major 18
+- Update files
 
 * Tue Jul 15 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.13.3-1
 - New version 4.13.3
