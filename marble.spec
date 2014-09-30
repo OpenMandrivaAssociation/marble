@@ -76,7 +76,6 @@ Wikipedia article.
 %files -n marble-common
 %{_kde_libdir}/kde4/plasma_runner_marble.so
 %{_kde_libdir}/kde4/libmarble_part.*
-%{_kde_libdir}/kde4/marblethumbnail.so
 %{_kde_datadir}/config.kcfg/marble.kcfg
 %{_kde_datadir}/mime/packages/geo.xml
 %{_kde_services}/marble_part.desktop
