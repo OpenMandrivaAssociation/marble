@@ -114,7 +114,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define marblewidget_major 18
+%define marblewidget_major 19
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
@@ -176,6 +176,7 @@ Files needed to build applications based on %{name}.
 %changelog
 * Mon Sep 29 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.14.1-1
 - New version 4.14.1
+- New library major 18
 
 * Tue Jul 15 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.13.3-1
 - New version 4.13.3
