@@ -2,12 +2,12 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	4.14.3
-Release:	2
+Version:	14.12.0
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
-Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.xz
+Source0:	ftp://ftp.kde.org/pub/kde/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
 BuildRequires:	kdelibs4-devel
 BuildRequires:	python-devel
 BuildRequires:	python-qt4-devel
@@ -121,7 +121,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define marblewidget_major 19
+%define marblewidget_major 20
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
