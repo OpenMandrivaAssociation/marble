@@ -2,12 +2,12 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	4.13.3
+Version:	14.12.0
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
-Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.xz
+Source0:	ftp://ftp.kde.org/pub/kde/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
 BuildRequires:	kdelibs4-devel
 BuildRequires:	python-devel
 BuildRequires:	python-qt4-devel
@@ -44,11 +44,18 @@ Wikipedia article.
 %{_kde_applicationsdir}/marble-mobile.desktop
 %{_kde_applicationsdir}/marble-qt.desktop
 %{_kde_applicationsdir}/marble-touch.desktop
+%{_kde_libdir}/kde4/marblethumbnail.so
 %{_kde_services}/marble_part_gpx.desktop
 %{_kde_services}/marble_part_kml.desktop
 %{_kde_services}/marble_part_kmz.desktop
 %{_kde_services}/marble_part_osm.desktop
 %{_kde_services}/marble_part_shp.desktop
+%{_kde_services}/marble_thumbnail_gpx.desktop
+%{_kde_services}/marble_thumbnail_kml.desktop
+%{_kde_services}/marble_thumbnail_kmz.desktop
+%{_kde_services}/marble_thumbnail_osm.desktop
+%{_kde_services}/marble_thumbnail_shp.desktop
+%{_kde_datadir}/appdata/marble.appdata.xml
 
 #---------------------------------------------
 
@@ -114,7 +121,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define marblewidget_major 18
+%define marblewidget_major 20
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
@@ -174,6 +181,17 @@ Files needed to build applications based on %{name}.
 %makeinstall_std -C build
 
 %changelog
+* Tue Nov 11 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.14.3-1
+- New version 4.14.3
+
+* Wed Oct 15 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.14.2-1
+- New version 4.14.2
+
+* Mon Sep 29 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.14.1-1
+- New version 4.14.1
+- New library major 18
+- Update files
+
 * Tue Jul 15 2014 Andrey Bondrov <andrey.bondrov@rosalab.ru> 4.13.3-1
 - New version 4.13.3
 
