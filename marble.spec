@@ -3,7 +3,7 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	15.04.2
-Release:	1
+Release:	2
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -16,7 +16,6 @@ BuildRequires:	shapelib-devel
 BuildRequires:	pkgconfig(libgpsd)
 #BuildRequires:	pkgconfig(QtLocation)
 BuildRequires:	qt4-qmlviewer
-Requires:	libkdeedu
 Requires:	marble-common = %{EVRD}
 
 %description
