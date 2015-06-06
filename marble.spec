@@ -9,6 +9,13 @@ License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
 BuildRequires:	kdelibs-devel
+BuildRequires:	python-devel
+BuildRequires:	python-qt4-devel
+BuildRequires:	quazip-devel
+BuildRequires:	shapelib-devel
+BuildRequires:	pkgconfig(libgpsd)
+#BuildRequires:	pkgconfig(QtLocation)
+BuildRequires:	qt4-qmlviewer
 Requires:	libkdeedu
 Requires:	marble-common = %{EVRD}
 
