@@ -121,7 +121,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define marblewidget_major 20
+%define marblewidget_major 21
 %define libmarblewidget %mklibname marblewidget %{marblewidget_major}
 
 %package -n %{libmarblewidget}
@@ -132,6 +132,9 @@ Obsoletes:	%{_lib}marblewidget14 < 4.10.0
 Obsoletes:	%{_lib}marblewidget15 < 4.11.0
 Obsoletes:	%{_lib}marblewidget16 < 4.12.0
 Obsoletes:	%{_lib}marblewidget17 < 4.13.0
+Obsoletes:	%{_lib}marblewidget18 < 4.14.4
+Obsoletes:	%{_lib}marblewidget19 < 4.14.4
+Obsoletes:	%{_lib}marblewidget20 < 15.04.02
 
 %description -n %{libmarblewidget}
 Runtime library for marble.
