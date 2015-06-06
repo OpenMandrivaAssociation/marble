@@ -8,6 +8,7 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+BuildRequires:	kdelibs-devel
 Requires:	libkdeedu
 Requires:	marble-common = %{EVRD}
 
