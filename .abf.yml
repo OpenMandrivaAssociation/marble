@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   marble-15.04.3.tar.xz: 34f6bdedb6ff37f49c1e0f1f3cca219a515accb4
+sources:
+  marble-15.08.0.tar.xz: f8adb053e0b9ff6d0a2bc95593ed38afaae2a4f9
