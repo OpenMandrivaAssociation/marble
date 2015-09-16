@@ -11,10 +11,25 @@ Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{ve
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
+BuildRequires:	gettext
 BuildRequires:	pkgconfig(libgpsd)
+BuildRequires:	pkgconfig(phonon)
 BuildRequires: cmake(ECM)
+BuildRequires:	cmake(KF5KIO)
+BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5Config)
+BuildRequires:	cmake(KF5Wallet)
+BuildRequires: cmake(KF5Config)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5NewStuff)
+BuildRequires: cmake(KF5Parts)
+BuildRequires: cmake(KF5Runner)
+BuildRequires: cmake(KF5Service)
+BuildRequires: cmake(KF5Wallet)
 BuildRequires: kdoctools-devel
-
+BuildRequires: pkgconfig(Qt5Designer)
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Xml)
 BuildRequires: pkgconfig(Qt5Network)
