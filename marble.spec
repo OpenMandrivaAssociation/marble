@@ -8,14 +8,27 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
-BuildRequires:	kdelibs-devel
 BuildRequires:	python-devel
-BuildRequires:	python-qt4-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
 BuildRequires:	pkgconfig(libgpsd)
-#BuildRequires:	pkgconfig(QtLocation)
-BuildRequires:	qt4-qmlviewer
+BuildRequires: cmake(ECM)
+BuildRequires: kdoctools-devel
+
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt5Xml)
+BuildRequires: pkgconfig(Qt5Network)
+BuildRequires: pkgconfig(Qt5Test)
+BuildRequires: pkgconfig(Qt5Script)
+BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: pkgconfig(Qt5Quick)
+BuildRequires: pkgconfig(Qt5WebKitWidgets)
+BuildRequires: pkgconfig(Qt5Svg)
+BuildRequires: pkgconfig(Qt5Sql)
+BuildRequires: pkgconfig(Qt5Concurrent)
+BuildRequires: pkgconfig(Qt5PrintSupport)
+BuildRequires: pkgconfig(Qt5DBus)
+
 Requires:	marble-common = %{EVRD}
 
 %description
@@ -26,35 +39,31 @@ Wikipedia article.
 
 %files
 %doc LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
-%doc %{_kde_docdir}/HTML/en/marble
-%{_kde_bindir}/marble
-%{_kde_bindir}/marble-mobile
-%{_kde_bindir}/marble-qt
-%{_kde_bindir}/marble-touch
-%{_kde_iconsdir}/*/*/apps/marble.*
-%{_kde_applicationsdir}/marble.desktop
-%{_kde_applicationsdir}/marble_geo.desktop
-%{_kde_applicationsdir}/marble_gpx.desktop
-%{_kde_applicationsdir}/marble_kml.desktop
-%{_kde_applicationsdir}/marble_kmz.desktop
-%{_kde_applicationsdir}/marble_osm.desktop
-%{_kde_applicationsdir}/marble_shp.desktop
-%{_kde_applicationsdir}/marble_worldwind.desktop
-%{_kde_applicationsdir}/marble-mobile.desktop
-%{_kde_applicationsdir}/marble-qt.desktop
-%{_kde_applicationsdir}/marble-touch.desktop
-%{_kde_libdir}/kde4/marblethumbnail.so
-%{_kde_services}/marble_part_gpx.desktop
-%{_kde_services}/marble_part_kml.desktop
-%{_kde_services}/marble_part_kmz.desktop
-%{_kde_services}/marble_part_osm.desktop
-%{_kde_services}/marble_part_shp.desktop
-%{_kde_services}/marble_thumbnail_gpx.desktop
-%{_kde_services}/marble_thumbnail_kml.desktop
-%{_kde_services}/marble_thumbnail_kmz.desktop
-%{_kde_services}/marble_thumbnail_osm.desktop
-%{_kde_services}/marble_thumbnail_shp.desktop
-%{_kde_datadir}/appdata/marble.appdata.xml
+%doc %{_kde5_docdir}/HTML/en/marble
+%{_kde5_bindir}/marble
+%{_kde5_bindir}/marble-mobile
+%{_kde5_bindir}/marble-qt
+%{_kde5_bindir}/marble-touch
+%{_kde5_iconsdir}/*/*/apps/marble.*
+%{_kde5_applicationsdir}/marble.desktop
+%{_kde5_applicationsdir}/marble_geo.desktop
+%{_kde5_applicationsdir}/marble_gpx.desktop
+%{_kde5_applicationsdir}/marble_kml.desktop
+%{_kde5_applicationsdir}/marble_osm.desktop
+%{_kde5_applicationsdir}/marble_shp.desktop
+%{_kde5_applicationsdir}/marble_worldwind.desktop
+%{_kde5_applicationsdir}/marble-mobile.desktop
+%{_kde5_applicationsdir}/marble-qt.desktop
+%{_kde5_applicationsdir}/marble-touch.desktop
+%{_kde5_services}/marble_part_gpx.desktop
+%{_kde5_services}/marble_part_kml.desktop
+%{_kde5_services}/marble_part_osm.desktop
+%{_kde5_services}/marble_part_shp.desktop
+%{_kde5_services}/marble_thumbnail_gpx.desktop
+%{_kde5_services}/marble_thumbnail_kml.desktop
+%{_kde5_services}/marble_thumbnail_osm.desktop
+%{_kde5_services}/marble_thumbnail_shp.desktop
+%{_kde5_datadir}/appdata/marble.appdata.xml
 
 #---------------------------------------------
 
@@ -73,34 +82,15 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files -n marble-common
-%{_kde_libdir}/kde4/plasma_runner_marble.so
-%{_kde_libdir}/kde4/libmarble_part.*
-%{_kde_datadir}/config.kcfg/marble.kcfg
-%{_kde_datadir}/mime/packages/geo.xml
-%{_kde_services}/marble_part.desktop
-%{_kde_services}/plasma-runner-marble.desktop
-%{_kde_libdir}/kde4/plugins/marble
-%{_kde_appsdir}/marble
+%{_kde5_datadir}/marble
+%{_kde5_libdir}/marble
+%{_kde5_datadir}/config.kcfg/marble.kcfg
+%{_kde5_datadir}/kxmlgui5/marble
+%{_kde5_services}/marble_part.desktop
+%_qt5_plugindir/*.so
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
-%{_qt_importdir}/org/kde/edu/marble
-
-#-----------------------------------------------------------------------------
-
-%package -n plasma-applet-kworldclock
-Summary:	plasma kworldclock Applet
-Group:		Graphical desktop/KDE
-Requires:	kdebase4-runtime
-Requires:	marble = %{EVRD}
-Provides:	plasma-applet
-
-%description -n plasma-applet-kworldclock
-plasma kworldclock Applet
-
-%files -n plasma-applet-kworldclock
-%{_kde_libdir}/kde4/plasma_applet_worldclock.so
-%{_kde_services}/plasma-applet-kworldclock.desktop
 
 #---------------------------------------------
 
@@ -115,13 +105,13 @@ Group:		System/Libraries
 Runtime library for marble.
 
 %files -n %{libastro}
-%{_kde_libdir}/libastro.so.0.*
-%{_kde_libdir}/libastro.so.%{astro_major}
+%{_kde5_libdir}/libastro.so.0.*
+%{_kde5_libdir}/libastro.so.%{astro_major}
 
 #---------------------------------------------
 
-%define marblewidget_major 21
-%define libmarblewidget %mklibname marblewidget %{marblewidget_major}
+%define marblewidget_major 22
+%define libmarblewidget %mklibname marblewidget-qt5 %{marblewidget_major}
 
 %package -n %{libmarblewidget}
 Summary:	Runtime library for marble
@@ -139,15 +129,14 @@ Obsoletes:	%{_lib}marblewidget20 < 15.04.02
 Runtime library for marble.
 
 %files -n %{libmarblewidget}
-%{_kde_libdir}/libmarblewidget.so.0.*
-%{_kde_libdir}/libmarblewidget.so.%{marblewidget_major}
+%{_kde5_libdir}/libmarblewidget-qt5.so.0.*
+%{_kde5_libdir}/libmarblewidget-qt5.so.%{marblewidget_major}
 
 #---------------------------------------------
 
 %package devel
 Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
-Requires:	kdelibs4-devel
 Requires:	%{libastro} = %{EVRD}
 Requires:	%{libmarblewidget} = %{EVRD}
 Conflicts:	kdeedu4-devel < 4.6.90
@@ -156,12 +145,11 @@ Conflicts:	kdeedu4-devel < 4.6.90
 Files needed to build applications based on %{name}.
 
 %files devel
-%{_kde_libdir}/libastro.so
-%{_kde_libdir}/libmarblewidget.so
-%{_kde_libdir}/kde4/plugins/designer/*.so
+%{_kde5_libdir}/libastro.so
+%{_kde5_libdir}/libmarblewidget-qt5.so
+%{_kde5_libdir}/plugins/designer/*.so
 %{_includedir}/astro/
 %{_includedir}/marble/
-%{_kde_appsdir}/cmake/modules/FindMarble.cmake
 
 #----------------------------------------------------------------------
 
@@ -169,7 +157,7 @@ Files needed to build applications based on %{name}.
 %setup -q
 
 %build
-%cmake_kde4 \
+%cmake_kde5 \
 	%if %{without marble_python}
 	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
 	-DBUILD_python=FALSE
@@ -177,7 +165,7 @@ Files needed to build applications based on %{name}.
 	-DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
 	%endif
 
-%make
+%ninja
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
