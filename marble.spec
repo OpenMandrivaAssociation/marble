@@ -102,6 +102,7 @@ Wikipedia article.
 %{_kde5_datadir}/config.kcfg/marble.kcfg
 %{_kde5_datadir}/kxmlgui5/marble
 %{_kde5_services}/marble_part.desktop
+%{_kde5_services}/plasma-runner-marble.desktop
 %_qt5_plugindir/*.so
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
