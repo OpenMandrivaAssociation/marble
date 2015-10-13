@@ -1,5 +1,7 @@
 %bcond_with marble_python
 
+%bcond_without qt4
+
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	15.08.1
@@ -14,7 +16,7 @@ BuildRequires:	shapelib-devel
 BuildRequires:	gettext
 BuildRequires:	pkgconfig(libgpsd)
 BuildRequires:	pkgconfig(phonon)
-BuildRequires: cmake(ECM)
+BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
@@ -140,6 +142,7 @@ Obsoletes:	%{_lib}marblewidget17 < 4.13.0
 Obsoletes:	%{_lib}marblewidget18 < 4.14.4
 Obsoletes:	%{_lib}marblewidget19 < 4.14.4
 Obsoletes:	%{_lib}marblewidget20 < 15.04.02
+Obsoletes:	%{_lib}marblewidget20 < 15.08.01
 
 %description -n %{libmarblewidget}
 Runtime library for marble.
@@ -174,6 +177,7 @@ Files needed to build applications based on %{name}.
 
 %build
 %cmake_kde5 \
+	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
 	%if %{without marble_python}
 	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
 	-DBUILD_python=FALSE
@@ -183,5 +187,26 @@ Files needed to build applications based on %{name}.
 
 %ninja
 
+%if %{with qt4}
+mkdir qt4
+pushd qt4
+%cmake_kde4 .. \
+  -DBUILD_MARBLE_APPS:BOOL=OFF \
+  -DBUILD_MARBLE_TESTS:BOOL=OFF \
+  -DBUILD_TESTING:BOOL=OFF \
+  -DCMAKE_MODULES_INSTALL_PATH:PATH="%{_datadir}/apps/cmake/modules" \
+  -DEXPERIMENTAL_PYTHON_BINDINGS:BOOL=OFF \
+  -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
+  -DMARBLE_PLUGIN_PATH:PATH="%{_libdir}/kde4/plugins/marble" \
+  -DMOBILE:BOOL=OFF \
+  -DQT5BUILD=OFF \
+  -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+%make
+popd
+
 %install
 %ninja_install -C build
+
+%if %{with qt4}
+%makeinstall_std -C qt4
+%endif
