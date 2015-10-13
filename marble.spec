@@ -189,7 +189,7 @@ echo dupa
 	-DBUILD_WITH_DBUS=ON \
 	-DMOBILE=OFF \
 	-DQTONLY=ON \
-	-DQT5BUILD=ON
+	-DQT5BUILD=ON \
 	%if %{without marble_python}
 	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
 	-DBUILD_python=FALSE
