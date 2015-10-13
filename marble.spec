@@ -177,12 +177,34 @@ Files needed to build applications based on %{name}.
 
 %prep
 %setup -q
+echo dupa
 
 %build
+
+%cmake_kde5 \
+	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
+	-DBUILD_MARBLE_APPS=ON \
+	-DBUILD_MARBLE_TESTS=OFF \
+	-DBUILD_TESTING=OFF \
+	-DBUILD_WITH_DBUS=ON \
+	-DMOBILE=OFF \
+	-DQTONLY=ON \
+	-DQT5BUILD=ON
+	%if %{without marble_python}
+	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
+	-DBUILD_python=FALSE
+	%else
+	-DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
+	%endif
+
+%ninja
+
+
 %if %{with qt4}
-mkdir qt4
-pushd qt4
-%cmake_kde4 .. \
+cd ..
+mkdir build-qt4
+pushd build-qt4
+cmake  .. \
   -DBUILD_MARBLE_APPS:BOOL=OFF \
   -DBUILD_MARBLE_TESTS:BOOL=OFF \
   -DBUILD_TESTING:BOOL=OFF \
@@ -198,22 +220,13 @@ pushd qt4
 popd
 %endif
 
-%cmake_kde5 \
-	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
-	%if %{without marble_python}
-	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
-	-DBUILD_python=FALSE
-	%else
-	-DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
-	%endif
-
-%ninja
-
 %install
+%ninja_install -C build
+
 %if %{with qt4}
-%makeinstall_std -C qt4
+%makeinstall_std -C build-qt4
 %endif
 
-%ninja_install -C build
+
 
 
