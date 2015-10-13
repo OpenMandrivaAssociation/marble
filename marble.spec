@@ -21,30 +21,33 @@ BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5Wallet)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Runner)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: kdoctools-devel
-BuildRequires: pkgconfig(Qt5Designer)
-BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt5Xml)
-BuildRequires: pkgconfig(Qt5Network)
-BuildRequires: pkgconfig(Qt5Test)
-BuildRequires: pkgconfig(Qt5Script)
-BuildRequires: pkgconfig(Qt5Widgets)
-BuildRequires: pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5WebKitWidgets)
-BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5Sql)
-BuildRequires: pkgconfig(Qt5Concurrent)
-BuildRequires: pkgconfig(Qt5PrintSupport)
-BuildRequires: pkgconfig(Qt5DBus)
+BuildRequires:	cmake(KF5Config)
+BuildRequires:	cmake(KF5CoreAddons)
+BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5KIO)
+BuildRequires:	cmake(KF5NewStuff)
+BuildRequires:	cmake(KF5Parts)
+BuildRequires:	cmake(KF5Runner)
+BuildRequires:	cmake(KF5Service)
+BuildRequires:	cmake(KF5Wallet)
+BuildRequires:	kdoctools-devel
+BuildRequires:	pkgconfig(Qt5Designer)
+BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5Xml)
+BuildRequires:	pkgconfig(Qt5Network)
+BuildRequires:	pkgconfig(Qt5Test)
+BuildRequires:	pkgconfig(Qt5Script)
+BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt5Quick)
+BuildRequires:	pkgconfig(Qt5WebKitWidgets)
+BuildRequires:	pkgconfig(Qt5Svg)
+BuildRequires:	pkgconfig(Qt5Sql)
+BuildRequires:	pkgconfig(Qt5Concurrent)
+BuildRequires:	pkgconfig(Qt5PrintSupport)
+BuildRequires:	pkgconfig(Qt5DBus)
+# (tpg) Qt4 support
+BuildRequires:	kdelibs-devel
+BuildRequires:	qt4-qmlviewer
 
 Requires:	marble-common = %{EVRD}
 
@@ -176,17 +179,6 @@ Files needed to build applications based on %{name}.
 %setup -q
 
 %build
-%cmake_kde5 \
-	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
-	%if %{without marble_python}
-	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
-	-DBUILD_python=FALSE
-	%else
-	-DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
-	%endif
-
-%ninja
-
 %if %{with qt4}
 mkdir qt4
 pushd qt4
@@ -201,12 +193,27 @@ pushd qt4
   -DMOBILE:BOOL=OFF \
   -DQT5BUILD=OFF \
   -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+
 %make
 popd
+%endif
+
+%cmake_kde5 \
+	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
+	%if %{without marble_python}
+	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
+	-DBUILD_python=FALSE
+	%else
+	-DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
+	%endif
+
+%ninja
 
 %install
-%ninja_install -C build
-
 %if %{with qt4}
 %makeinstall_std -C qt4
 %endif
+
+%ninja_install -C build
+
+
