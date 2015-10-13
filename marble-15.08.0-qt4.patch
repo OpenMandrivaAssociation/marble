@@ -1,0 +1,56 @@
+diff -up marble-15.08.0/CMakeLists.txt.qt4 marble-15.08.0/CMakeLists.txt
+--- marble-15.08.0/CMakeLists.txt.qt4	2015-08-30 12:03:14.689581942 -0500
++++ marble-15.08.0/CMakeLists.txt	2015-08-30 12:17:29.020670871 -0500
+@@ -46,6 +46,22 @@ option(TOUCH  "Create a Marble version o
+ ####################################################
+ # Specific options for building with Qt 4 vs 5
+ 
++option(QT5BUILD "Build for Qt5" ON)
++
++if (QT5BUILD)
++find_package(Qt5Core)
++find_package(Qt5Xml)
++find_package(Qt5Network)
++find_package(Qt5Test)
++find_package(Qt5Script)
++find_package(Qt5Widgets)
++find_package(Qt5Svg)
++find_package(Qt5Sql)
++find_package(Qt5Concurrent)
++find_package(Qt5Quick)
++find_package(Qt5OpenGL)
++find_package(Qt5PrintSupport)
++
+ if(ANDROID)
+    if (NOT DEFINED ENV{Qt5_host})
+       message(FATAL_ERROR "Configure the env variable Qt5_host to point to your host Qt5 installation.")
+@@ -88,19 +104,7 @@ else()
+      set ( MARBLE_NO_WEBKIT TRUE )
+    endif()
+ endif()
+-
+-find_package(Qt5Core)
+-find_package(Qt5Xml)
+-find_package(Qt5Network)
+-find_package(Qt5Test)
+-find_package(Qt5Script)
+-find_package(Qt5Widgets)
+-find_package(Qt5Svg)
+-find_package(Qt5Sql)
+-find_package(Qt5Concurrent)
+-find_package(Qt5Quick)
+-find_package(Qt5OpenGL)
+-find_package(Qt5PrintSupport)
++endif()
+ 
+ if(QTONLY)
+   # Forward the old QTONLY=TRUE option to the new WITH_KDE=FALSE
+@@ -112,8 +116,6 @@ if(QTONLY)
+   unset(QTONLY)
+ endif()
+ 
+-option(QT5BUILD "Build for Qt5" ON)
+-
+ if(QT5BUILD AND Qt5Core_FOUND)
+   cmake_minimum_required(VERSION 2.8.12)
+   set(QT4BUILD FALSE)

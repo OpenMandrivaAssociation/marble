@@ -10,6 +10,7 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+Patch0:		marble-15.08.0-qt4.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
@@ -177,7 +178,7 @@ Files needed to build applications based on %{name}.
 
 %prep
 %setup -q
-echo dupa
+%apply_patches
 
 %build
 
