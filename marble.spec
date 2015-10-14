@@ -200,13 +200,15 @@ pushd build-qt4
   -DQT5BUILD=OFF \
   -DWITH_DESIGNER_PLUGIN:BOOL=OFF
 
-%make
+#%make
+pwd
 popd
 cd ..
 %endif
 
 %define _disable_lto 0
 
+pwd
 %cmake_kde5 \
 	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
 	-DBUILD_MARBLE_APPS=ON \
