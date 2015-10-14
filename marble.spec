@@ -184,6 +184,29 @@ Files needed to build applications based on %{name}.
 
 %build
 
+%if %{with qt4}
+mkdir build-qt4
+pushd build-qt4
+%define _disable_lto 1
+%cmake_kde4 ../.. \
+  -DBUILD_MARBLE_APPS:BOOL=OFF \
+  -DBUILD_MARBLE_TESTS:BOOL=OFF \
+  -DBUILD_TESTING:BOOL=OFF \
+  -DCMAKE_MODULES_INSTALL_PATH:PATH="%{_datadir}/apps/cmake/modules" \
+  -DEXPERIMENTAL_PYTHON_BINDINGS:BOOL=OFF \
+  -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
+  -DMARBLE_PLUGIN_PATH:PATH="%{_libdir}/kde4/plugins/marble" \
+  -DMOBILE:BOOL=OFF \
+  -DQT5BUILD=OFF \
+  -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+
+%make
+popd
+cd ..
+%endif
+
+%define _disable_lto 0
+
 %cmake_kde5 \
 	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
 	-DBUILD_MARBLE_APPS=ON \
@@ -202,35 +225,10 @@ Files needed to build applications based on %{name}.
 
 %ninja
 
-
-%if %{with qt4}
-cd ..
-mkdir build-qt4
-pushd build-qt4
-%define _disable_lto 1
-cmake  .. \
-  -DBUILD_MARBLE_APPS:BOOL=OFF \
-  -DBUILD_MARBLE_TESTS:BOOL=OFF \
-  -DBUILD_TESTING:BOOL=OFF \
-  -DCMAKE_MODULES_INSTALL_PATH:PATH="%{_datadir}/apps/cmake/modules" \
-  -DEXPERIMENTAL_PYTHON_BINDINGS:BOOL=OFF \
-  -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-  -DMARBLE_PLUGIN_PATH:PATH="%{_libdir}/kde4/plugins/marble" \
-  -DMOBILE:BOOL=OFF \
-  -DQT5BUILD=OFF \
-  -DWITH_DESIGNER_PLUGIN:BOOL=OFF
-
-%make
-popd
-%endif
-
 %install
 %ninja_install -C build
 
 %if %{with qt4}
 %makeinstall_std -C build-qt4
 %endif
-
-
-
 
