@@ -226,6 +226,8 @@ popd
 %ninja_install -C build
 
 %if %{with qt4}
-%makeinstall_std -C build-qt4
+pushd build-qt4
+%makeinstall_std -C build
+popd
 %endif
 
