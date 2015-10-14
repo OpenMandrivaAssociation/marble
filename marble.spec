@@ -187,7 +187,6 @@ Files needed to build applications based on %{name}.
 %if %{with qt4}
 mkdir build-qt4
 pushd build-qt4
-%define _disable_lto 1
 %cmake_kde4 ../.. \
   -DBUILD_MARBLE_APPS:BOOL=OFF \
   -DBUILD_MARBLE_TESTS:BOOL=OFF \
@@ -200,15 +199,11 @@ pushd build-qt4
   -DQT5BUILD=OFF \
   -DWITH_DESIGNER_PLUGIN:BOOL=OFF
 
-#%make
-pwd
+%make CFLAGS="$CFLAGS -fno-lto" CXXFLAGS="$CXXLAGS -fno-lto" FFLAGS="$FFLAGS -fno-lto" LDLAGS="$LDLAGS -fno-lto"
 popd
-cd ..
+
 %endif
 
-%define _disable_lto 0
-
-pwd
 %cmake_kde5 \
 	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
 	-DBUILD_MARBLE_APPS=ON \
