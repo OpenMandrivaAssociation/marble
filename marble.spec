@@ -46,9 +46,11 @@ BuildRequires:	pkgconfig(Qt5Sql)
 BuildRequires:	pkgconfig(Qt5Concurrent)
 BuildRequires:	pkgconfig(Qt5PrintSupport)
 BuildRequires:	pkgconfig(Qt5DBus)
+%if %{with qt4}
 # (tpg) Qt4 support
 BuildRequires:	kdelibs-devel
 BuildRequires:	qt4-qmlviewer
+%endif
 
 Requires:	marble-common = %{EVRD}
 
@@ -205,6 +207,7 @@ Files needed to build applications based on %{name}.
 cd ..
 mkdir build-qt4
 pushd build-qt4
+%define _disable_lto 1
 cmake  .. \
   -DBUILD_MARBLE_APPS:BOOL=OFF \
   -DBUILD_MARBLE_TESTS:BOOL=OFF \
