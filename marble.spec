@@ -202,9 +202,10 @@ Files needed to build applications based on %{name}.
 %ninja
 
 %if %{with qt4}
+cd ..
 mkdir build-qt4
 pushd build-qt4
-%cmake_kde4 ../.. \
+%cmake_kde4 \
   -DBUILD_MARBLE_APPS:BOOL=OFF \
   -DBUILD_MARBLE_TESTS:BOOL=OFF \
   -DBUILD_TESTING:BOOL=OFF \
