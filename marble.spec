@@ -184,20 +184,15 @@ Files needed to build applications based on %{name}.
 
 %build
 %cmake_kde5 \
-	-DWITH_DESIGNER_PLUGIN:BOOL=OFF \
-	-DBUILD_MARBLE_APPS=ON \
-	-DBUILD_MARBLE_TESTS=OFF \
-	-DBUILD_TESTING=OFF \
-	-DBUILD_WITH_DBUS=ON \
-	-DMOBILE=OFF \
-	-DQTONLY=ON \
-	-DQT5BUILD=ON \
-	%if %{without marble_python}
-	-DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
-	-DBUILD_python=FALSE
-	%else
-	-DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
-	%endif
+    -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
+    -DQT5BUILD:BOOL=ON \
+    -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+%if %{without marble_python}
+    -DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
+    -DBUILD_python=FALSE
+%else
+    -DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
+%endif
 
 %ninja
 
@@ -206,17 +201,18 @@ cd ..
 mkdir build-qt4
 pushd build-qt4
 %cmake_kde4 ../.. \
-  -DBUILD_MARBLE_APPS:BOOL=OFF \
-  -DBUILD_MARBLE_TESTS:BOOL=OFF \
-  -DBUILD_TESTING:BOOL=OFF \
-  -DCMAKE_MODULES_INSTALL_PATH:PATH="%{_datadir}/apps/cmake/modules" \
-  -DEXPERIMENTAL_PYTHON_BINDINGS:BOOL=OFF \
-  -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-  -DMARBLE_PLUGIN_PATH:PATH="%{_libdir}/kde4/plugins/marble" \
-  -DMOBILE:BOOL=OFF \
-  -DQT5BUILD=OFF \
-  -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+    -DBUILD_MARBLE_APPS:BOOL=OFF \
+    -DBUILD_MARBLE_TESTS:BOOL=OFF \
+    -DBUILD_TESTING:BOOL=OFF \
+    -DCMAKE_MODULES_INSTALL_PATH:PATH="%{_datadir}/apps/cmake/modules" \
+    -DEXPERIMENTAL_PYTHON_BINDINGS:BOOL=OFF \
+    -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
+    -DMARBLE_PLUGIN_PATH:PATH="%{_libdir}/kde4/plugins/marble" \
+    -DMOBILE:BOOL=OFF \
+    -DQT5BUILD=OFF \
+    -DWITH_DESIGNER_PLUGIN:BOOL=OFF
 
+# (tpg) Qt4 does not build with LTO
 %make CFLAGS="$CFLAGS -fno-lto" CXXFLAGS="$CXXLAGS -fno-lto" FFLAGS="$FFLAGS -fno-lto" LDLAGS="$LDLAGS -fno-lto"
 popd
 
