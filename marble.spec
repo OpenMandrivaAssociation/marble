@@ -186,7 +186,7 @@ Files needed to build applications based on %{name}.
 %cmake_kde5 \
     -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
     -DQT5BUILD:BOOL=ON \
-    -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+    -DWITH_DESIGNER_PLUGIN:BOOL=OFF \
 %if %{without marble_python}
     -DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
     -DBUILD_python=FALSE
