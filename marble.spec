@@ -32,7 +32,6 @@ BuildRequires:	cmake(KF5Runner)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Wallet)
 BuildRequires:	kdoctools-devel
-BuildRequires:	pkgconfig(Qt5Designer)
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(Qt5Network)
@@ -111,6 +110,7 @@ Wikipedia article.
 %{_kde5_datadir}/kxmlgui5/marble
 %{_kde5_services}/marble_part.desktop
 %{_kde5_services}/plasma-runner-marble.desktop
+%{_datadir}/applications/marble_kmz.desktop
 %_qt5_plugindir/*.so
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
@@ -134,10 +134,10 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define marblewidget_major 22
-%define libmarblewidget %mklibname marblewidget-qt5 %{marblewidget_major}
+%define marblewidget-qt5_major 22
+%define libmarblewidget-qt5 %mklibname marblewidget-qt5 %{marblewidget-qt5_major}
 
-%package -n %{libmarblewidget}
+%package -n %{libmarblewidget-qt5}
 Summary:	Runtime library for marble
 Group:		System/Libraries
 Obsoletes:	%{_lib}marblewidget13 < 4.9.0
@@ -148,14 +148,62 @@ Obsoletes:	%{_lib}marblewidget17 < 4.13.0
 Obsoletes:	%{_lib}marblewidget18 < 4.14.4
 Obsoletes:	%{_lib}marblewidget19 < 4.14.4
 Obsoletes:	%{_lib}marblewidget20 < 15.04.02
-Obsoletes:	%{_lib}marblewidget20 < 15.08.01
+Obsoletes:	%{_lib}marblewidget21 < 15.08.01
 
-%description -n %{libmarblewidget}
+%description -n %{libmarblewidget-qt5}
 Runtime library for marble.
 
-%files -n %{libmarblewidget}
+%files -n %{libmarblewidget-qt5}
 %{_kde5_libdir}/libmarblewidget-qt5.so.0.*
 %{_kde5_libdir}/libmarblewidget-qt5.so.%{marblewidget_major}
+
+%if %{with qt4}
+%define marblewidget_major 22
+%define libmarblewidget %mklibname marblewidget %{marblewidget_major}
+%define marbledevel %mklibname marblewidget -d
+
+%package -n %{libmarblewidget}
+Summary:	Runtime library for marble Qt4
+Group:		System/Libraries
+
+%description -n %{libmarblewidget}
+Runtime library for marble Qt4.
+
+%files -n %{libmarblewidget}
+%{_libdir}/libmarblewidget.so.0.*
+%{_libdir}/libmarblewidget.so.%{marblewidget_major}
+
+
+%package common-qt4
+Summary:	A virtual globe and world atlas Qt4
+Group:		Graphical desktop/KDE
+%if %{with marble_python}
+BuildRequires:	python-kde4
+Requires:	python
+%endif
+
+%description common-qt4
+Marble is a Virtual Globe and World Atlas that you can use to learn more
+about Earth: You can pan and zoom around and you can look up places and
+roads. A mouse click on a place label will provide the respective
+Wikipedia article.
+
+%files -n marble-common-qt4
+%{_libdir}/kde4/plugins/marble
+
+%package -n %{marbledevel}
+Summary:	Devel library for marble Qt4
+Group:		System/Libraries
+Requires:	%{libmarblewidget} = %{EVRD}
+
+%description -n %{marbledevel}
+Devel library for marble Qt4.
+
+%files -n %{marbledevel}
+%{_libdir}/libmarblewidget.so
+%{_datadir}/apps/cmake/modules/FindMarble.cmake
+%{_includedir}/marble/
+%endif
 
 #---------------------------------------------
 
@@ -172,9 +220,9 @@ Files needed to build applications based on %{name}.
 %files devel
 %{_kde5_libdir}/libastro.so
 %{_kde5_libdir}/libmarblewidget-qt5.so
-%{_kde5_libdir}/plugins/designer/*.so
 %{_includedir}/astro/
 %{_includedir}/marble/
+%{_datadir}/marble/cmake/FindMarbleQt5.cmake
 
 #----------------------------------------------------------------------
 
@@ -224,9 +272,22 @@ popd
 %if %{with qt4}
 pushd build-qt4
 %makeinstall_std -C build
+# put FindMarble.cmake in the right place (as previous releases at least) -- rex
+mkdir -p %{buildroot}%{_datadir}/apps/cmake/modules/
+mv %{buildroot}%{_datadir}/marble/cmake/FindMarble.cmake \
+   %{buildroot}%{_datadir}/apps/cmake/modules/FindMarble.cmake
 # FIXME: qt4 build plugins are installed to same place at qt5
 rm -fv %{buildroot}%{_libdir}/marble/plugins/*.so
+rm -fv %{buildroot}/usr//qt4/imports/org/kde/edu/marble/MarbleSettings.qml
+rm -fv %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/libMarbleDeclarativePlugin.so
+rm -fv %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/qmldir
 popd
 %endif
 
 %ninja_install -C build
+# munge FindMarble.cmake (FIXME: make upstreamable patch to do the same)
+mv %{buildroot}%{_datadir}/marble/cmake/FindMarble.cmake \
+   %{buildroot}%{_datadir}/marble/cmake/FindMarbleQt5.cmake
+sed -i -e "s|marblewidget |marblewidget-qt5 |g" \
+   %{buildroot}%{_datadir}/marble/cmake/FindMarbleQt5.cmake
+
