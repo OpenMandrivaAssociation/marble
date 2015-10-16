@@ -104,7 +104,7 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files -n marble-common
-%{_kde5_datadir}/marble
+%{_kde5_datadir}/marble/cmake/FindMarbleQt5.cmake
 %{_kde5_libdir}/marble
 %{_kde5_datadir}/config.kcfg/marble.kcfg
 %{_kde5_datadir}/kxmlgui5/marble
@@ -195,6 +195,7 @@ Wikipedia article.
 Summary:	Devel library for marble Qt4
 Group:		System/Libraries
 Requires:	%{libmarblewidget} = %{EVRD}
+Requires:	%{name}-devel = %{EVRD}
 
 %description -n %{marbledevel}
 Devel library for marble Qt4.
@@ -202,7 +203,6 @@ Devel library for marble Qt4.
 %files -n %{marbledevel}
 %{_libdir}/libmarblewidget.so
 %{_datadir}/apps/cmake/modules/FindMarble.cmake
-%{_includedir}/marble/
 %endif
 
 #---------------------------------------------
@@ -277,10 +277,11 @@ mkdir -p %{buildroot}%{_datadir}/apps/cmake/modules/
 mv %{buildroot}%{_datadir}/marble/cmake/FindMarble.cmake \
    %{buildroot}%{_datadir}/apps/cmake/modules/FindMarble.cmake
 # FIXME: qt4 build plugins are installed to same place at qt5
-rm -fv %{buildroot}%{_libdir}/marble/plugins/*.so
-rm -fv %{buildroot}/usr//qt4/imports/org/kde/edu/marble/MarbleSettings.qml
-rm -fv %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/libMarbleDeclarativePlugin.so
-rm -fv %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/qmldir
+rm -rf %{buildroot}%{_libdir}/marble/plugins/*.so
+rm -rf %{buildroot}/usr//qt4/imports/org/kde/edu/marble/MarbleSettings.qml
+rm -rf %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/libMarbleDeclarativePlugin.so
+rm -rf %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/qmldir
+rm -rf %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/MarbleSettings.qml
 popd
 %endif
 
