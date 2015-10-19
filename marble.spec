@@ -104,7 +104,8 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files -n marble-common
-%{_kde5_datadir}/marble/cmake/FindMarbleQt5.cmake
+%dir %{_kde5_datadir}/marble
+%{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
 %{_kde5_datadir}/config.kcfg/marble.kcfg
 %{_kde5_datadir}/kxmlgui5/marble
