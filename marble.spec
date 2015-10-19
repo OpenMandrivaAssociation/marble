@@ -103,7 +103,7 @@ about Earth: You can pan and zoom around and you can look up places and
 roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
-%files -n marble-common
+%files common
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
@@ -189,7 +189,7 @@ about Earth: You can pan and zoom around and you can look up places and
 roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
-%files -n marble-common-qt4
+%files common-qt4
 %{_libdir}/kde4/plugins/marble
 
 %package -n %{marbledevel}
@@ -212,7 +212,7 @@ Devel library for marble Qt4.
 Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
 Requires:	%{libastro} = %{EVRD}
-Requires:	%{libmarblewidget} = %{EVRD}
+Requires:	%{libmarblewidget-qt5} = %{EVRD}
 Conflicts:	kdeedu4-devel < 4.6.90
 
 %description devel
