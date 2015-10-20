@@ -135,10 +135,10 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define marblewidget-qt5_major 22
-%define libmarblewidget-qt5 %mklibname marblewidget-qt5 %{marblewidget-qt5_major}
+%define major 22
+%define libname %mklibname marblewidget-qt5 %{major}
 
-%package -n %{libmarblewidget-qt5}
+%package -n %{libname}
 Summary:	Runtime library for marble
 Group:		System/Libraries
 Obsoletes:	%{_lib}marblewidget13 < 4.9.0
@@ -151,12 +151,12 @@ Obsoletes:	%{_lib}marblewidget19 < 4.14.4
 Obsoletes:	%{_lib}marblewidget20 < 15.04.02
 Obsoletes:	%{_lib}marblewidget21 < 15.08.01
 
-%description -n %{libmarblewidget-qt5}
+%description -n %{libname}
 Runtime library for marble.
 
-%files -n %{libmarblewidget-qt5}
+%files -n %{libname}
 %{_kde5_libdir}/libmarblewidget-qt5.so.0.*
-%{_kde5_libdir}/libmarblewidget-qt5.so.%{marblewidget_major}
+%{_kde5_libdir}/libmarblewidget-qt5.so.%{major}
 
 %if %{with qt4}
 %define marblewidget_major 22
@@ -212,7 +212,7 @@ Devel library for marble Qt4.
 Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
 Requires:	%{libastro} = %{EVRD}
-Requires:	%{libmarblewidget-qt5} = %{EVRD}
+Requires:	%{libname} = %{EVRD}
 Conflicts:	kdeedu4-devel < 4.6.90
 
 %description devel
