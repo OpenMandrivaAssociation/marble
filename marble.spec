@@ -5,7 +5,7 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	15.08.2
-Release:	1
+Release:	2
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -197,6 +197,7 @@ Summary:	Devel library for marble Qt4
 Group:		System/Libraries
 Requires:	%{libmarblewidget} = %{EVRD}
 Requires:	%{name}-devel = %{EVRD}
+Provides:	%{name}-qt4-devel = %{EVRD}
 
 %description -n %{marbledevel}
 Devel library for marble Qt4.
@@ -292,4 +293,3 @@ mv %{buildroot}%{_datadir}/marble/cmake/FindMarble.cmake \
    %{buildroot}%{_datadir}/marble/cmake/FindMarbleQt5.cmake
 sed -i -e "s|marblewidget |marblewidget-qt5 |g" \
    %{buildroot}%{_datadir}/marble/cmake/FindMarbleQt5.cmake
-
