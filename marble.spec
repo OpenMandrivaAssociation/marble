@@ -5,7 +5,7 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	15.08.2
-Release:	2
+Release:	3
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -15,7 +15,7 @@ BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
 BuildRequires:	gettext
-BuildRequires:	pkgconfig(libgpsd)
+BuildRequires:	pkgconfig(libgpsd) >= 3.15
 BuildRequires:	pkgconfig(phonon)
 BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF5KIO)
