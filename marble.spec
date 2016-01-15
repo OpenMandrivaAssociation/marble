@@ -192,7 +192,7 @@ Files needed to build applications based on %{name}.
 %endif
 
 %build
-%ninja -B build
+%ninja -C build
 
 %install
 
