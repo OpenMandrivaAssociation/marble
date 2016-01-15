@@ -1,7 +1,5 @@
 %bcond_with marble_python
 
-%bcond_without qt4
-
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	15.12.1
@@ -10,7 +8,6 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
-Patch0:		marble-15.08.0-qt4.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
@@ -45,13 +42,11 @@ BuildRequires:	pkgconfig(Qt5Sql)
 BuildRequires:	pkgconfig(Qt5Concurrent)
 BuildRequires:	pkgconfig(Qt5PrintSupport)
 BuildRequires:	pkgconfig(Qt5DBus)
-%if %{with qt4}
-# (tpg) Qt4 support
-BuildRequires:	kdelibs-devel
-BuildRequires:	qt4-qmlviewer
-%endif
-
 Requires:	marble-common = %{EVRD}
+Obsoletes:	%{mklibname marblewidget 22} < 15.12.1
+Provides:	%{mklibname marblewidget 22} = 15.12.1
+Obsoletes:	%{mklibname marblewidget -d} < 15.12.1
+Obsoletes:	%{mklibname marblewidget -d} = 15.12.1
 
 %description
 Marble is a Virtual Globe and World Atlas that you can use to learn more
@@ -96,6 +91,9 @@ Group:		Graphical desktop/KDE
 BuildRequires:	python-kde4
 Requires:	python
 %endif
+
+Obsoletes:	marble-common-qt4 < 15.12.1
+Provides:	marble-common-qt4 = 15.12.1
 
 %description common
 Marble is a Virtual Globe and World Atlas that you can use to learn more
@@ -158,55 +156,6 @@ Runtime library for marble.
 %{_kde5_libdir}/libmarblewidget-qt5.so.0.*
 %{_kde5_libdir}/libmarblewidget-qt5.so.%{major}
 
-%if %{with qt4}
-%define marblewidget_major 22
-%define libmarblewidget %mklibname marblewidget %{marblewidget_major}
-%define marbledevel %mklibname marblewidget -d
-
-%package -n %{libmarblewidget}
-Summary:	Runtime library for marble Qt4
-Group:		System/Libraries
-
-%description -n %{libmarblewidget}
-Runtime library for marble Qt4.
-
-%files -n %{libmarblewidget}
-%{_libdir}/libmarblewidget.so.0.*
-%{_libdir}/libmarblewidget.so.%{marblewidget_major}
-
-
-%package common-qt4
-Summary:	A virtual globe and world atlas Qt4
-Group:		Graphical desktop/KDE
-%if %{with marble_python}
-BuildRequires:	python-kde4
-Requires:	python
-%endif
-
-%description common-qt4
-Marble is a Virtual Globe and World Atlas that you can use to learn more
-about Earth: You can pan and zoom around and you can look up places and
-roads. A mouse click on a place label will provide the respective
-Wikipedia article.
-
-%files common-qt4
-%{_libdir}/kde4/plugins/marble
-
-%package -n %{marbledevel}
-Summary:	Devel library for marble Qt4
-Group:		System/Libraries
-Requires:	%{libmarblewidget} = %{EVRD}
-Requires:	%{name}-devel = %{EVRD}
-Provides:	%{name}-qt4-devel = %{EVRD}
-
-%description -n %{marbledevel}
-Devel library for marble Qt4.
-
-%files -n %{marbledevel}
-%{_libdir}/libmarblewidget.so
-%{_datadir}/apps/cmake/modules/FindMarble.cmake
-%endif
-
 #---------------------------------------------
 
 %package devel
@@ -230,9 +179,7 @@ Files needed to build applications based on %{name}.
 
 %prep
 %setup -q
-%apply_patches
 
-%build
 %cmake_kde5 \
     -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
     -DQT5BUILD:BOOL=ON \
@@ -244,48 +191,10 @@ Files needed to build applications based on %{name}.
     -DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
 %endif
 
-%ninja
-
-%if %{with qt4}
-cd ..
-mkdir build-qt4
-pushd build-qt4
-%cmake_kde4 ../.. \
-    -DBUILD_MARBLE_APPS:BOOL=OFF \
-    -DBUILD_MARBLE_TESTS:BOOL=OFF \
-    -DBUILD_TESTING:BOOL=OFF \
-    -DCMAKE_MODULES_INSTALL_PATH:PATH="%{_datadir}/apps/cmake/modules" \
-    -DEXPERIMENTAL_PYTHON_BINDINGS:BOOL=OFF \
-    -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-    -DMARBLE_PLUGIN_PATH:PATH="%{_libdir}/kde4/plugins/marble" \
-    -DMOBILE:BOOL=OFF \
-    -DQT5BUILD=OFF \
-    -DWITH_DESIGNER_PLUGIN:BOOL=OFF
-
-# (tpg) Qt4 does not build with LTO
-%make CFLAGS="$CFLAGS -fno-lto" CXXFLAGS="$CXXLAGS -fno-lto" FFLAGS="$FFLAGS -fno-lto" LDLAGS="$LDLAGS -fno-lto"
-popd
-
-%endif
-
-
+%build
+%ninja -B build
 
 %install
-%if %{with qt4}
-pushd build-qt4
-%makeinstall_std -C build
-# put FindMarble.cmake in the right place (as previous releases at least) -- rex
-mkdir -p %{buildroot}%{_datadir}/apps/cmake/modules/
-mv %{buildroot}%{_datadir}/marble/cmake/FindMarble.cmake \
-   %{buildroot}%{_datadir}/apps/cmake/modules/FindMarble.cmake
-# FIXME: qt4 build plugins are installed to same place at qt5
-rm -rf %{buildroot}%{_libdir}/marble/plugins/*.so
-rm -rf %{buildroot}/usr//qt4/imports/org/kde/edu/marble/MarbleSettings.qml
-rm -rf %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/libMarbleDeclarativePlugin.so
-rm -rf %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/qmldir
-rm -rf %{buildroot}/usr/lib/qt4/imports/org/kde/edu/marble/MarbleSettings.qml
-popd
-%endif
 
 %ninja_install -C build
 # munge FindMarble.cmake (FIXME: make upstreamable patch to do the same)
