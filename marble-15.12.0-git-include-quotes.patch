@@ -1,0 +1,52 @@
+From: Dennis Nienhüser <nienhueser@kde.org>
+Date: Fri, 08 Jan 2016 15:14:10 +0000
+Subject: Change #include style
+X-Git-Url: http://quickgit.kde.org/?p=marble.git&a=commitdiff&h=183dd7531d0797e09948f3c822a7aa9d9910766f
+---
+Change #include style
+
+Since the directory layout of Marble headers is different in the source
+folders and the installed ones (todo: FIXME) an #include call with
+double quotes is helpful to search in the current directory even if the
+headers in question are in different folders in the sources.
+
+(cherry picked from commit f793470ef79f3facc0c8e20e55aa6fa758a4310a)
+---
+
+
+--- a/src/lib/marble/TourWidget.h
++++ b/src/lib/marble/TourWidget.h
+@@ -17,7 +17,7 @@
+ #include <QWidget>
+ #include <QStyledItemDelegate>
+ #include <QListView>
+-#include <GeoDataCoordinates.h>
++#include "GeoDataCoordinates.h"
+ 
+ class QItemSelection;
+ class QModelIndex;
+
+--- a/src/lib/marble/geodata/data/GeoDataDocument.h
++++ b/src/lib/marble/geodata/data/GeoDataDocument.h
+@@ -32,7 +32,7 @@
+ 
+ #include "GeoDataContainer.h"
+ #include "GeoDocument.h"
+-#include <GeoDataStyle.h>
++#include "GeoDataStyle.h"
+ 
+ namespace Marble
+ {
+
+--- a/src/lib/marble/graphicsview/GeoGraphicsItem.h
++++ b/src/lib/marble/graphicsview/GeoGraphicsItem.h
+@@ -14,7 +14,7 @@
+ 
+ // Marble
+ #include "marble_export.h"
+-#include <GeoDataStyle.h>
++#include "GeoDataStyle.h"
+ 
+ class QString;
+ 
+

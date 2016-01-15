@@ -8,6 +8,7 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+Patch0:		marble-15.12.0-git-include-quotes.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
@@ -57,21 +58,14 @@ Wikipedia article.
 %files
 %doc LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
 %doc %{_kde5_docdir}/HTML/en/marble
-%{_kde5_bindir}/marble
-%{_kde5_bindir}/marble-mobile
 %{_kde5_bindir}/marble-qt
-%{_kde5_bindir}/marble-touch
 %{_kde5_iconsdir}/*/*/apps/marble.*
 %{_kde5_applicationsdir}/marble.desktop
-%{_kde5_applicationsdir}/marble_geo.desktop
 %{_kde5_applicationsdir}/marble_gpx.desktop
 %{_kde5_applicationsdir}/marble_kml.desktop
 %{_kde5_applicationsdir}/marble_osm.desktop
 %{_kde5_applicationsdir}/marble_shp.desktop
-%{_kde5_applicationsdir}/marble_worldwind.desktop
-%{_kde5_applicationsdir}/marble-mobile.desktop
 %{_kde5_applicationsdir}/marble-qt.desktop
-%{_kde5_applicationsdir}/marble-touch.desktop
 %{_kde5_services}/marble_part_gpx.desktop
 %{_kde5_services}/marble_part_kml.desktop
 %{_kde5_services}/marble_part_osm.desktop
@@ -106,11 +100,10 @@ Wikipedia article.
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
 %{_kde5_datadir}/config.kcfg/marble.kcfg
-%{_kde5_datadir}/kxmlgui5/marble
 %{_kde5_services}/marble_part.desktop
 %{_kde5_services}/plasma-runner-marble.desktop
 %{_datadir}/applications/marble_kmz.desktop
-%_qt5_plugindir/*.so
+%{_qt5_plugindir}/*.so
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
@@ -133,7 +126,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define major 22
+%define major 23
 %define libname %mklibname marblewidget-qt5 %{major}
 
 %package -n %{libname}
@@ -182,8 +175,14 @@ Files needed to build applications based on %{name}.
 
 %cmake_kde5 \
     -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-    -DQT5BUILD:BOOL=ON \
-    -DWITH_DESIGNER_PLUGIN:BOOL=OFF \
+    -DQTONLY=ON \
+    -DQT5BUILD=ON \
+    -DBUILD_MARBLE_APPS=ON \
+    -DBUILD_WITH_DBUS=ON \
+    -DBUILD_MARBLE_TESTS=OFF \
+    -DBUILD_TESTING=OFF \
+    -DWITH_DESIGNER_PLUGIN=OFF \
+    -DMOBILE=OFF \
 %if %{without marble_python}
     -DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
     -DBUILD_python=FALSE
