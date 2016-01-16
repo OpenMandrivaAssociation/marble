@@ -43,6 +43,8 @@ BuildRequires:	pkgconfig(Qt5Sql)
 BuildRequires:	pkgconfig(Qt5Concurrent)
 BuildRequires:	pkgconfig(Qt5PrintSupport)
 BuildRequires:	pkgconfig(Qt5DBus)
+BuildRequires:	pkgconfig(Qt5Location)
+BuildRequires:	pkgconfig(Qt5Positioning)
 Requires:	marble-common = %{EVRD}
 Obsoletes:	%{mklibname marblewidget 22} < 15.12.1
 Provides:	%{mklibname marblewidget 22} = 15.12.1
@@ -60,20 +62,11 @@ Wikipedia article.
 %doc %{_kde5_docdir}/HTML/en/marble
 %{_kde5_bindir}/marble-qt
 %{_kde5_iconsdir}/*/*/apps/marble.*
-%{_kde5_applicationsdir}/marble.desktop
 %{_kde5_applicationsdir}/marble_gpx.desktop
 %{_kde5_applicationsdir}/marble_kml.desktop
 %{_kde5_applicationsdir}/marble_osm.desktop
 %{_kde5_applicationsdir}/marble_shp.desktop
 %{_kde5_applicationsdir}/marble-qt.desktop
-%{_kde5_services}/marble_part_gpx.desktop
-%{_kde5_services}/marble_part_kml.desktop
-%{_kde5_services}/marble_part_osm.desktop
-%{_kde5_services}/marble_part_shp.desktop
-%{_kde5_services}/marble_thumbnail_gpx.desktop
-%{_kde5_services}/marble_thumbnail_kml.desktop
-%{_kde5_services}/marble_thumbnail_osm.desktop
-%{_kde5_services}/marble_thumbnail_shp.desktop
 %{_kde5_datadir}/appdata/marble.appdata.xml
 
 #---------------------------------------------
@@ -99,11 +92,7 @@ Wikipedia article.
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
-%{_kde5_datadir}/config.kcfg/marble.kcfg
-%{_kde5_services}/marble_part.desktop
-%{_kde5_services}/plasma-runner-marble.desktop
 %{_datadir}/applications/marble_kmz.desktop
-%{_qt5_plugindir}/*.so
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
@@ -164,6 +153,7 @@ Files needed to build applications based on %{name}.
 %files devel
 %{_kde5_libdir}/libastro.so
 %{_kde5_libdir}/libmarblewidget-qt5.so
+%{_kde5_libdir}/libmarbledeclarative.so
 %{_includedir}/astro/
 %{_includedir}/marble/
 %{_datadir}/marble/cmake/FindMarbleQt5.cmake
