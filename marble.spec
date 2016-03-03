@@ -8,7 +8,7 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
-Patch0:		marble-15.12.0-git-include-quotes.patch
+Patch1:		marble-15.12.2-use-std-for-math-functions.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
@@ -162,6 +162,7 @@ Files needed to build applications based on %{name}.
 
 %prep
 %setup -q
+%apply_patches
 
 %cmake_kde5 \
     -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
