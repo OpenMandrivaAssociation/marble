@@ -163,7 +163,7 @@ Files needed to build applications based on %{name}.
 %setup -q
 
 # (tpg) ../src/3rdparty/sgp4/sgp4ext.cpp:210:9: error: 'asinh' is missing exception specification 'throw()'
-export CC=gxx
+export CC=gcc
 export CXX=g++
 
 %cmake_kde5 \
