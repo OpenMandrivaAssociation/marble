@@ -163,6 +163,9 @@ Files needed to build applications based on %{name}.
 %prep
 %setup -q
 %apply_patches
+# (tpg) ../src/3rdparty/sgp4/sgp4ext.cpp:210:9: error: 'asinh' is missing exception specification 'throw()'
+export CC=gxx
+export CXX=g++
 
 %cmake_kde5 \
     -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
