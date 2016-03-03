@@ -8,7 +8,6 @@ Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
-Patch1:		marble-15.12.2-use-std-for-math-functions.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
@@ -162,7 +161,7 @@ Files needed to build applications based on %{name}.
 
 %prep
 %setup -q
-%apply_patches
+
 # (tpg) ../src/3rdparty/sgp4/sgp4ext.cpp:210:9: error: 'asinh' is missing exception specification 'throw()'
 export CC=gxx
 export CXX=g++
