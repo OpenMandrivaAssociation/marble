@@ -9,6 +9,7 @@ License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
 Patch0:		marble-15.12.2-use-std-for-math-functions.patch
+Patch1:		fix_c++_exception_issue.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
 BuildRequires:	shapelib-devel
@@ -165,8 +166,6 @@ Files needed to build applications based on %{name}.
 %apply_patches
 
 # (tpg) ../src/3rdparty/sgp4/sgp4ext.cpp:210:9: error: 'asinh' is missing exception specification 'throw()'
-export CC=gcc
-export CXX=g++
 
 %cmake_kde5 \
     -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
