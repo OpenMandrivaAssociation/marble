@@ -2,13 +2,12 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	15.12.3
+Version:	16.04.0
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
 Source0:	http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
-Patch0:		marble-15.12.2-use-std-for-math-functions.patch
 Patch1:		fix_c++_exception_issue.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
@@ -116,7 +115,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define major 23
+%define major 24
 %define libname %mklibname marblewidget-qt5 %{major}
 
 %package -n %{libname}
@@ -131,6 +130,8 @@ Obsoletes:	%{_lib}marblewidget18 < 4.14.4
 Obsoletes:	%{_lib}marblewidget19 < 4.14.4
 Obsoletes:	%{_lib}marblewidget20 < 15.04.02
 Obsoletes:	%{_lib}marblewidget21 < 15.08.01
+Obsoletes:	%{_lib}marblewidget22 < 16.04.0
+Obsoletes:	%{_lib}marblewidget23 < 16.04.0
 
 %description -n %{libname}
 Runtime library for marble.
