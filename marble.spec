@@ -2,7 +2,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	16.04.0
+Version:	16.04.1
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -59,7 +59,6 @@ Wikipedia article.
 
 %files
 %doc LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
-%doc %{_kde5_docdir}/HTML/en/marble
 %{_kde5_bindir}/marble-qt
 %{_kde5_iconsdir}/*/*/apps/marble.*
 %{_kde5_applicationsdir}/marble_gpx.desktop
@@ -68,6 +67,7 @@ Wikipedia article.
 %{_kde5_applicationsdir}/marble_shp.desktop
 %{_kde5_applicationsdir}/marble-qt.desktop
 %{_kde5_datadir}/appdata/marble.appdata.xml
+%{_datadir}/mime/packages/geo.xml
 
 #---------------------------------------------
 
