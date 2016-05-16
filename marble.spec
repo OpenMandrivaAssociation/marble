@@ -29,6 +29,7 @@ BuildRequires:	cmake(KF5Parts)
 BuildRequires:	cmake(KF5Runner)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Wallet)
+BuildRequires:	cmake(SharedMimeInfo)
 BuildRequires:	kdoctools-devel
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Xml)
