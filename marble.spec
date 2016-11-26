@@ -60,15 +60,10 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files
-%doc LICENSE.txt ChangeLog BUGS USECASES MANIFESTO.txt
+%doc LICENSE.txt BUGS USECASES MANIFESTO.txt
 %{_kde5_bindir}/marble-qt
 %{_kde5_iconsdir}/*/*/apps/marble.*
-%{_kde5_applicationsdir}/marble_gpx.desktop
-%{_kde5_applicationsdir}/marble_kml.desktop
-%{_kde5_applicationsdir}/marble_osm.desktop
-%{_kde5_applicationsdir}/marble_shp.desktop
 %{_kde5_applicationsdir}/marble-qt.desktop
-%{_kde5_datadir}/appdata/marble.appdata.xml
 %{_datadir}/mime/packages/geo.xml
 
 #---------------------------------------------
@@ -94,7 +89,6 @@ Wikipedia article.
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
-%{_datadir}/applications/marble_kmz.desktop
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
@@ -117,7 +111,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define major 24
+%define major 25
 %define libname %mklibname marblewidget-qt5 %{major}
 
 %package -n %{libname}
@@ -134,6 +128,7 @@ Obsoletes:	%{_lib}marblewidget20 < 15.04.02
 Obsoletes:	%{_lib}marblewidget21 < 15.08.01
 Obsoletes:	%{_lib}marblewidget22 < 16.04.0
 Obsoletes:	%{_lib}marblewidget23 < 16.04.0
+Obsoletes:	%{_lib}marblewidget24 < 16.08.3
 
 %description -n %{libname}
 Runtime library for marble.
@@ -155,12 +150,15 @@ Conflicts:	kdeedu4-devel < 4.6.90
 Files needed to build applications based on %{name}.
 
 %files devel
+%dir %{_datadir}/marble/cmake/Marble
+%dir %{_datadir}/marble/cmake/Astro
 %{_kde5_libdir}/libastro.so
 %{_kde5_libdir}/libmarblewidget-qt5.so
 %{_kde5_libdir}/libmarbledeclarative.so
 %{_includedir}/astro/
 %{_includedir}/marble/
-%{_datadir}/marble/cmake/FindMarbleQt5.cmake
+%{_datadir}/marble/cmake/Marble/*.cmake
+%{_datadir}/marble/cmake/Astro/*.cmake
 
 #----------------------------------------------------------------------
 
