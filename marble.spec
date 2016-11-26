@@ -193,8 +193,3 @@ Files needed to build applications based on %{name}.
 %install
 
 %ninja_install -C build
-# munge FindMarble.cmake (FIXME: make upstreamable patch to do the same)
-mv %{buildroot}%{_datadir}/marble/cmake/FindMarble.cmake \
-   %{buildroot}%{_datadir}/marble/cmake/FindMarbleQt5.cmake
-sed -i -e "s|marblewidget |marblewidget-qt5 |g" \
-   %{buildroot}%{_datadir}/marble/cmake/FindMarbleQt5.cmake
