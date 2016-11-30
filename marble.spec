@@ -150,8 +150,8 @@ Conflicts:	kdeedu4-devel < 4.6.90
 Files needed to build applications based on %{name}.
 
 %files devel
-%dir %{_datadir}/marble/cmake/Marble
-%dir %{_datadir}/marble/cmake/Astro
+%dir %{_libdir}/cmake/Marble
+%dir %{_libdir}/cmake/Astro
 %{_kde5_libdir}/libastro.so
 %{_kde5_libdir}/libmarblewidget-qt5.so
 %{_kde5_libdir}/libmarbledeclarative.so
