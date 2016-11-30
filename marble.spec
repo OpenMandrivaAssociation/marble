@@ -157,8 +157,8 @@ Files needed to build applications based on %{name}.
 %{_kde5_libdir}/libmarbledeclarative.so
 %{_includedir}/astro/
 %{_includedir}/marble/
-%{_datadir}/marble/cmake/Marble/*.cmake
-%{_datadir}/marble/cmake/Astro/*.cmake
+%{_datadir}/cmake/Marble/*.cmake
+%{_datadir}/cmake/Astro/*.cmake
 
 #----------------------------------------------------------------------
 
