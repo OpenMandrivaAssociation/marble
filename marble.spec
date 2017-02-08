@@ -2,7 +2,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	16.12.1
+Version:	16.12.2
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -63,7 +63,6 @@ Wikipedia article.
 %doc LICENSE.txt BUGS USECASES MANIFESTO.txt
 %{_kde5_bindir}/marble-qt
 %{_kde5_iconsdir}/*/*/apps/marble.*
-%{_kde5_applicationsdir}/marble-qt.desktop
 %{_datadir}/mime/packages/geo.xml
 
 #---------------------------------------------
@@ -87,11 +86,58 @@ Wikipedia article.
 
 %files common
 %dir %{_kde5_datadir}/marble
+%{_sysconfdir}/marble.knsrc
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
+%{_bindir}/marble
+%{_sysconfdir}/xdg/marble.knsrc
+%{_libdir}/qt5/plugins/libmarble_part.so
+%{_libdir}/qt5/plugins/libmarblethumbnail.so
+%{_libdir}/qt5/plugins/plasma_runner_marble.so
+%{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
+%{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
+%{_prefix}/mkspecs/modules/qt_Marble.pri
+%{_datadir}/applications/marble_geo.desktop
+%{_datadir}/applications/marble_geojson.desktop
+%{_datadir}/applications/marble_gpx.desktop
+%{_datadir}/applications/marble_kml.desktop
+%{_datadir}/applications/marble_kmz.desktop
+%{_datadir}/applications/marble_shp.desktop
+%{_datadir}/applications/marble_worldwind.desktop
+%{_datadir}/applications/org.kde.marble-qt.desktop
+%{_datadir}/applications/org.kde.marble.desktop
+%{_datadir}/config.kcfg/marble.kcfg
+%{_datadir}/kservices5/marble_part.desktop
+%{_datadir}/kservices5/marble_thumbnail_geojson.desktop
+%{_datadir}/kservices5/marble_thumbnail_gpx.desktop
+%{_datadir}/kservices5/marble_thumbnail_kml.desktop
+%{_datadir}/kservices5/marble_thumbnail_kmz.desktop
+%{_datadir}/kservices5/marble_thumbnail_osm.desktop
+%{_datadir}/kservices5/marble_thumbnail_shp.desktop
+%{_datadir}/kservices5/plasma-applet-org.kde.plasma.worldclock.desktop
+%{_datadir}/kservices5/plasma-runner-marble.desktop
+%{_datadir}/kservices5/plasma-wallpaper-org.kde.plasma.wallpaper.worldmap.desktop
+%{_datadir}/kxmlgui5/marble/marble_part.rc
+%{_datadir}/kxmlgui5/marble/marbleui.rc
+%{_datadir}/metainfo/org.kde.marble.appdata.xml
+%{_datadir}/metainfo/org.kde.plasma.wallpaper.worldmap.appdata.xml
+%{_datadir}/metainfo/org.kde.plasma.worldclock.appdata.xml
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configMapDisplay.qml
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configTimeZones.qml
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/main.qml
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/metadata.desktop
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/metadata.json
+%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/config/main.xml
+%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/ui/config.qml
+%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/ui/main.qml
+%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/metadata.desktop
+%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/metadata.json
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
+%doc %{_docdir}/HTML/en/marble
 
 #---------------------------------------------
 
@@ -111,7 +157,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define major 25
+%define major 26
 %define libname %mklibname marblewidget-qt5 %{major}
 
 %package -n %{libname}
@@ -177,6 +223,7 @@ Files needed to build applications based on %{name}.
     -DBUILD_MARBLE_TESTS=OFF \
     -DBUILD_TESTING=OFF \
     -DWITH_DESIGNER_PLUGIN=OFF \
+    -DKDE_INSTALL_CONFDIR=%{_sysconfdir} \
     -DMOBILE=OFF \
 %if %{without marble_python}
     -DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
