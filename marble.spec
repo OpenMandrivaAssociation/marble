@@ -86,7 +86,6 @@ Wikipedia article.
 
 %files common
 %dir %{_kde5_datadir}/marble
-%{_sysconfdir}/marble.knsrc
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
 %{_bindir}/marble
@@ -223,7 +222,7 @@ Files needed to build applications based on %{name}.
     -DBUILD_MARBLE_TESTS=OFF \
     -DBUILD_TESTING=OFF \
     -DWITH_DESIGNER_PLUGIN=OFF \
-    -DKDE_INSTALL_CONFDIR=%{_sysconfdir} \
+    -DKDE_INSTALL_CONFDIR=%{_sysconfdir}/xdg \
     -DMOBILE=OFF \
 %if %{without marble_python}
     -DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
