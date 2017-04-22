@@ -2,7 +2,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	17.03.80
+Version:	17.04.0
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -90,7 +90,7 @@ about Earth: You can pan and zoom around and you can look up places and
 roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
-%files common
+%files common -f all.lang
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
@@ -143,6 +143,20 @@ Wikipedia article.
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
 %doc %{_docdir}/HTML/en/marble
+%lang(ca) %doc %{_docdir}/HTML/ca/marble
+%lang(de) %doc %{_docdir}/HTML/de/marble
+%lang(es) %doc %{_docdir}/HTML/es/marble
+%lang(et) %doc %{_docdir}/HTML/et/marble
+%lang(fr) %doc %{_docdir}/HTML/fr/marble
+%lang(gl) %doc %{_docdir}/HTML/gl/marble
+%lang(it) %doc %{_docdir}/HTML/it/marble
+%lang(lt) %doc %{_docdir}/HTML/lt/marble
+%lang(nl) %doc %{_docdir}/HTML/nl/marble
+%lang(pt) %doc %{_docdir}/HTML/pt/marble
+%lang(pt_BR) %doc %{_docdir}/HTML/pt_BR/marble
+%lang(ru) %doc %{_docdir}/HTML/ru/marble
+%lang(sv) %doc %{_docdir}/HTML/sv/marble
+%lang(uk) %doc %{_docdir}/HTML/uk/marble
 
 #---------------------------------------------
 
@@ -243,3 +257,14 @@ Files needed to build applications based on %{name}.
 %install
 
 %ninja_install -C build
+%find_lang marble
+%find_lang plasma_applet_org.kde.plasma.worldclock
+%find_lang plasma_runner_marble
+%find_lang plasma_wallpaper_org.kde.plasma.worldmap
+TOP=`pwd`
+cd %{buildroot}
+find .%{_datadir}/locale -name "*.qm" |while read r; do
+	echo "%%lang($(echo $r|cut -d/ -f5)) $(echo $r |cut -b2-)" >>$TOP/qm.lang
+done
+cd "$TOP"
+cat *.lang >all.lang
