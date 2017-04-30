@@ -120,7 +120,7 @@ Wikipedia article.
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
-%doc %{_docdir}/HTML/en/marble
+%doc %{_docdir}/HTML/en/marble_qt
 %lang(ca) %doc %{_docdir}/HTML/ca/marble_qt
 %lang(de) %doc %{_docdir}/HTML/de/marble_qt
 %lang(es) %doc %{_docdir}/HTML/es/marble_qt
