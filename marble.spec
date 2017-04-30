@@ -53,6 +53,7 @@ BuildRequires:	pkgconfig(Qt5PrintSupport)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Location)
 BuildRequires:	pkgconfig(Qt5Positioning)
+BuildRequires:	pkgconfig(Qt5SerialPort)
 Requires:	marble-common = %{EVRD}
 Obsoletes:	%{mklibname marblewidget 22} < 15.12.1
 Provides:	%{mklibname marblewidget 22} = 15.12.1
@@ -94,39 +95,16 @@ Wikipedia article.
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
-%{_bindir}/marble
-%{_sysconfdir}/xdg/marble.knsrc
+%{_bindir}/marble-qt
 %{_libdir}/qt5/plugins/libmarble_part.so
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
 %{_libdir}/qt5/plugins/plasma_runner_marble.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
 %{_prefix}/mkspecs/modules/qt_Marble.pri
-%{_datadir}/applications/marble_geo.desktop
-%{_datadir}/applications/marble_geojson.desktop
-%{_datadir}/applications/marble_gpx.desktop
-%{_datadir}/applications/marble_kml.desktop
-%{_datadir}/applications/marble_kmz.desktop
-%{_datadir}/applications/marble_shp.desktop
-%{_datadir}/applications/marble_worldwind.desktop
-%{_datadir}/applications/org.kde.marble-qt.desktop
-%{_datadir}/applications/org.kde.marble.desktop
-%{_datadir}/config.kcfg/marble.kcfg
-%{_datadir}/kservices5/marble_part.desktop
-%{_datadir}/kservices5/marble_thumbnail_geojson.desktop
-%{_datadir}/kservices5/marble_thumbnail_gpx.desktop
-%{_datadir}/kservices5/marble_thumbnail_kml.desktop
-%{_datadir}/kservices5/marble_thumbnail_kmz.desktop
-%{_datadir}/kservices5/marble_thumbnail_osm.desktop
-%{_datadir}/kservices5/marble_thumbnail_shp.desktop
-%{_datadir}/kservices5/plasma-applet-org.kde.plasma.worldclock.desktop
-%{_datadir}/kservices5/plasma-runner-marble.desktop
-%{_datadir}/kservices5/plasma-wallpaper-org.kde.plasma.wallpaper.worldmap.desktop
-%{_datadir}/kxmlgui5/marble/marble_part.rc
-%{_datadir}/kxmlgui5/marble/marbleui.rc
-%{_datadir}/metainfo/org.kde.marble.appdata.xml
-%{_datadir}/metainfo/org.kde.plasma.wallpaper.worldmap.appdata.xml
-%{_datadir}/metainfo/org.kde.plasma.worldclock.appdata.xml
+%{_datadir}/applications/*.desktop
+%{_datadir}/kservices5/*.desktop
+%{_datadir}/metainfo/*.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configMapDisplay.qml
@@ -143,20 +121,20 @@ Wikipedia article.
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
 %doc %{_docdir}/HTML/en/marble
-%lang(ca) %doc %{_docdir}/HTML/ca/marble
-%lang(de) %doc %{_docdir}/HTML/de/marble
-%lang(es) %doc %{_docdir}/HTML/es/marble
-%lang(et) %doc %{_docdir}/HTML/et/marble
-%lang(fr) %doc %{_docdir}/HTML/fr/marble
-%lang(gl) %doc %{_docdir}/HTML/gl/marble
-%lang(it) %doc %{_docdir}/HTML/it/marble
-%lang(lt) %doc %{_docdir}/HTML/lt/marble
-%lang(nl) %doc %{_docdir}/HTML/nl/marble
-%lang(pt) %doc %{_docdir}/HTML/pt/marble
-%lang(pt_BR) %doc %{_docdir}/HTML/pt_BR/marble
-%lang(ru) %doc %{_docdir}/HTML/ru/marble
-%lang(sv) %doc %{_docdir}/HTML/sv/marble
-%lang(uk) %doc %{_docdir}/HTML/uk/marble
+%lang(ca) %doc %{_docdir}/HTML/ca/marble_qt
+%lang(de) %doc %{_docdir}/HTML/de/marble_qt
+%lang(es) %doc %{_docdir}/HTML/es/marble_qt
+%lang(et) %doc %{_docdir}/HTML/et/marble_qt
+%lang(fr) %doc %{_docdir}/HTML/fr/marble_qt
+%lang(gl) %doc %{_docdir}/HTML/gl/marble_qt
+%lang(it) %doc %{_docdir}/HTML/it/marble_qt
+%lang(lt) %doc %{_docdir}/HTML/lt/marble_qt
+%lang(nl) %doc %{_docdir}/HTML/nl/marble_qt
+%lang(pt) %doc %{_docdir}/HTML/pt/marble_qt
+%lang(pt_BR) %doc %{_docdir}/HTML/pt_BR/marble_qt
+%lang(ru) %doc %{_docdir}/HTML/ru/marble_qt
+%lang(sv) %doc %{_docdir}/HTML/sv/marble_qt
+%lang(uk) %doc %{_docdir}/HTML/uk/marble_qt
 
 #---------------------------------------------
 
