@@ -95,8 +95,6 @@ Wikipedia article.
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
-%{_bindir}/marble-qt
-%{_libdir}/qt5/plugins/libmarble_part.so
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
 %{_libdir}/qt5/plugins/plasma_runner_marble.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
@@ -120,21 +118,7 @@ Wikipedia article.
 %if %{with marble_python}
 %{py_platsitedir}/PyKDE4/marble.so
 %endif
-%doc %{_docdir}/HTML/en/marble_qt
-%lang(ca) %doc %{_docdir}/HTML/ca/marble_qt
-%lang(de) %doc %{_docdir}/HTML/de/marble_qt
-%lang(es) %doc %{_docdir}/HTML/es/marble_qt
-%lang(et) %doc %{_docdir}/HTML/et/marble_qt
-%lang(fr) %doc %{_docdir}/HTML/fr/marble_qt
-%lang(gl) %doc %{_docdir}/HTML/gl/marble_qt
-%lang(it) %doc %{_docdir}/HTML/it/marble_qt
-%lang(lt) %doc %{_docdir}/HTML/lt/marble_qt
-%lang(nl) %doc %{_docdir}/HTML/nl/marble_qt
-%lang(pt) %doc %{_docdir}/HTML/pt/marble_qt
-%lang(pt_BR) %doc %{_docdir}/HTML/pt_BR/marble_qt
-%lang(ru) %doc %{_docdir}/HTML/ru/marble_qt
-%lang(sv) %doc %{_docdir}/HTML/sv/marble_qt
-%lang(uk) %doc %{_docdir}/HTML/uk/marble_qt
+%doc %{_docdir}/HTML/en/marble
 
 #---------------------------------------------
 
