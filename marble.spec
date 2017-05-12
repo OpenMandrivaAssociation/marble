@@ -1,5 +1,3 @@
-%bcond_with marble_python
-
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	17.04.0
@@ -14,6 +12,7 @@ Url:		http://edu.kde.org
 %define ftpdir stable
 %endif
 Source0:	http://download.kde.org/%{ftpdir}/applications/%{version}/src/%{name}-%{version}.tar.xz
+Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
@@ -68,6 +67,7 @@ Wikipedia article.
 
 %files
 %doc LICENSE.txt BUGS USECASES MANIFESTO.txt
+%{_bindir}/marble
 %{_kde5_bindir}/marble-qt
 %{_kde5_iconsdir}/*/*/apps/marble.*
 %{_datadir}/mime/packages/geo.xml
@@ -77,10 +77,6 @@ Wikipedia article.
 %package common
 Summary:	A virtual globe and world atlas
 Group:		Graphical desktop/KDE
-%if %{with marble_python}
-BuildRequires:	python-kde4
-Requires:	python
-%endif
 
 Obsoletes:	marble-common-qt4 < 15.12.1
 Provides:	marble-common-qt4 = 15.12.1
@@ -92,17 +88,21 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files common -f all.lang
+%{_sysconfdir}/xdg/marble.knsrc
 %dir %{_kde5_datadir}/marble
 %{_kde5_datadir}/marble/data
 %{_kde5_libdir}/marble
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
 %{_libdir}/qt5/plugins/plasma_runner_marble.so
+%{_libdir}/qt5/plugins/libmarble_part.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
 %{_prefix}/mkspecs/modules/qt_Marble.pri
 %{_datadir}/applications/*.desktop
 %{_datadir}/kservices5/*.desktop
 %{_datadir}/metainfo/*.xml
+%{_datadir}/config.kcfg/marble.kcfg
+%{_datadir}/kxmlgui5/marble
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configMapDisplay.qml
@@ -115,10 +115,6 @@ Wikipedia article.
 %{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/ui/main.qml
 %{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/metadata.desktop
 %{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/metadata.json
-%if %{with marble_python}
-%{py_platsitedir}/PyKDE4/marble.so
-%endif
-%doc %{_docdir}/HTML/en/marble
 
 #---------------------------------------------
 
@@ -164,6 +160,22 @@ Runtime library for marble.
 %{_kde5_libdir}/libmarblewidget-qt5.so.0.*
 %{_kde5_libdir}/libmarblewidget-qt5.so.%{major}
 
+#----------------------------------------------------------------------------
+
+%define declarative_major 0
+%define libdeclarative %mklibname marbledeclarative %{declarative_major}
+
+%package -n %{libdeclarative}
+Summary:	Runtime library for marble
+Group:		System/Libraries
+Conflicts:	marble-devel < 17.04.0-2
+
+%description -n %{libdeclarative}
+Runtime library for marble.
+
+%files -n %{libdeclarative}
+%{_kde5_libdir}/libmarbledeclarative.so.%{declarative_major}*
+
 #---------------------------------------------
 
 %package devel
@@ -171,6 +183,7 @@ Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
 Requires:	%{libastro} = %{EVRD}
 Requires:	%{libname} = %{EVRD}
+Requires:	%{libdeclarative} = %{EVRD}
 Conflicts:	kdeedu4-devel < 4.6.90
 
 %description devel
@@ -181,7 +194,6 @@ Files needed to build applications based on %{name}.
 %dir %{_libdir}/cmake/Astro
 %{_kde5_libdir}/libastro.so
 %{_kde5_libdir}/libmarblewidget-qt5.so
-%{_kde5_libdir}/libmarbledeclarative.so
 %{_includedir}/astro/
 %{_includedir}/marble/
 %{_libdir}/cmake/Marble/*.cmake
@@ -205,13 +217,7 @@ Files needed to build applications based on %{name}.
     -DBUILD_TESTING=OFF \
     -DWITH_DESIGNER_PLUGIN=OFF \
     -DKDE_INSTALL_CONFDIR=%{_sysconfdir}/xdg \
-    -DMOBILE=OFF \
-%if %{without marble_python}
-    -DEXPERIMENTAL_PYTHON_BINDINGS=FALSE \
-    -DBUILD_python=FALSE
-%else
-    -DEXPERIMENTAL_PYTHON_BINDINGS=TRUE
-%endif
+    -DMOBILE=OFF
 
 %build
 %ninja -C build
@@ -219,7 +225,7 @@ Files needed to build applications based on %{name}.
 %install
 
 %ninja_install -C build
-%find_lang marble
+%find_lang marble --with-html
 %find_lang plasma_applet_org.kde.plasma.worldclock
 %find_lang plasma_runner_marble
 %find_lang plasma_wallpaper_org.kde.plasma.worldmap
