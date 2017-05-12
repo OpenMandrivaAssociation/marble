@@ -12,6 +12,7 @@ Url:		http://edu.kde.org
 %define ftpdir stable
 %endif
 Source0:	http://download.kde.org/%{ftpdir}/applications/%{version}/src/%{name}-%{version}.tar.xz
+Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
 BuildRequires:	python-devel
 BuildRequires:	quazip-devel
@@ -159,6 +160,22 @@ Runtime library for marble.
 %{_kde5_libdir}/libmarblewidget-qt5.so.0.*
 %{_kde5_libdir}/libmarblewidget-qt5.so.%{major}
 
+#----------------------------------------------------------------------------
+
+%define declarative_major 0
+%define libdeclarative %mklibname marbledeclarative %{declarative_major}
+
+%package -n %{libdeclarative}
+Summary:	Runtime library for marble
+Group:		System/Libraries
+Conflicts:	marble-devel < 17.04.0-2
+
+%description -n %{libdeclarative}
+Runtime library for marble.
+
+%files -n %{libdeclarative}
+%{_kde5_libdir}/libmarbledeclarative.so.%{declarative_major}*
+
 #---------------------------------------------
 
 %package devel
@@ -166,6 +183,7 @@ Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
 Requires:	%{libastro} = %{EVRD}
 Requires:	%{libname} = %{EVRD}
+Requires:	%{libdeclarative} = %{EVRD}
 Conflicts:	kdeedu4-devel < 4.6.90
 
 %description devel
@@ -176,7 +194,6 @@ Files needed to build applications based on %{name}.
 %dir %{_libdir}/cmake/Astro
 %{_kde5_libdir}/libastro.so
 %{_kde5_libdir}/libmarblewidget-qt5.so
-%{_kde5_libdir}/libmarbledeclarative.so
 %{_includedir}/astro/
 %{_includedir}/marble/
 %{_libdir}/cmake/Marble/*.cmake
