@@ -1,8 +1,8 @@
-diff -urN marble-16.08.2/src/lib/marble/declarative/CMakeLists.txt marble-16.08.2-patched/src/lib/marble/declarative/CMakeLists.txt
---- marble-16.08.2/src/lib/marble/declarative/CMakeLists.txt	2016-09-26 10:37:20.000000000 +1000
-+++ marble-16.08.2-patched/src/lib/marble/declarative/CMakeLists.txt	2016-10-28 20:36:10.430875782 +1000
-@@ -32,6 +32,13 @@
-     Settings.cpp
+diff -Naur marble-17.04.1/src/lib/marble/declarative/CMakeLists.txt marble-17.04.1.tpg/src/lib/marble/declarative/CMakeLists.txt
+--- marble-17.04.1/src/lib/marble/declarative/CMakeLists.txt	2017-05-07 13:57:55.000000000 +0000
++++ marble-17.04.1.tpg/src/lib/marble/declarative/CMakeLists.txt	2017-05-12 17:23:29.272944523 +0000
+@@ -30,6 +30,13 @@
+     RouteRelationModel.cpp
  )
  
 +if(NOT CMAKE_SYSTEM_NAME STREQUAL Android)
