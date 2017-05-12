@@ -21,6 +21,7 @@ BuildRequires:	gettext
 BuildRequires:	pkgconfig(libgpsd) >= 3.15
 BuildRequires:	pkgconfig(phonon)
 BuildRequires:	cmake(ECM)
+BuildRequires:	cmake(KF5Crash)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
@@ -67,8 +68,7 @@ Wikipedia article.
 
 %files
 %doc LICENSE.txt BUGS USECASES MANIFESTO.txt
-%{_bindir}/marble
-%{_kde5_bindir}/marble-qt
+%{_bindir}/marble*
 %{_kde5_iconsdir}/*/*/apps/marble.*
 %{_datadir}/mime/packages/geo.xml
 
@@ -77,7 +77,6 @@ Wikipedia article.
 %package common
 Summary:	A virtual globe and world atlas
 Group:		Graphical desktop/KDE
-
 Obsoletes:	marble-common-qt4 < 15.12.1
 Provides:	marble-common-qt4 = 15.12.1
 
@@ -88,21 +87,17 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files common -f all.lang
-%{_sysconfdir}/xdg/marble.knsrc
 %dir %{_kde5_datadir}/marble
-%{_kde5_datadir}/marble/data
-%{_kde5_libdir}/marble
+%{_datadir}/marble/data
+%{_libdir}/marble
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
 %{_libdir}/qt5/plugins/plasma_runner_marble.so
-%{_libdir}/qt5/plugins/libmarble_part.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
 %{_prefix}/mkspecs/modules/qt_Marble.pri
 %{_datadir}/applications/*.desktop
 %{_datadir}/kservices5/*.desktop
 %{_datadir}/metainfo/*.xml
-%{_datadir}/config.kcfg/marble.kcfg
-%{_datadir}/kxmlgui5/marble
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configMapDisplay.qml
@@ -129,8 +124,8 @@ Group:		System/Libraries
 Runtime library for marble.
 
 %files -n %{libastro}
-%{_kde5_libdir}/libastro.so.0.*
-%{_kde5_libdir}/libastro.so.%{astro_major}
+%{__libdir}/libastro.so.0.*
+%{_libdir}/libastro.so.%{astro_major}
 
 #---------------------------------------------
 
@@ -152,13 +147,15 @@ Obsoletes:	%{_lib}marblewidget21 < 15.08.01
 Obsoletes:	%{_lib}marblewidget22 < 16.04.0
 Obsoletes:	%{_lib}marblewidget23 < 16.04.0
 Obsoletes:	%{_lib}marblewidget24 < 16.08.3
+Obsoletes:	%{_lib}marblewidget25 < 17.04.0
+Obsoletes:	%{_lib}marblewidget26 < 17.04.0
 
 %description -n %{libname}
 Runtime library for marble.
 
 %files -n %{libname}
-%{_kde5_libdir}/libmarblewidget-qt5.so.0.*
-%{_kde5_libdir}/libmarblewidget-qt5.so.%{major}
+%{_libdir}/libmarblewidget-qt5.so.0.*
+%{_libdir}/libmarblewidget-qt5.so.%{major}
 
 #----------------------------------------------------------------------------
 
@@ -174,7 +171,7 @@ Conflicts:	marble-devel < 17.04.0-2
 Runtime library for marble.
 
 %files -n %{libdeclarative}
-%{_kde5_libdir}/libmarbledeclarative.so.%{declarative_major}*
+%{_libdir}/libmarbledeclarative.so.%{declarative_major}*
 
 #---------------------------------------------
 
@@ -192,8 +189,9 @@ Files needed to build applications based on %{name}.
 %files devel
 %dir %{_libdir}/cmake/Marble
 %dir %{_libdir}/cmake/Astro
-%{_kde5_libdir}/libastro.so
-%{_kde5_libdir}/libmarblewidget-qt5.so
+%{_libdir}/libastro.so
+%{_libdir}/libmarbledeclarative.so
+%{_libdir}/libmarblewidget-qt5.so
 %{_includedir}/astro/
 %{_includedir}/marble/
 %{_libdir}/cmake/Marble/*.cmake
