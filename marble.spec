@@ -87,16 +87,20 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files common -f all.lang
+%{_sysconfdir}/xdg/marble.knsrc
 %dir %{_kde5_datadir}/marble
 %{_datadir}/marble/data
 %{_libdir}/marble
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
 %{_libdir}/qt5/plugins/plasma_runner_marble.so
+%{_libdir}/qt5/plugins/libmarble_part.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
 %{_prefix}/mkspecs/modules/qt_Marble.pri
 %{_datadir}/applications/*.desktop
 %{_datadir}/kservices5/*.desktop
+%{_datadir}/config.kcfg/marble.kcfg
+%{_datadir}/kxmlgui5/marble/*.rc
 %{_datadir}/metainfo/*.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
@@ -124,7 +128,7 @@ Group:		System/Libraries
 Runtime library for marble.
 
 %files -n %{libastro}
-%{__libdir}/libastro.so.0.*
+%{_libdir}/libastro.so.0.*
 %{_libdir}/libastro.so.%{astro_major}
 
 #---------------------------------------------
