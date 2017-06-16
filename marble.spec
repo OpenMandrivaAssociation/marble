@@ -1,6 +1,6 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	17.04.1
+Version:	17.04.2
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -88,7 +88,7 @@ Wikipedia article.
 
 %files common -f all.lang
 %{_sysconfdir}/xdg/marble.knsrc
-%dir %{__datadir}/marble
+%dir %{_datadir}/marble
 %{_datadir}/marble/data
 %{_libdir}/marble
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
