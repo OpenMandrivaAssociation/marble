@@ -1,6 +1,6 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	17.08.3
+Version:	17.11.90
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
