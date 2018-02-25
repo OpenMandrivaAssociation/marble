@@ -1,7 +1,7 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	17.04.0
-Release:	2
+Version:	 17.12.2
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -69,7 +69,7 @@ Wikipedia article.
 %files
 %doc LICENSE.txt BUGS USECASES MANIFESTO.txt
 %{_bindir}/marble*
-%{_kde5_iconsdir}/*/*/apps/marble.*
+%{_iconsdir}/*/*/apps/marble.*
 %{_datadir}/mime/packages/geo.xml
 
 #---------------------------------------------
@@ -88,7 +88,7 @@ Wikipedia article.
 
 %files common -f all.lang
 %{_sysconfdir}/xdg/marble.knsrc
-%dir %{_kde5_datadir}/marble
+%dir %{_datadir}/marble
 %{_datadir}/marble/data
 %{_libdir}/marble
 %{_libdir}/qt5/plugins/libmarblethumbnail.so
@@ -102,6 +102,8 @@ Wikipedia article.
 %{_datadir}/config.kcfg/marble.kcfg
 %{_datadir}/kxmlgui5/marble/*.rc
 %{_datadir}/metainfo/*.xml
+%{_datadir}/config.kcfg/marble.kcfg
+%{_datadir}/kxmlgui5/marble
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configMapDisplay.qml
@@ -133,7 +135,7 @@ Runtime library for marble.
 
 #---------------------------------------------
 
-%define major 27
+%define major 28
 %define libname %mklibname marblewidget-qt5 %{major}
 
 %package -n %{libname}
@@ -153,6 +155,7 @@ Obsoletes:	%{_lib}marblewidget23 < 16.04.0
 Obsoletes:	%{_lib}marblewidget24 < 16.08.3
 Obsoletes:	%{_lib}marblewidget25 < 17.04.0
 Obsoletes:	%{_lib}marblewidget26 < 17.04.0
+Obsoletes:	%{_lib}marblewidget27 < 17.07.0
 
 %description -n %{libname}
 Runtime library for marble.
@@ -193,9 +196,9 @@ Files needed to build applications based on %{name}.
 %files devel
 %dir %{_libdir}/cmake/Marble
 %dir %{_libdir}/cmake/Astro
-%{_libdir}/libastro.so
-%{_libdir}/libmarbledeclarative.so
-%{_libdir}/libmarblewidget-qt5.so
+%{_kde5_libdir}/libastro.so
+%{_kde5_libdir}/libmarbledeclarative.so
+%{_kde5_libdir}/libmarblewidget-qt5.so
 %{_includedir}/astro/
 %{_includedir}/marble/
 %{_libdir}/cmake/Marble/*.cmake
