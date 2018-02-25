@@ -99,8 +99,6 @@ Wikipedia article.
 %{_prefix}/mkspecs/modules/qt_Marble.pri
 %{_datadir}/applications/*.desktop
 %{_datadir}/kservices5/*.desktop
-%{_datadir}/config.kcfg/marble.kcfg
-%{_datadir}/kxmlgui5/marble/*.rc
 %{_datadir}/metainfo/*.xml
 %{_datadir}/config.kcfg/marble.kcfg
 %{_datadir}/kxmlgui5/marble
