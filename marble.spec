@@ -1,6 +1,6 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	 17.12.2
+Version:	 18.04.2
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -15,13 +15,14 @@ Source0:	http://download.kde.org/%{ftpdir}/applications/%{version}/src/%{name}-%
 Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
 BuildRequires:	python-devel
-BuildRequires:	quazip-devel
-BuildRequires:	shapelib-devel
+BuildRequires:	pkgconfig(shapelib)
 BuildRequires:	gettext
-BuildRequires:	pkgconfig(libgpsd) >= 3.15
-BuildRequires:	pkgconfig(phonon)
+BuildRequires:	pkgconfig(libgps) >= 3.15
 BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF5Crash)
+BuildRequires:	cmake(KF5DocTools)
+BuildRequires:	cmake(KF5Package)
+BuildRequires:	cmake(KF5Auth)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
@@ -29,12 +30,14 @@ BuildRequires:	cmake(KF5Wallet)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5I18n)
-BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5NewStuff)
 BuildRequires:	cmake(KF5Parts)
 BuildRequires:	cmake(KF5Runner)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Wallet)
+BuildRequires:	cmake(KF5Plasma)
+BuildRequires:	cmake(Phonon4Qt5)
+BuildRequires:	cmake(Phonon4Qt5Experimental)
 BuildRequires:	cmake(SharedMimeInfo)
 BuildRequires:	pkgconfig(shared-mime-info)
 BuildRequires:	kdoctools-devel
@@ -42,6 +45,7 @@ BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(Qt5Network)
 BuildRequires:	pkgconfig(Qt5Test)
+BuildRequires:	pkgconfig(Qt5Qml)
 BuildRequires:	pkgconfig(Qt5Script)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Quick)
@@ -52,8 +56,10 @@ BuildRequires:	pkgconfig(Qt5Concurrent)
 BuildRequires:	pkgconfig(Qt5PrintSupport)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Location)
+BuildRequires:	cmake(Qt5LinguistTools)
 BuildRequires:	pkgconfig(Qt5Positioning)
 BuildRequires:	pkgconfig(Qt5SerialPort)
+BuildRequires:	pkgconfig(zlib)
 Requires:	marble-common = %{EVRD}
 Obsoletes:	%{mklibname marblewidget 22} < 15.12.1
 Provides:	%{mklibname marblewidget 22} = 15.12.1
@@ -102,18 +108,8 @@ Wikipedia article.
 %{_datadir}/metainfo/*.xml
 %{_datadir}/config.kcfg/marble.kcfg
 %{_datadir}/kxmlgui5/marble
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/config.qml
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/config/main.xml
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configMapDisplay.qml
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/configTimeZones.qml
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/contents/ui/main.qml
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/metadata.desktop
-%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/metadata.json
-%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/config/main.xml
-%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/ui/config.qml
-%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/contents/ui/main.qml
-%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/metadata.desktop
-%{_datadir}/plasma/wallpapers/org.kde.plasma.wallpaper.worldmap/metadata.json
+%{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock
+%{_datadir}/plasma/wallpapers/org.kde.plasma.worldmap
 
 #---------------------------------------------
 
