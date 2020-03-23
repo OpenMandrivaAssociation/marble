@@ -1,6 +1,6 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	19.12.3
+Version:	20.03.80
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -14,6 +14,7 @@ Url:		http://edu.kde.org
 Source0:	http://download.kde.org/%{ftpdir}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
+Patch2:		marble-20.03.80-qt-5.15.patch
 BuildRequires:	python-devel
 BuildRequires:	pkgconfig(shapelib)
 BuildRequires:	gettext
@@ -201,8 +202,7 @@ Files needed to build applications based on %{name}.
 #----------------------------------------------------------------------
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1
 
 # (tpg) ../src/3rdparty/sgp4/sgp4ext.cpp:210:9: error: 'asinh' is missing exception specification 'throw()'
 
