@@ -1,6 +1,6 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	20.03.80
+Version:	20.03.90
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -14,7 +14,6 @@ Url:		http://edu.kde.org
 Source0:	http://download.kde.org/%{ftpdir}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
-Patch2:		marble-20.03.80-qt-5.15.patch
 BuildRequires:	python-devel
 BuildRequires:	pkgconfig(shapelib)
 BuildRequires:	gettext
