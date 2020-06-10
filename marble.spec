@@ -1,6 +1,6 @@
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	20.04.1
+Version:	20.04.2
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -227,6 +227,7 @@ Files needed to build applications based on %{name}.
 %find_lang plasma_applet_org.kde.plasma.worldclock
 %find_lang plasma_runner_marble
 %find_lang plasma_wallpaper_org.kde.plasma.worldmap
+%find_lang marble_xml_mimetypes
 TOP=`pwd`
 cd %{buildroot}
 find .%{_datadir}/locale -name "*.qm" |while read r; do
