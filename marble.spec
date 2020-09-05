@@ -74,10 +74,28 @@ Wikipedia article.
 
 %files
 %doc LICENSE.txt BUGS USECASES MANIFESTO.txt
-%{_bindir}/marble*
+%{_bindir}/marble
 %{_iconsdir}/*/*/apps/marble.*
 %{_datadir}/mime/packages/geo.xml
+#---------------------------------------------
 
+%package qtonly
+Summary:	Qt-Only version of Marble
+Group:		Graphical desktop/KDE
+
+%description qtonly
+Qt-Only version of Marble.
+
+This is the same as the regular marble application, except
+it has a reduced dependency chain, a smaller memory footprint,
+and a slightly reduced feature set.
+
+You may want to install %{name}-qtonly if you're on a very
+low memory system, or if you're targeting an embedded
+
+%files qtonly
+%{_bindir}/marble-qt
+%{_datadir}/applications/org.kde.marble-qt.desktop
 #---------------------------------------------
 
 %package common
@@ -103,7 +121,8 @@ Wikipedia article.
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
 %{_prefix}/mkspecs/modules/qt_Marble.pri
-%{_datadir}/applications/*.desktop
+%{_datadir}/applications/marble_*.desktop
+%{_datadir}/applications/org.kde.marble.desktop
 %{_datadir}/kservices5/*.desktop
 %{_datadir}/metainfo/*.xml
 %{_datadir}/config.kcfg/marble.kcfg
@@ -202,23 +221,24 @@ Files needed to build applications based on %{name}.
 
 %prep
 %autosetup -p1
-
-# (tpg) ../src/3rdparty/sgp4/sgp4ext.cpp:210:9: error: 'asinh' is missing exception specification 'throw()'
+# As of 20.08.0, the only effect of -DMOBILE is installing a smaller
+# location cache. Given we target only higher end mobile devices for
+# the moment, we can live with (and actually want) that.
+# We may want to enable -DMOBILE=ON if it ever starts doing something
+# more...
 
 %cmake_kde5 \
-    -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-    -DQTONLY=ON \
-    -DQT5BUILD=ON \
-    -DBUILD_MARBLE_APPS=ON \
-    -DBUILD_WITH_DBUS=ON \
-    -DBUILD_MARBLE_TESTS=OFF \
-    -DBUILD_TESTING=OFF \
-    -DWITH_DESIGNER_PLUGIN=OFF \
-    -DKDE_INSTALL_CONFDIR=%{_sysconfdir}/xdg \
-    -DMOBILE=OFF
+	-DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
+	-DBUILD_MARBLE_APPS=ON \
+	-DBUILD_WITH_DBUS=ON \
+	-DBUILD_MARBLE_TESTS=OFF \
+	-DBUILD_TESTING=OFF \
+	-DWITH_DESIGNER_PLUGIN=OFF \
+	-DKDE_INSTALL_CONFDIR=%{_sysconfdir}/xdg \
+	-DMOBILE=OFF
 
 %build
-%ninja -C build
+%ninja_build -C build
 
 %install
 
