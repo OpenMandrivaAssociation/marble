@@ -1,3 +1,6 @@
+# filter plugin provides
+%global __provides_exclude_from ^(%{_libdir}/marble/plugins/.*\\.so)$
+
 Summary:	A virtual globe and world atlas
 Name:		marble
 Version:	20.12.1
@@ -59,6 +62,9 @@ BuildRequires:	pkgconfig(Qt5Location)
 BuildRequires:	cmake(Qt5LinguistTools)
 BuildRequires:	pkgconfig(Qt5Positioning)
 BuildRequires:	pkgconfig(Qt5SerialPort)
+BuildRequires:	pkgconfig(Qt5WebChannel)
+BuildRequires:	pkgconfig(Qt5WebEngine)
+BuildRequires:	pkgconfig(Qt5WebEngineWidgets)
 BuildRequires:	pkgconfig(zlib)
 Requires:	marble-common = %{EVRD}
 Obsoletes:	%{mklibname marblewidget 22} < 15.12.1
@@ -221,6 +227,9 @@ Files needed to build applications based on %{name}.
 
 %prep
 %autosetup -p1
+	
+mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
+
 # As of 20.08.0, the only effect of -DMOBILE is installing a smaller
 # location cache. Given we target only higher end mobile devices for
 # the moment, we can live with (and actually want) that.
