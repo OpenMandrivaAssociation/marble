@@ -3,7 +3,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	20.12.3
+Version:	21.03.80
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -121,9 +121,9 @@ Wikipedia article.
 %dir %{_datadir}/marble
 %{_datadir}/marble/data
 %{_libdir}/marble
-%{_libdir}/qt5/plugins/plasma_runner_marble.so
 %{_libdir}/qt5/plugins/libmarble_part.so
 %{_libdir}/qt5/plugins/marblethumbnail.so
+%{_libdir}/qt5/plugins/kf5/krunner/plasma_runner_marble.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/libmarblequick.so
 %{_libdir}/qt5/qml/org/kde/marble/private/plasma/qmldir
 %{_prefix}/mkspecs/modules/qt_Marble.pri
