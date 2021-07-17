@@ -3,7 +3,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	21.04.2
+Version:	21.07.80
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -180,8 +180,8 @@ Obsoletes:	%{_lib}marblewidget27 < 17.07.0
 Runtime library for marble.
 
 %files -n %{libname}
-%{_libdir}/libmarblewidget-qt5.so.0.*
-%{_libdir}/libmarblewidget-qt5.so.%{major}
+%{_libdir}/libmarblewidget-qt5.so.21.*
+%{_libdir}/libmarblewidget-qt5.so.28
 
 #----------------------------------------------------------------------------
 
