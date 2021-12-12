@@ -3,7 +3,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	21.08.3
+Version:	21.12.0
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -149,7 +149,7 @@ Group:		System/Libraries
 Runtime library for marble.
 
 %files -n %{libastro}
-%{_libdir}/libastro.so.0.*
+%{_libdir}/libastro.so.21.*
 %{_libdir}/libastro.so.%{astro_major}
 
 #---------------------------------------------
