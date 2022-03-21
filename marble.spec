@@ -3,7 +3,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	21.12.2
+Version:	22.03.80
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -149,13 +149,13 @@ Group:		System/Libraries
 Runtime library for marble.
 
 %files -n %{libastro}
-%{_libdir}/libastro.so.21.*
+%{_libdir}/libastro.so.%(echo %{version}|cut -d. -f1).*
 %{_libdir}/libastro.so.%{astro_major}
 
 #---------------------------------------------
 
 %define major 28
-%define libname %mklibname marblewidget-qt5 %{major}
+%define libname %mklibname marblewidget-qt5
 
 %package -n %{libname}
 Summary:	Runtime library for marble
@@ -175,12 +175,13 @@ Obsoletes:	%{_lib}marblewidget24 < 16.08.3
 Obsoletes:	%{_lib}marblewidget25 < 17.04.0
 Obsoletes:	%{_lib}marblewidget26 < 17.04.0
 Obsoletes:	%{_lib}marblewidget27 < 17.07.0
+Obsoletes:	%{_lib}marblewidget28 < 22.03.80
 
 %description -n %{libname}
 Runtime library for marble.
 
 %files -n %{libname}
-%{_libdir}/libmarblewidget-qt5.so.21.*
+%{_libdir}/libmarblewidget-qt5.so.%(echo %{version}|cut -d. -f1).*
 %{_libdir}/libmarblewidget-qt5.so.28
 
 #----------------------------------------------------------------------------
