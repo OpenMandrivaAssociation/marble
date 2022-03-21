@@ -155,7 +155,7 @@ Runtime library for marble.
 #---------------------------------------------
 
 %define major 28
-%define libname %mklibname marblewidget-qt5
+%define libname %{_lib}marblewidget-qt5
 
 %package -n %{libname}
 Summary:	Runtime library for marble
@@ -175,7 +175,7 @@ Obsoletes:	%{_lib}marblewidget24 < 16.08.3
 Obsoletes:	%{_lib}marblewidget25 < 17.04.0
 Obsoletes:	%{_lib}marblewidget26 < 17.04.0
 Obsoletes:	%{_lib}marblewidget27 < 17.07.0
-Obsoletes:	%{_lib}marblewidget28 < 22.03.80
+Obsoletes:	%{_lib}marblewidget-qt5_28 < 22.03.80
 
 %description -n %{libname}
 Runtime library for marble.
