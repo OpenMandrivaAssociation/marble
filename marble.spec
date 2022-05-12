@@ -3,7 +3,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	22.04.0
+Version:	22.04.1
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
