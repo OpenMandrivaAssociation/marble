@@ -3,8 +3,8 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	22.12.3
-Release:	3
+Version:	23.03.90
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -17,6 +17,7 @@ Url:		http://edu.kde.org
 Source0:	http://download.kde.org/%{ftpdir}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
+Patch2:		marble-23.03.90-compile.patch
 BuildRequires:	python-devel
 BuildRequires:	pkgconfig(shapelib)
 BuildRequires:	gettext
@@ -117,7 +118,6 @@ roads. A mouse click on a place label will provide the respective
 Wikipedia article.
 
 %files common -f all.lang
-%{_datadir}/knsrcfiles/marble.knsrc
 %dir %{_datadir}/marble
 %{_datadir}/marble/data
 %{_libdir}/marble
