@@ -8,7 +8,7 @@ Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
-%define is_beta %(if test `echo %{version} |cut -d. -f3` -ge 70; then echo -n 1; else echo -n 0; fi)
+%define is_beta %(if test $(echo %{version} |cut -d. -f3) -ge 70; then echo -n 1; else echo -n 0; fi)
 %if %{is_beta}
 %define ftpdir unstable
 %else
@@ -18,7 +18,7 @@ Source0:	http://download.kde.org/%{ftpdir}/release-service/%{version}/src/%{name
 Patch0:		marble-16.08.2-soversion.patch
 Patch1:		fix_c++_exception_issue.patch
 Patch2:		marble-23.03.90-compile.patch
-BuildRequires:	python-devel
+BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(shapelib)
 BuildRequires:	gettext
 BuildRequires:	pkgconfig(libgps) >= 3.15
@@ -42,7 +42,6 @@ BuildRequires:	cmake(KF5Wallet)
 BuildRequires:	cmake(KF5Plasma)
 BuildRequires:	cmake(Phonon4Qt5)
 BuildRequires:	cmake(Phonon4Qt5Experimental)
-BuildRequires:	cmake(SharedMimeInfo)
 BuildRequires:	pkgconfig(shared-mime-info)
 BuildRequires:	kdoctools-devel
 BuildRequires:	pkgconfig(Qt5Core)
@@ -67,6 +66,7 @@ BuildRequires:	pkgconfig(Qt5WebChannel)
 BuildRequires:	pkgconfig(Qt5WebEngine)
 BuildRequires:	pkgconfig(Qt5WebEngineWidgets)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(protobuf)
 Requires:	marble-common = %{EVRD}
 Obsoletes:	%{mklibname marblewidget 22} < 15.12.1
 Provides:	%{mklibname marblewidget 22} = 15.12.1
@@ -228,7 +228,7 @@ Files needed to build applications based on %{name}.
 
 %prep
 %autosetup -p1
-	
+
 mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
 
 # As of 20.08.0, the only effect of -DMOBILE is installing a smaller
@@ -257,7 +257,7 @@ mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
 %find_lang plasma_applet_org.kde.plasma.worldclock
 %find_lang plasma_runner_marble
 %find_lang plasma_wallpaper_org.kde.plasma.worldmap
-TOP=`pwd`
+TOP=$(pwd)
 cd %{buildroot}
 find .%{_datadir}/locale -name "*.qm" |while read r; do
 	echo "%%lang($(echo $r|cut -d/ -f5)) $(echo $r |cut -b2-)" >>$TOP/qm.lang
