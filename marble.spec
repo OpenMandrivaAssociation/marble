@@ -3,7 +3,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	23.08.5
+Version:	24.02.0
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -82,6 +82,7 @@ Wikipedia article.
 %{_bindir}/marble
 %{_iconsdir}/*/*/apps/marble.*
 %{_datadir}/mime/packages/geo.xml
+%{_datadir}/qlogging-categories5/marble.categories
 #---------------------------------------------
 
 %package qtonly
