@@ -3,8 +3,8 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	24.02.0
-Release:	2
+Version:	24.02.1
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
@@ -229,6 +229,9 @@ Files needed to build applications based on %{name}.
 %autosetup -p1
 
 mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
+
+# Make current absl happy
+sed -i -e 's,CMAKE_CXX_STANDARD 17,CMAKE_CXX_STANDARD 20,' CMakeLists.txt
 
 # As of 20.08.0, the only effect of -DMOBILE is installing a smaller
 # location cache. Given we target only higher end mobile devices for
