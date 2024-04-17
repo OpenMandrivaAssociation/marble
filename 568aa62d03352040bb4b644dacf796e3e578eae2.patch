@@ -1,0 +1,25 @@
+From 568aa62d03352040bb4b644dacf796e3e578eae2 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 18:23:09 +0200
+Subject: [PATCH] qt6++
+
+---
+ src/apps/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/apps/CMakeLists.txt b/src/apps/CMakeLists.txt
+index 2aecfeccc5..12937a1a2f 100644
+--- a/src/apps/CMakeLists.txt
++++ b/src/apps/CMakeLists.txt
+@@ -3,7 +3,7 @@ if(BUILD_MARBLE_APPS)
+     if (NOT ANDROID)
+         add_subdirectory(marble-ui)
+         add_subdirectory(marble-qt)
+-#        add_subdirectory(marble-kde)
++        add_subdirectory(marble-kde)
+     endif()
+ 
+     add_subdirectory(behaim)
+-- 
+GitLab
+

@@ -1,0 +1,65 @@
+From d5f98903fac33b17fc2b2d90ded39b4ecc7c2e94 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 18:11:35 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                          | 10 +++++-----
+ src/plugins/runner/CMakeLists.txt |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 4dce2cdd70..1b3172f5b9 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -61,14 +61,14 @@ DIRECTORIES                                         STATUS
+ │   ├── plasmarunner                                -
+ │   ├── plugins
+ │   │   ├── designer                                DISABLED: NOT USED IN DIGIKAM
+-│   │   ├── positionprovider
++│   │   ├── positionprovider                        DONE
+ │   │   │   ├── flightgear                          DONE
+ │   │   │   ├── geoclue                             - Originally annotated experimental and commented in CMakeLists.txt
+ │   │   │   │   └── GeoCute                         -
+ │   │   │   ├── gpsd                                DONE
+ │   │   │   ├── qtpositioning                       DONE
+ │   │   │   └── wlocate                             DONE
+-│   │   ├── render
++│   │   ├── render                                  DONE
+ │   │   │   ├── annotate                            DONE
+ │   │   │   ├── aprs                                DONE
+ │   │   │   ├── atmosphere                          DONE
+@@ -104,7 +104,7 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── twitter                             - Originally commented in CMakeLists.txt
+ │   │   │   ├── weather                             DONE
+ │   │   │   └── wikipedia                           DONE
+-│   │   ├── runner
++│   │   ├── runner                                  DONE
+ │   │   │   ├── cache                               DONE
+ │   │   │   ├── cyclestreets                        DONE
+ │   │   │   ├── geouri                              DONE
+@@ -130,8 +130,8 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── pn2                                 DONE
+ │   │   │   ├── pnt                                 DONE
+ │   │   │   ├── routino                             DONE
+-│   │   │   ├── shp
+-│   │   │   ├── traveling-salesman
++│   │   │   ├── shp                                 DISABLED: KDE BASED
++│   │   │   ├── traveling-salesman                  - Originally commented in CMakeLists.txt
+ │   │   │   └── yours                               DONE
+ │   │   └── templates                               DISABLED: NOT USED IN DIGIKAM
+ │   └── thumbnailer                                 -
+diff --git a/src/plugins/runner/CMakeLists.txt b/src/plugins/runner/CMakeLists.txt
+index 00b3b9ccc6..60848d50d5 100644
+--- a/src/plugins/runner/CMakeLists.txt
++++ b/src/plugins/runner/CMakeLists.txt
+@@ -37,5 +37,5 @@ marble_set_package_properties( libshp PROPERTIES DESCRIPTION "reading and writin
+ marble_set_package_properties( libshp PROPERTIES URL "http://shapelib.maptools.org/" )
+ marble_set_package_properties( libshp PROPERTIES TYPE OPTIONAL PURPOSE "reading and displaying .shp files" )
+ if( LIBSHP_FOUND )
+-  add_subdirectory( shp )
++  #add_subdirectory( shp )
+ endif( LIBSHP_FOUND )
+-- 
+GitLab
+

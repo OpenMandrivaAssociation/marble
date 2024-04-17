@@ -1,0 +1,97 @@
+From 078d50d39f29b744ecf61e9d3fb31148ad4e9b3c Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 14:54:58 +0200
+Subject: [PATCH] qt6++. First stage to compile core +plugins DONE!!!
+
+---
+ PORT.QT6                                      | 20 +++++++++----------
+ .../OpenRouteServiceRunner.cpp                |  4 +++-
+ src/plugins/runner/routino/RoutinoRunner.cpp  |  1 -
+ 3 files changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index cdd2cf7e39..3cc6590d8c 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -105,12 +105,12 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── weather                             DONE
+ │   │   │   └── wikipedia                           DONE
+ │   │   ├── runner
+-│   │   │   ├── cache
+-│   │   │   ├── cyclestreets
++│   │   │   ├── cache                               DONE
++│   │   │   ├── cyclestreets                        DONE
+ │   │   │   ├── geouri                              DONE
+ │   │   │   ├── gosmore-reversegeocoding            DONE
+ │   │   │   ├── gosmore-routing                     DONE
+-│   │   │   ├── gpsbabel
++│   │   │   ├── gpsbabel                            DONE
+ │   │   │   ├── gpx                                 DISABLED: KDE BASED
+ │   │   │   ├── hostip                              DONE
+ │   │   │   ├── json                                DISABLED: KDE BASED
+@@ -118,21 +118,21 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── latlon                              DONE
+ │   │   │   ├── localdatabase                       DONE
+ │   │   │   ├── local-osm-search                    DONE
+-│   │   │   ├── log
++│   │   │   ├── log                                 DONE
+ │   │   │   ├── mapquest                            DONE
+ │   │   │   ├── monav                               DONE
+ │   │   │   ├── nominatim-reversegeocoding          DONE
+ │   │   │   ├── nominatim-search                    DONE
+ │   │   │   ├── openlocation-code-search            DONE
+-│   │   │   ├── openrouteservice
+-│   │   │   ├── open-source-routing-machine
++│   │   │   ├── openrouteservice                    DONE
++│   │   │   ├── open-source-routing-machine         DONE
+ │   │   │   ├── osm                                 DISABLED: KDE BASED
+-│   │   │   ├── pn2
+-│   │   │   ├── pnt
+-│   │   │   ├── routino
++│   │   │   ├── pn2                                 DONE
++│   │   │   ├── pnt                                 DONE
++│   │   │   ├── routino                             DONE
+ │   │   │   ├── shp
+ │   │   │   ├── traveling-salesman
+-│   │   │   └── yours
++│   │   │   └── yours                               DONE
+ │   │   └── templates                               DISABLED: NOT USED IN DIGIKAM
+ │   └── thumbnailer                                 -
+ ├── tests                                           -
+diff --git a/src/plugins/runner/openrouteservice/OpenRouteServiceRunner.cpp b/src/plugins/runner/openrouteservice/OpenRouteServiceRunner.cpp
+index e40b63f8a2..55534e4507 100644
+--- a/src/plugins/runner/openrouteservice/OpenRouteServiceRunner.cpp
++++ b/src/plugins/runner/openrouteservice/OpenRouteServiceRunner.cpp
+@@ -18,6 +18,8 @@
+ #include <QTime>
+ #include <QTimer>
+ #include <QDomDocument>
++#include <QRegularExpression>
++#include <QRegExp>
+ 
+ namespace Marble
+ {
+@@ -267,7 +269,7 @@ GeoDataDocument* OpenRouteServiceRunner::parse( const QByteArray &content ) cons
+ 
+                     GeoDataPlacemark* instruction = new GeoDataPlacemark;
+ 
+-                    QString const text = textNodes.item( 0 ).toElement().text().remove(QRegExp("<[^>]*>"));
++                    QString const text = textNodes.item( 0 ).toElement().text().remove(QRegularExpression("<[^>]*>"));
+                     GeoDataExtendedData extendedData;
+                     GeoDataData turnTypeData;
+                     turnTypeData.setName(QStringLiteral("turnType"));
+diff --git a/src/plugins/runner/routino/RoutinoRunner.cpp b/src/plugins/runner/routino/RoutinoRunner.cpp
+index 0a4c2c9f29..950c4e089c 100644
+--- a/src/plugins/runner/routino/RoutinoRunner.cpp
++++ b/src/plugins/runner/routino/RoutinoRunner.cpp
+@@ -146,7 +146,6 @@ QVector<GeoDataPlacemark*> RoutinoRunnerPrivate::parseRoutinoInstructions( const
+ {
+     QVector<GeoDataPlacemark*> result;
+     QTextStream stream( content );
+-    stream.setCodec("UTF8");
+     stream.setAutoDetectUnicode( true );
+ 
+     RoutingInstructions directions = InstructionTransformation::process( m_parser.parse( stream ) );
+-- 
+GitLab
+

@@ -1,0 +1,49 @@
+From 876d994800fea84a1b5ca2ffca91ce7a275fd191 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Tue, 19 Sep 2023 14:19:33 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                             |  2 +-
+ src/plugins/runner/kml/KmlParser.cpp | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 0cbce75e54..6d9aa222af 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -136,7 +136,7 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── gpx                                 DONE
+ │   │   │   ├── hostip                              DONE
+ │   │   │   ├── json                                DISABLED: KDE BASED
+-│   │   │   ├── kml                                 DISABLED: KDE BASED
++│   │   │   ├── kml                                 DONE
+ │   │   │   ├── latlon                              DONE
+ │   │   │   ├── localdatabase                       DONE
+ │   │   │   ├── local-osm-search                    DONE
+diff --git a/src/plugins/runner/kml/KmlParser.cpp b/src/plugins/runner/kml/KmlParser.cpp
+index 259fcadf4d..c4561c8516 100644
+--- a/src/plugins/runner/kml/KmlParser.cpp
++++ b/src/plugins/runner/kml/KmlParser.cpp
+@@ -27,12 +27,12 @@ bool KmlParser::isValidElement(const QString& tagName) const
+     if (!GeoParser::isValidElement(tagName))
+         return false;
+ 
+-    return (namespaceUri() == kml::kmlTag_nameSpace20   ||
+-            namespaceUri() == kml::kmlTag_nameSpace21   ||
+-            namespaceUri() == kml::kmlTag_nameSpace22   ||
+-            namespaceUri() == kml::kmlTag_nameSpaceGx22 ||
+-            namespaceUri() == kml::kmlTag_nameSpaceOgc22||
+-            namespaceUri() == kml::kmlTag_nameSpaceMx );
++    return (namespaceUri() == QStringView(QString::fromUtf8(kml::kmlTag_nameSpace20))   ||
++            namespaceUri() == QStringView(QString::fromUtf8(kml::kmlTag_nameSpace21))   ||
++            namespaceUri() == QStringView(QString::fromUtf8(kml::kmlTag_nameSpace22))   ||
++            namespaceUri() == QStringView(QString::fromUtf8(kml::kmlTag_nameSpaceGx22)) ||
++            namespaceUri() == QStringView(QString::fromUtf8(kml::kmlTag_nameSpaceOgc22))||
++            namespaceUri() == QStringView(QString::fromUtf8(kml::kmlTag_nameSpaceMx)) );
+ }
+ 
+ GeoDocument* KmlParser::createDocument() const
+-- 
+GitLab
+

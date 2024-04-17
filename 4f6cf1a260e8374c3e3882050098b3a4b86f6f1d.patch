@@ -1,0 +1,246 @@
+From 4f6cf1a260e8374c3e3882050098b3a4b86f6f1d Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Tue, 19 Sep 2023 14:13:16 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                                               |  4 ++--
+ src/CMakeLists.txt                                     |  2 +-
+ src/plugins/runner/CMakeLists.txt                      | 10 +++++-----
+ src/plugins/runner/gpx/CMakeLists.txt                  |  2 +-
+ src/plugins/runner/gpx/GpxParser.cpp                   |  6 +++---
+ src/plugins/runner/gpx/handlers/GPXhrTagHandler.cpp    |  2 ++
+ src/plugins/runner/gpx/handlers/GPXrteptTagHandler.cpp |  4 +++-
+ src/plugins/runner/gpx/handlers/GPXtrkptTagHandler.cpp |  4 +++-
+ src/plugins/runner/gpx/handlers/GPXwptTagHandler.cpp   |  4 +++-
+ src/plugins/runner/json/CMakeLists.txt                 |  2 +-
+ src/plugins/runner/kml/CMakeLists.txt                  |  4 ++--
+ src/plugins/runner/osm/CMakeLists.txt                  |  2 +-
+ src/plugins/runner/shp/CMakeLists.txt                  |  2 +-
+ 13 files changed, 28 insertions(+), 20 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 8ea6ee348f..0cbce75e54 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -10,7 +10,7 @@ Port Details:
+ 
+ Only pure Qt codes are ported.
+ Qt5 support is dropped.
+-Qt6Core5Compat still used (Xml and RegExp).
++Qt6Core5Compat still used (Xml, StringRef, and RegExp).
+ "PORT_QT6" annotation is used in source code when port to Qt6 needs to be double checked.
+ KDE API based codes are disabled.
+ 
+@@ -133,7 +133,7 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── gosmore-reversegeocoding            DONE
+ │   │   │   ├── gosmore-routing                     DONE
+ │   │   │   ├── gpsbabel                            DONE
+-│   │   │   ├── gpx                                 DISABLED: KDE BASED
++│   │   │   ├── gpx                                 DONE
+ │   │   │   ├── hostip                              DONE
+ │   │   │   ├── json                                DISABLED: KDE BASED
+ │   │   │   ├── kml                                 DISABLED: KDE BASED
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 791c56e1b2..0c6b2db277 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -65,7 +65,7 @@ if(BUILD_MARBLE_APPS)
+   add_subdirectory( apps )
+ endif()
+ 
+-#add_subdirectory( bindings )
++add_subdirectory( bindings )
+ 
+ configure_file(
+   ${CMAKE_CURRENT_SOURCE_DIR}/config-marble.h.cmake
+diff --git a/src/plugins/runner/CMakeLists.txt b/src/plugins/runner/CMakeLists.txt
+index 60848d50d5..2ba7519795 100644
+--- a/src/plugins/runner/CMakeLists.txt
++++ b/src/plugins/runner/CMakeLists.txt
+@@ -23,10 +23,10 @@ add_subdirectory( cyclestreets )
+ 
+ #Parsing
+ add_subdirectory( cache )
+-#add_subdirectory( gpx )
+-#add_subdirectory( json )
+-#add_subdirectory( kml )
+-#add_subdirectory( osm )
++add_subdirectory( gpx )
++add_subdirectory( json )
++add_subdirectory( kml )
++add_subdirectory( osm )
+ add_subdirectory( pn2 )
+ add_subdirectory( pnt )
+ add_subdirectory( log )
+@@ -37,5 +37,5 @@ marble_set_package_properties( libshp PROPERTIES DESCRIPTION "reading and writin
+ marble_set_package_properties( libshp PROPERTIES URL "http://shapelib.maptools.org/" )
+ marble_set_package_properties( libshp PROPERTIES TYPE OPTIONAL PURPOSE "reading and displaying .shp files" )
+ if( LIBSHP_FOUND )
+-  #add_subdirectory( shp )
++  add_subdirectory( shp )
+ endif( LIBSHP_FOUND )
+diff --git a/src/plugins/runner/gpx/CMakeLists.txt b/src/plugins/runner/gpx/CMakeLists.txt
+index 30175493de..00cf57f1f7 100644
+--- a/src/plugins/runner/gpx/CMakeLists.txt
++++ b/src/plugins/runner/gpx/CMakeLists.txt
+@@ -67,7 +67,7 @@ endif()
+ # install(FILES marble_part_gpx.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
+ 
+ # register thumbnail plugin as handler
+-install(FILES marble_thumbnail_gpx.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICESDIR})
++install(FILES marble_thumbnail_gpx.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
+ 
+ if(NOT WIN32 AND NOT APPLE)
+     # register marble app as handler
+diff --git a/src/plugins/runner/gpx/GpxParser.cpp b/src/plugins/runner/gpx/GpxParser.cpp
+index 1d95f43d69..ae4d2e3ecb 100644
+--- a/src/plugins/runner/gpx/GpxParser.cpp
++++ b/src/plugins/runner/gpx/GpxParser.cpp
+@@ -27,9 +27,9 @@ bool GpxParser::isValidElement(const QString& tagName) const
+     if (!GeoParser::isValidElement(tagName))
+         return false;
+ 
+-    return (   namespaceUri() == gpx::gpxTag_nameSpace10
+-            || namespaceUri() == gpx::gpxTag_nameSpace11
+-            || namespaceUri() == gpx::gpxTag_nameSpaceGarminTrackPointExt1);
++    return (   namespaceUri() == QStringView(QString::fromUtf8(gpx::gpxTag_nameSpace10))
++            || namespaceUri() == QStringView(QString::fromUtf8(gpx::gpxTag_nameSpace11))
++            || namespaceUri() == QStringView(QString::fromUtf8(gpx::gpxTag_nameSpaceGarminTrackPointExt1)));
+ }
+ 
+ GeoDocument* GpxParser::createDocument() const
+diff --git a/src/plugins/runner/gpx/handlers/GPXhrTagHandler.cpp b/src/plugins/runner/gpx/handlers/GPXhrTagHandler.cpp
+index 9a0281f2c5..43fe8a8ef1 100644
+--- a/src/plugins/runner/gpx/handlers/GPXhrTagHandler.cpp
++++ b/src/plugins/runner/gpx/handlers/GPXhrTagHandler.cpp
+@@ -5,6 +5,8 @@
+ 
+ #include "GPXhrTagHandler.h"
+ 
++#include <QVariant>
++
+ #include "MarbleDebug.h"
+ 
+ #include "GPXElementDictionary.h"
+diff --git a/src/plugins/runner/gpx/handlers/GPXrteptTagHandler.cpp b/src/plugins/runner/gpx/handlers/GPXrteptTagHandler.cpp
+index 3b2db6479b..b6f0dc605d 100644
+--- a/src/plugins/runner/gpx/handlers/GPXrteptTagHandler.cpp
++++ b/src/plugins/runner/gpx/handlers/GPXrteptTagHandler.cpp
+@@ -5,6 +5,8 @@
+ 
+ #include "GPXrteptTagHandler.h"
+ 
++#include <QStringView>
++
+ #include "MarbleDebug.h"
+ 
+ #include "GPXElementDictionary.h"
+@@ -32,7 +34,7 @@ GeoNode* GPXrteptTagHandler::parse(GeoParser& parser) const
+         GeoDataCoordinates coord;
+ 
+         QXmlStreamAttributes attributes = parser.attributes();
+-        QStringRef tmp;
++        QStringView tmp;
+         qreal lat = 0;
+         qreal lon = 0;
+         tmp = attributes.value(QLatin1String(gpxTag_lat));
+diff --git a/src/plugins/runner/gpx/handlers/GPXtrkptTagHandler.cpp b/src/plugins/runner/gpx/handlers/GPXtrkptTagHandler.cpp
+index a2d0611a10..def61c192a 100644
+--- a/src/plugins/runner/gpx/handlers/GPXtrkptTagHandler.cpp
++++ b/src/plugins/runner/gpx/handlers/GPXtrkptTagHandler.cpp
+@@ -7,6 +7,8 @@
+ 
+ #include "MarbleDebug.h"
+ 
++#include <QStringView>
++
+ #include "GPXElementDictionary.h"
+ #include "GeoParser.h"
+ #include "GeoDataLineString.h"
+@@ -30,7 +32,7 @@ GeoNode* GPXtrkptTagHandler::parse(GeoParser& parser) const
+         GeoDataCoordinates coord;
+ 
+         QXmlStreamAttributes attributes = parser.attributes();
+-        QStringRef tmp;
++        QStringView tmp;
+         qreal lat = 0;
+         qreal lon = 0;
+         tmp = attributes.value(QLatin1String(gpxTag_lat));
+diff --git a/src/plugins/runner/gpx/handlers/GPXwptTagHandler.cpp b/src/plugins/runner/gpx/handlers/GPXwptTagHandler.cpp
+index adf639e22c..e51262bab9 100644
+--- a/src/plugins/runner/gpx/handlers/GPXwptTagHandler.cpp
++++ b/src/plugins/runner/gpx/handlers/GPXwptTagHandler.cpp
+@@ -7,6 +7,8 @@
+ 
+ #include "MarbleDebug.h"
+ 
++#include <QStringView>
++
+ #include "GPXElementDictionary.h"
+ #include "GeoParser.h"
+ #include "GeoDataDocument.h"
+@@ -30,7 +32,7 @@ GeoNode* GPXwptTagHandler::parse(GeoParser& parser) const
+         GeoDataPlacemark *placemark = new GeoDataPlacemark;
+ 
+         QXmlStreamAttributes attributes = parser.attributes();
+-        QStringRef tmp;
++        QStringView tmp;
+         qreal lat = 0;
+         qreal lon = 0;
+         tmp = attributes.value(QLatin1String(gpxTag_lat));
+diff --git a/src/plugins/runner/json/CMakeLists.txt b/src/plugins/runner/json/CMakeLists.txt
+index bb9db4ad7a..0865c4aa0a 100644
+--- a/src/plugins/runner/json/CMakeLists.txt
++++ b/src/plugins/runner/json/CMakeLists.txt
+@@ -28,7 +28,7 @@ endif()
+ # install(FILES marble_part_geojson.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
+ 
+ # register thumbnail plugin as handler
+-install(FILES marble_thumbnail_geojson.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICESDIR})
++install(FILES marble_thumbnail_geojson.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
+ 
+ if(NOT WIN32 AND NOT APPLE)
+     # register marble app as handler
+diff --git a/src/plugins/runner/kml/CMakeLists.txt b/src/plugins/runner/kml/CMakeLists.txt
+index 9a497b3952..ff46639f8f 100644
+--- a/src/plugins/runner/kml/CMakeLists.txt
++++ b/src/plugins/runner/kml/CMakeLists.txt
+@@ -31,8 +31,8 @@ endif()
+ # install(FILES marble_part_kmz.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICESDIR})
+ 
+ # register thumbnail plugin as handler
+-install(FILES marble_thumbnail_kml.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICESDIR})
+-install(FILES marble_thumbnail_kmz.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICESDIR})
++install(FILES marble_thumbnail_kml.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
++install(FILES marble_thumbnail_kmz.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
+ 
+ if(NOT WIN32 AND NOT APPLE)
+     # register marble app as handler
+diff --git a/src/plugins/runner/osm/CMakeLists.txt b/src/plugins/runner/osm/CMakeLists.txt
+index a0dfdee04c..87c9e72591 100644
+--- a/src/plugins/runner/osm/CMakeLists.txt
++++ b/src/plugins/runner/osm/CMakeLists.txt
+@@ -71,5 +71,5 @@ endif()
+ # install(FILES marble_part_osm.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICE5DIR})
+ 
+ # register thumbnail plugin as handler
+-install(FILES marble_thumbnail_osm.desktop DESTINATION ${KDE_INSTALL_FULL_KSERVICESDIR})
++install(FILES marble_thumbnail_osm.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
+ 
+diff --git a/src/plugins/runner/shp/CMakeLists.txt b/src/plugins/runner/shp/CMakeLists.txt
+index 8761da1415..95474a0422 100644
+--- a/src/plugins/runner/shp/CMakeLists.txt
++++ b/src/plugins/runner/shp/CMakeLists.txt
+@@ -32,7 +32,7 @@ endif()
+ # install(FILES marble_part_shp.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
+ 
+ # register thumbnail plugin as handler
+-install(FILES marble_thumbnail_shp.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
++install(FILES marble_thumbnail_shp.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+ 
+ if(NOT WIN32 AND NOT APPLE)
+     # register marble app as handler
+-- 
+GitLab
+

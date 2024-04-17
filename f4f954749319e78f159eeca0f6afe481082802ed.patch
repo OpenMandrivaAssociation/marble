@@ -1,0 +1,35 @@
+diff -up marble-24.02.2/src/lib/marble/CMakeLists.txt.9~ marble-24.02.2/src/lib/marble/CMakeLists.txt
+--- marble-24.02.2/src/lib/marble/CMakeLists.txt.9~	2024-04-16 17:19:28.748342239 +0200
++++ marble-24.02.2/src/lib/marble/CMakeLists.txt	2024-04-16 17:19:28.756342321 +0200
+@@ -399,6 +399,7 @@ target_link_libraries(marblewidget
+         Qt6::Gui
+         Qt6::Widgets
+         Qt6::Network
++        Qt6::Core5Compat
+     PRIVATE
+         Qt6::Core
+         Qt6::Svg
+diff -up marble-24.02.2/src/lib/marble/LayerInterface.h.9~ marble-24.02.2/src/lib/marble/LayerInterface.h
+--- marble-24.02.2/src/lib/marble/LayerInterface.h.9~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/LayerInterface.h	2024-04-16 17:19:28.756342321 +0200
+@@ -10,9 +10,8 @@
+ #include "marble_export.h"
+ 
+ #include <QtGlobal>
+-
+-class QStringList;
+-class QString;
++#include <QStringList>
++#include <QString>
+ 
+ namespace Marble {
+ 
+diff -up marble-24.02.2/src/lib/marble/OwsServiceManager.cpp.9~ marble-24.02.2/src/lib/marble/OwsServiceManager.cpp
+--- marble-24.02.2/src/lib/marble/OwsServiceManager.cpp.9~	2024-04-16 17:19:28.756342321 +0200
++++ marble-24.02.2/src/lib/marble/OwsServiceManager.cpp	2024-04-16 17:20:09.736760863 +0200
+@@ -832,4 +832,4 @@ void OwsServiceManager::parseImageResult
+ 
+ }
+ 
+-#include "moc_OwsServiceManager.cpp"
++//#include "moc_OwsServiceManager.cpp"

@@ -1,0 +1,82 @@
+From 78a04b3cca88a1c957c40f38839371bb53fdde91 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 11:57:14 +0200
+Subject: [PATCH] qt6++
+
+---
+ CMakeLists.txt                                 | 3 ++-
+ PORT.QT6                                       | 4 ++--
+ src/plugins/render/annotate/AnnotatePlugin.cpp | 1 +
+ src/plugins/render/overviewmap/CMakeLists.txt  | 2 +-
+ 4 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cb374173a6..4ba1530c55 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -127,6 +127,7 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED
+         Test
+         Widgets
+         Svg
++        SvgWidgets
+         Sql
+         Concurrent
+         Quick
+@@ -357,7 +358,7 @@ add_subdirectory(data)
+ 
+ include(DistTarget)
+ 
+-add_subdirectory(tests)
++#add_subdirectory(tests)
+ 
+ option(BUILD_MARBLE_TOOLS "Build various tools related to Marble" OFF)
+ add_feature_info("Marble tools" BUILD_MARBLE_TOOLS "Build various Marble tools for e.g. file format conversion. Toggle with BUILD_MARBLE_TOOLS=YES/NO.")
+diff --git a/PORT.QT6 b/PORT.QT6
+index 782ac2c74d..703f70cede 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -69,7 +69,7 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── qtpositioning
+ │   │   │   └── wlocate
+ │   │   ├── render
+-│   │   │   ├── annotate
++│   │   │   ├── annotate                            DONE
+ │   │   │   ├── aprs
+ │   │   │   ├── atmosphere
+ │   │   │   ├── compass
+@@ -89,7 +89,7 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── notes
+ │   │   │   ├── opencaching
+ │   │   │   ├── opendesktop
+-│   │   │   ├── overviewmap
++│   │   │   ├── overviewmap                         DONE
+ │   │   │   ├── panoramio
+ │   │   │   ├── photo
+ │   │   │   ├── positionmarker
+diff --git a/src/plugins/render/annotate/AnnotatePlugin.cpp b/src/plugins/render/annotate/AnnotatePlugin.cpp
+index 87c34d78fc..96a0d42633 100644
+--- a/src/plugins/render/annotate/AnnotatePlugin.cpp
++++ b/src/plugins/render/annotate/AnnotatePlugin.cpp
+@@ -15,6 +15,7 @@
+ #include <QtAlgorithms>
+ #include <QColor>
+ #include <QApplication>
++#include <QActionGroup>
+ 
+ // Marble
+ #include "MarbleDebug.h"
+diff --git a/src/plugins/render/overviewmap/CMakeLists.txt b/src/plugins/render/overviewmap/CMakeLists.txt
+index d1cbc0ddb2..4866b40570 100644
+--- a/src/plugins/render/overviewmap/CMakeLists.txt
++++ b/src/plugins/render/overviewmap/CMakeLists.txt
+@@ -10,6 +10,6 @@ set( overviewmap_UI OverviewMapConfigWidget.ui )
+ 
+ qt_wrap_ui(overviewmap_SRCS ${overviewmap_UI})
+ 
+-set( OverviewMap_LIBS Qt6::Svg )
++set( OverviewMap_LIBS Qt6::Svg Qt6::SvgWidgets)
+ 
+ marble_add_plugin( OverviewMap ${overviewmap_SRCS} )
+-- 
+GitLab
+

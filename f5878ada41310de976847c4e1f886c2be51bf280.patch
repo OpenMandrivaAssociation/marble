@@ -1,0 +1,1060 @@
+From f5878ada41310de976847c4e1f886c2be51bf280 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Thu, 21 Sep 2023 10:43:54 +0200
+Subject: [PATCH] port to qt 6.5.2
+
+---
+ bootstrap-marble.sh                              |  2 +-
+ .../writers/dgml/DgmlDocumentTagWriter.cpp       |  2 +-
+ .../writers/dgml/DgmlGeodataTagWriter.cpp        |  4 ++--
+ .../geodata/writers/dgml/DgmlHeadTagWriter.cpp   |  6 +++---
+ .../geodata/writers/dgml/DgmlItemTagWriter.cpp   |  4 ++--
+ .../geodata/writers/dgml/DgmlLayerTagWriter.cpp  |  2 +-
+ .../geodata/writers/dgml/DgmlLegendTagWriter.cpp |  2 +-
+ .../geodata/writers/dgml/DgmlMapTagWriter.cpp    |  4 ++--
+ .../writers/dgml/DgmlSectionTagWriter.cpp        |  2 +-
+ .../writers/dgml/DgmlSettingsTagWriter.cpp       |  4 ++--
+ .../geodata/writers/dgml/DgmlTagWriter.cpp       |  2 +-
+ .../writers/dgml/DgmlTextureTagWriter.cpp        | 16 ++++++++--------
+ .../geodata/writers/dgml/DgmlVectorTagWriter.cpp |  6 +++---
+ .../writers/kml/KmlAnimatedUpdateTagWriter.cpp   |  2 +-
+ .../writers/kml/KmlBalloonStyleTagWriter.cpp     |  4 ++--
+ .../geodata/writers/kml/KmlCameraTagWriter.cpp   |  2 +-
+ .../geodata/writers/kml/KmlDataTagWriter.cpp     |  2 +-
+ .../writers/kml/KmlExtendedDataTagWriter.cpp     |  2 +-
+ .../geodata/writers/kml/KmlFlyToTagWriter.cpp    |  2 +-
+ .../writers/kml/KmlIconStyleTagWriter.cpp        | 14 +++++++-------
+ .../writers/kml/KmlLatLonAltBoxWriter.cpp        | 14 +++++++-------
+ .../geodata/writers/kml/KmlLatLonBoxWriter.cpp   |  2 +-
+ .../geodata/writers/kml/KmlLatLonQuadWriter.cpp  |  4 ++--
+ .../writers/kml/KmlLineStringTagWriter.cpp       |  2 +-
+ .../writers/kml/KmlLinearRingTagWriter.cpp       |  2 +-
+ .../geodata/writers/kml/KmlLinkTagWriter.cpp     |  2 +-
+ .../writers/kml/KmlListStyleTagWriter.cpp        |  4 ++--
+ .../geodata/writers/kml/KmlLodTagWriter.cpp      | 10 +++++-----
+ .../geodata/writers/kml/KmlLookAtTagWriter.cpp   |  2 +-
+ .../geodata/writers/kml/KmlModelTagWriter.cpp    | 16 ++++++++--------
+ .../writers/kml/KmlMultiGeometryTagWriter.cpp    |  2 +-
+ .../kml/KmlNetworkLinkControlTagWriter.cpp       |  4 ++--
+ .../writers/kml/KmlNetworkLinkTagWriter.cpp      |  2 +-
+ .../writers/kml/KmlOsmPlacemarkDataTagWriter.cpp | 14 +++++++-------
+ .../geodata/writers/kml/KmlOverlayTagWriter.cpp  |  4 ++--
+ .../writers/kml/KmlPhotoOverlayWriter.cpp        |  4 ++--
+ .../geodata/writers/kml/KmlPlaylistTagWriter.cpp |  8 ++++----
+ .../geodata/writers/kml/KmlPointTagWriter.cpp    |  2 +-
+ .../geodata/writers/kml/KmlPolygonTagWriter.cpp  |  2 +-
+ .../geodata/writers/kml/KmlRegionTagWriter.cpp   |  2 +-
+ .../writers/kml/KmlSchemaDataTagWriter.cpp       |  2 +-
+ .../geodata/writers/kml/KmlSchemaTagWriter.cpp   |  2 +-
+ .../writers/kml/KmlSimpleDataTagWriter.cpp       |  2 +-
+ .../writers/kml/KmlSimpleFieldTagWriter.cpp      |  2 +-
+ .../geodata/writers/kml/KmlStyleMapTagWriter.cpp |  4 ++--
+ .../geodata/writers/kml/KmlStyleTagWriter.cpp    |  2 +-
+ .../marble/geodata/writers/kml/KmlTagWriter.cpp  |  4 ++--
+ .../geodata/writers/kml/KmlTimeSpanWriter.cpp    |  2 +-
+ .../writers/kml/KmlTimeStampTagWriter.cpp        |  4 ++--
+ .../geodata/writers/kml/KmlUpdateTagWriter.cpp   |  8 ++++----
+ 50 files changed, 109 insertions(+), 109 deletions(-)
+
+diff --git a/bootstrap-marble.sh b/bootstrap-marble.sh
+index bf49dcf403..c2da2882c6 100755
+--- a/bootstrap-marble.sh
++++ b/bootstrap-marble.sh
+@@ -18,7 +18,7 @@ fi
+ cd build
+ 
+ cmake -G "$MAKEFILES_TYPE" \
+-      -DCMAKE_INSTALL_PREFIX=/usr \
++      -DCMAKE_INSTALL_PREFIX=/opt/qt6 \
+       -DWITH_DESIGNER_PLUGIN=ON \
+       -DBUILD_MARBLE_TESTS=ON \
+       -DBUILD_MARBLE_TOOLS=ON \
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlDocumentTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlDocumentTagWriter.cpp
+index c1dbd84eb4..a3796db27c 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlDocumentTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlDocumentTagWriter.cpp
+@@ -23,7 +23,7 @@ bool DgmlDocumentTagWriter::write( const GeoNode *node, GeoWriter& writer ) cons
+ {
+     const GeoSceneDocument *document = static_cast<const GeoSceneDocument*>( node );
+     
+-    writer.writeStartElement( dgml::dgmlTag_Document );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Document) );
+     
+     const GeoSceneHead *head = document->head();
+     writeElement( head, writer );
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlGeodataTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlGeodataTagWriter.cpp
+index 7bda300967..fc34c6f944 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlGeodataTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlGeodataTagWriter.cpp
+@@ -18,10 +18,10 @@ static GeoTagWriterRegistrar s_writerGeodata( GeoTagWriter::QualifiedName( GeoSc
+ bool DgmlGeodataTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoSceneGeodata *geodata = static_cast<const GeoSceneGeodata*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Geodata );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Geodata) );
+     writer.writeAttribute( "name", geodata->name() );
+     
+-    writer.writeStartElement( dgml::dgmlTag_SourceFile );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_SourceFile) );
+     writer.writeCharacters( geodata->sourceFile() );
+     writer.writeEndElement();
+     
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlHeadTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlHeadTagWriter.cpp
+index 3e5e8af2b7..23ea5440a4 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlHeadTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlHeadTagWriter.cpp
+@@ -21,7 +21,7 @@ static GeoTagWriterRegistrar s_writerHead( GeoTagWriter::QualifiedName( GeoScene
+ bool DgmlHeadTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoSceneHead *head = static_cast<const GeoSceneHead*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Head );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Head) );
+     writer.writeElement( "name", head->name() );
+     writer.writeElement( "target", head->target() );
+     writer.writeElement( "theme", head->theme() );
+@@ -31,12 +31,12 @@ bool DgmlHeadTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+     writer.writeEndElement();
+     
+     const GeoSceneIcon &icon = static_cast<const GeoSceneIcon&>( *head->icon() );
+-    writer.writeStartElement( dgml::dgmlTag_Icon );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Icon) );
+     writer.writeAttribute( "pixmap", icon.pixmap() );
+     writer.writeEndElement();
+     
+     const GeoSceneZoom &zoom = static_cast<const GeoSceneZoom&>( *head->zoom() );
+-    writer.writeStartElement( dgml::dgmlTag_Zoom );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Zoom) );
+     writer.writeElement( "discrete", zoom.discrete() ? "true" : "false" );
+     writer.writeTextElement( "minimum", QString::number( zoom.minimum() ) );
+     writer.writeTextElement( "maximum", QString::number( zoom.maximum() ) );
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlItemTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlItemTagWriter.cpp
+index d23701f834..98553c3fd5 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlItemTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlItemTagWriter.cpp
+@@ -22,10 +22,10 @@ bool DgmlItemTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+ {
+     const GeoSceneItem *item = static_cast<const GeoSceneItem*>( node );
+     
+-    writer.writeStartElement( dgml::dgmlTag_Item );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Item) );
+     writer.writeAttribute( "name", item->name() );
+     
+-    writer.writeStartElement( dgml::dgmlTag_Icon );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Icon) );
+     if( !item->icon()->pixmap().isEmpty() ) {
+         writer.writeAttribute( "pixmap", item->icon()->pixmap() );
+     } else if (item->icon()->color().isValid()) {
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlLayerTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlLayerTagWriter.cpp
+index 789a799fd9..42a62cf330 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlLayerTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlLayerTagWriter.cpp
+@@ -20,7 +20,7 @@ static GeoTagWriterRegistrar s_writerLayer( GeoTagWriter::QualifiedName( GeoScen
+ bool DgmlLayerTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+ {
+     const GeoSceneLayer *layer = static_cast<const GeoSceneLayer*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Layer );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Layer) );
+     writer.writeAttribute( "name", layer->name() );
+     writer.writeAttribute( "backend", layer->backend() );
+     if( !layer->role().isEmpty() )
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlLegendTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlLegendTagWriter.cpp
+index 85175b4ac8..3ffc955ff2 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlLegendTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlLegendTagWriter.cpp
+@@ -21,7 +21,7 @@ bool DgmlLegendTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoSceneLegend *legend = static_cast<const GeoSceneLegend*>( node );
+     
+-    writer.writeStartElement( dgml::dgmlTag_Legend );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Legend) );
+     for( int i = 0; i < legend->sections().count(); ++i )
+     {
+         const GeoSceneSection *section = legend->sections().at( i );
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlMapTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlMapTagWriter.cpp
+index fea819a933..e8910f9da7 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlMapTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlMapTagWriter.cpp
+@@ -22,7 +22,7 @@ static GeoTagWriterRegistrar s_writerMap( GeoTagWriter::QualifiedName( GeoSceneT
+ bool DgmlMapTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+ {
+     const GeoSceneMap *map = static_cast<const GeoSceneMap*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Map );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Map) );
+     writer.writeAttribute( "bgcolor", map->backgroundColor().name() );
+     writer.writeAttribute( "labelColor", map->labelColor().name() );    
+     
+@@ -44,7 +44,7 @@ bool DgmlMapTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+         }
+     }
+     
+-    writer.writeStartElement( dgml::dgmlTag_Target);
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Target));
+     writer.writeEndElement();
+     
+     for( int i = 0; i < map->layers().count(); ++i )
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlSectionTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlSectionTagWriter.cpp
+index e95dde2683..e78d7415fa 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlSectionTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlSectionTagWriter.cpp
+@@ -22,7 +22,7 @@ bool DgmlSectionTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+ {
+     const GeoSceneSection *section = static_cast<const GeoSceneSection*>( node );
+     
+-    writer.writeStartElement( dgml::dgmlTag_Section );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Section) );
+     writer.writeAttribute( "name", section->name() );
+     writer.writeAttribute( "checkable", section->checkable() ? "true" : "false" );
+     writer.writeAttribute( "connect", section->connectTo() );
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlSettingsTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlSettingsTagWriter.cpp
+index b874d11660..f186579394 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlSettingsTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlSettingsTagWriter.cpp
+@@ -20,12 +20,12 @@ static GeoTagWriterRegistrar s_writerSettings( GeoTagWriter::QualifiedName( GeoS
+ bool DgmlSettingsTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+ {
+     const GeoSceneSettings *settings = static_cast<const GeoSceneSettings*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Settings );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Settings) );
+     
+     for( int i = 0; i < settings->allProperties().count(); ++i )
+     {
+         const GeoSceneProperty *property = settings->allProperties().at( i );
+-        writer.writeStartElement( dgml::dgmlTag_Property );
++        writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Property) );
+         writer.writeAttribute( "name", property->name()  );
+         writer.writeElement( dgml::dgmlTag_Value, property->defaultValue() ? "true" : "false" );
+         writer.writeElement( dgml::dgmlTag_Available, property->available() ? "true" : "false" );
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlTagWriter.cpp
+index 55321407e8..b823905cca 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlTagWriter.cpp
+@@ -18,7 +18,7 @@ bool DgmlTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     Q_UNUSED(node);
+     writer.writeStartElement( "dgml" );
+-    writer.writeAttribute( "xmlns", dgml::dgmlTag_nameSpace20 );
++    writer.writeAttribute( "xmlns", QString::fromUtf8(dgml::dgmlTag_nameSpace20) );
+ 
+     // Do not write an end element for document handlers
+     return true;
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlTextureTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlTextureTagWriter.cpp
+index e78a930ee1..3c8c615752 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlTextureTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlTextureTagWriter.cpp
+@@ -23,25 +23,25 @@ static GeoTagWriterRegistrar s_writerTexture( GeoTagWriter::QualifiedName( GeoSc
+ bool DgmlTextureTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+ {
+     const GeoSceneTileDataset *texture = static_cast<const GeoSceneTileDataset*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Texture );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Texture) );
+     writer.writeAttribute( "name", texture->name() );
+     writer.writeAttribute( "expire", QString::number( texture->expire() ) );
+     
+-    writer.writeStartElement( dgml::dgmlTag_SourceDir );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_SourceDir) );
+     writer.writeAttribute( "format", texture->fileFormat() );
+     if( texture->expire() ) {
+         writer.writeAttribute( "expire", QString::number( texture->expire() ) );
+     }
+     writer.writeCharacters( texture->sourceDir() );
+     writer.writeEndElement();
+-    writer.writeStartElement( dgml::dgmlTag_TileSize );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_TileSize) );
+     writer.writeAttribute( "width", QString::number( texture->tileSize().width() ) );
+     writer.writeAttribute( "height", QString::number( texture->tileSize().height() ) );
+     writer.writeEndElement();
+ 
+     writer.writeOptionalElement( dgml::dgmlTag_InstallMap, texture->installMap() );
+     
+-    writer.writeStartElement( dgml::dgmlTag_StorageLayout );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_StorageLayout) );
+     if( texture->hasMaximumTileLevel() )
+     {
+         writer.writeAttribute( "maximumTileLevel", QString::number( texture->maximumTileLevel() ) );
+@@ -61,7 +61,7 @@ bool DgmlTextureTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+             QString path =  QString( texture->downloadUrls().at(i).path() );
+             QString query = texture->downloadUrls().at(i).query(QUrl::FullyEncoded);
+ 
+-            writer.writeStartElement( dgml::dgmlTag_DownloadUrl );
++            writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_DownloadUrl) );
+             writer.writeAttribute( "protocol", protocol );
+             writer.writeAttribute( "host", host );
+             if( port != -1 )
+@@ -76,7 +76,7 @@ bool DgmlTextureTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+     
+     for( const DownloadPolicy *policy: texture->downloadPolicies() )
+     {
+-        writer.writeStartElement( dgml::dgmlTag_DownloadPolicy );
++        writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_DownloadPolicy) );
+         
+         if( policy->key().usage() == DownloadBrowse )
+         {
+@@ -93,7 +93,7 @@ bool DgmlTextureTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+         writer.writeEndElement();    
+     }
+     
+-    writer.writeStartElement( dgml::dgmlTag_Projection );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Projection) );
+     const GeoSceneAbstractTileProjection::Type tileProjectionType = texture->tileProjectionType();
+     if (tileProjectionType == GeoSceneAbstractTileProjection::Mercator) {
+         writer.writeAttribute( "name", "Mercator" );
+@@ -102,7 +102,7 @@ bool DgmlTextureTagWriter::write(const GeoNode *node, GeoWriter& writer) const
+     }
+     writer.writeEndElement();
+ 
+-    writer.writeStartElement( dgml::dgmlTag_Blending );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Blending) );
+     if (!texture->blending().isEmpty()) {
+         writer.writeAttribute( "name", texture->blending() );
+     }
+diff --git a/src/lib/marble/geodata/writers/dgml/DgmlVectorTagWriter.cpp b/src/lib/marble/geodata/writers/dgml/DgmlVectorTagWriter.cpp
+index eb8f664c44..0eda8a397c 100644
+--- a/src/lib/marble/geodata/writers/dgml/DgmlVectorTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/dgml/DgmlVectorTagWriter.cpp
+@@ -18,16 +18,16 @@ static GeoTagWriterRegistrar s_writerVector( GeoTagWriter::QualifiedName( GeoSce
+ bool DgmlVectorTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoSceneVector *vector = static_cast<const GeoSceneVector*>( node );
+-    writer.writeStartElement( dgml::dgmlTag_Vector );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Vector) );
+     writer.writeAttribute( "name", vector->name() );
+     writer.writeAttribute( "feature", vector->feature() );
+     
+-    writer.writeStartElement( dgml::dgmlTag_SourceFile );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_SourceFile) );
+     writer.writeAttribute( "format", vector->fileFormat() );
+     writer.writeCharacters( vector->sourceFile() );
+     writer.writeEndElement();
+     
+-    writer.writeStartElement( dgml::dgmlTag_Pen );
++    writer.writeStartElement( QString::fromUtf8(dgml::dgmlTag_Pen) );
+     writer.writeAttribute( "color", vector->pen().color().name() );
+     writer.writeEndElement();
+         
+diff --git a/src/lib/marble/geodata/writers/kml/KmlAnimatedUpdateTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlAnimatedUpdateTagWriter.cpp
+index 92b8db9e9c..545e7194aa 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlAnimatedUpdateTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlAnimatedUpdateTagWriter.cpp
+@@ -23,7 +23,7 @@ bool KmlAnimatedUpdateTagWriter::write( const GeoNode *node, GeoWriter& writer )
+ {
+     Q_ASSERT(dynamic_cast<const GeoDataAnimatedUpdate *>(node));
+     const GeoDataAnimatedUpdate *animUpdate = static_cast<const GeoDataAnimatedUpdate*>( node );
+-    writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_AnimatedUpdate );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_AnimatedUpdate) );
+     KmlObjectTagWriter::writeIdentifiers( writer, animUpdate );
+     writer.writeOptionalElement( "gx:duration", animUpdate->duration(), 0.0 );
+     if ( animUpdate->update() ){
+diff --git a/src/lib/marble/geodata/writers/kml/KmlBalloonStyleTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlBalloonStyleTagWriter.cpp
+index dc84ce66e8..816094250c 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlBalloonStyleTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlBalloonStyleTagWriter.cpp
+@@ -34,7 +34,7 @@ bool KmlBalloonStyleTagWriter::write( const GeoNode *node,
+             return true;
+     }
+ 
+-    writer.writeStartElement( kml::kmlTag_BalloonStyle );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_BalloonStyle) );
+     KmlObjectTagWriter::writeIdentifiers( writer, balloonStyle );
+ 
+     QString const backgroundColor = KmlColorStyleTagWriter::formatColor( balloonStyle->backgroundColor() );
+@@ -44,7 +44,7 @@ bool KmlBalloonStyleTagWriter::write( const GeoNode *node,
+ 
+     QString const textString = balloonStyle->text();
+     if ( textString.contains( QRegularExpression( "[<>&]" ) ) ) {
+-        writer.writeStartElement( kml::kmlTag_text );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_text) );
+         writer.writeCDATA( textString );
+         writer.writeEndElement();
+     } else {
+diff --git a/src/lib/marble/geodata/writers/kml/KmlCameraTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlCameraTagWriter.cpp
+index 099dcf1f19..8e4ef54317 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlCameraTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlCameraTagWriter.cpp
+@@ -30,7 +30,7 @@ bool KmlCameraTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataCamera *camera = static_cast<const GeoDataCamera*>(node);
+ 
+-    writer.writeStartElement( kml::kmlTag_Camera );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Camera) );
+     KmlObjectTagWriter::writeIdentifiers( writer, camera );
+ 
+     if (camera->timeStamp().when().isValid()) {
+diff --git a/src/lib/marble/geodata/writers/kml/KmlDataTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlDataTagWriter.cpp
+index 881dade6d6..95874d24cf 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlDataTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlDataTagWriter.cpp
+@@ -24,7 +24,7 @@ bool KmlDataTagWriter::write( const GeoNode *node,
+ {
+     const GeoDataData *data = static_cast<const GeoDataData*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_Data );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Data) );
+     writer.writeAttribute( "name", data->name() );
+     writer.writeOptionalElement( kml::kmlTag_displayName, data->displayName() );
+     writer.writeElement( "value", data->value().toString() );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlExtendedDataTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlExtendedDataTagWriter.cpp
+index e1938b4d5c..4b1c807053 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlExtendedDataTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlExtendedDataTagWriter.cpp
+@@ -28,7 +28,7 @@ bool KmlExtendedDataTagWriter::write( const GeoNode *node,
+ {
+     const GeoDataExtendedData *extended = static_cast<const GeoDataExtendedData*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_ExtendedData );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_ExtendedData) );
+     
+     QHash< QString, GeoDataData >::const_iterator begin = extended->constBegin();
+     QHash< QString, GeoDataData >::const_iterator end = extended->constEnd();
+diff --git a/src/lib/marble/geodata/writers/kml/KmlFlyToTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlFlyToTagWriter.cpp
+index 91da1ab824..33e5d0d22d 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlFlyToTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlFlyToTagWriter.cpp
+@@ -25,7 +25,7 @@ static GeoTagWriterRegistrar s_writerFlyTo(
+ bool KmlFlyToTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataFlyTo *flyTo = static_cast<const GeoDataFlyTo*>( node );
+-    writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_FlyTo );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_FlyTo) );
+     writer.writeElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_duration, QString::number( flyTo->duration()) );
+     if ( flyTo->flyToMode() == GeoDataFlyTo::Smooth ) {
+         // two values, smooth and bounce, bounce is default and can hence be omitted
+diff --git a/src/lib/marble/geodata/writers/kml/KmlIconStyleTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlIconStyleTagWriter.cpp
+index 50f1da078f..f8340835a8 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlIconStyleTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlIconStyleTagWriter.cpp
+@@ -32,16 +32,16 @@ bool KmlIconStyleTagWriter::writeMid( const GeoNode *node, GeoWriter& writer ) c
+     }
+ 
+     if (!style->size().isEmpty()) {
+-        writer.writeNamespace(kml::kmlTag_nameSpaceMx, QStringLiteral("mx"));
+-        writer.writeStartElement(kml::kmlTag_nameSpaceMx, kml::kmlTag_size);
+-        writer.writeAttribute(kml::kmlTag_width, QString::number(style->size().width()));
+-        writer.writeAttribute(kml::kmlTag_height, QString::number(style->size().height()));
++        writer.writeNamespace(QString::fromUtf8(kml::kmlTag_nameSpaceMx), QStringLiteral("mx"));
++        writer.writeStartElement(QString::fromUtf8(kml::kmlTag_nameSpaceMx), QString::fromUtf8(kml::kmlTag_size));
++        writer.writeAttribute(QString::fromUtf8(kml::kmlTag_width), QString::number(style->size().width()));
++        writer.writeAttribute(QString::fromUtf8(kml::kmlTag_height), QString::number(style->size().height()));
+         writer.writeEndElement();
+     }
+ 
+     if ( !style->iconPath().isEmpty() ) {
+-        writer.writeStartElement( kml::kmlTag_Icon );
+-        writer.writeStartElement( kml::kmlTag_href );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Icon) );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_href) );
+         writer.writeCharacters( style->iconPath() );
+         writer.writeEndElement();
+         writer.writeEndElement();
+@@ -52,7 +52,7 @@ bool KmlIconStyleTagWriter::writeMid( const GeoNode *node, GeoWriter& writer ) c
+     bool const emptyHotSpot = hotSpot.x() == 0.5 && hotSpot.y() == 0.5 &&
+         xunits == GeoDataHotSpot::Fraction && yunits == GeoDataHotSpot::Fraction;
+     if ( !emptyHotSpot ) {
+-        writer.writeStartElement( kml::kmlTag_hotSpot );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_hotSpot) );
+         if ( hotSpot.x() != 0.5 || xunits != GeoDataHotSpot::Fraction ) {
+             writer.writeAttribute( "x", QString::number( hotSpot.x(), 'f' ) );
+         }
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLatLonAltBoxWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLatLonAltBoxWriter.cpp
+index f42aceb9c9..6286f64549 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLatLonAltBoxWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLatLonAltBoxWriter.cpp
+@@ -24,14 +24,14 @@ bool KmlLatLonAltBoxWriter::write( const GeoNode *node,
+ 				 GeoWriter& writer ) const
+ {
+     const GeoDataLatLonAltBox *latLonAltBox = static_cast<const GeoDataLatLonAltBox*>( node );
+-    writer.writeStartElement(kml::kmlTag_LatLonAltBox);
++    writer.writeStartElement(QString::fromUtf8(kml::kmlTag_LatLonAltBox));
+     KmlObjectTagWriter::writeIdentifiers( writer, latLonAltBox );
+-    writer.writeTextElement( kml::kmlTag_north, QString::number(latLonAltBox->north( GeoDataCoordinates::Degree )) );
+-    writer.writeTextElement( kml::kmlTag_south, QString::number(latLonAltBox->south( GeoDataCoordinates::Degree )) );
+-    writer.writeTextElement( kml::kmlTag_east,  QString::number(latLonAltBox->east( GeoDataCoordinates::Degree )) );
+-    writer.writeTextElement( kml::kmlTag_west,  QString::number(latLonAltBox->west( GeoDataCoordinates::Degree )) );
+-    writer.writeTextElement( kml::kmlTag_minAltitude, QString::number(latLonAltBox->minAltitude()) );
+-    writer.writeTextElement( kml::kmlTag_maxAltitude, QString::number(latLonAltBox->maxAltitude()) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_north), QString::number(latLonAltBox->north( GeoDataCoordinates::Degree )) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_south), QString::number(latLonAltBox->south( GeoDataCoordinates::Degree )) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_east),  QString::number(latLonAltBox->east( GeoDataCoordinates::Degree )) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_west),  QString::number(latLonAltBox->west( GeoDataCoordinates::Degree )) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_minAltitude), QString::number(latLonAltBox->minAltitude()) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_maxAltitude), QString::number(latLonAltBox->maxAltitude()) );
+     KmlGroundOverlayWriter::writeAltitudeMode( writer, latLonAltBox->altitudeMode());
+     writer.writeEndElement();
+     return true;
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLatLonBoxWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLatLonBoxWriter.cpp
+index bc0d3ef773..4d40cb666b 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLatLonBoxWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLatLonBoxWriter.cpp
+@@ -25,7 +25,7 @@ bool KmlLatLonBoxWriter::write( const GeoNode *node,
+     const GeoDataLatLonBox *lat_lon_box =
+ 	static_cast<const GeoDataLatLonBox*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_LatLonBox );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_LatLonBox) );
+     KmlObjectTagWriter::writeIdentifiers( writer, lat_lon_box );
+ 
+     writer.writeTextElement( "north",
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLatLonQuadWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLatLonQuadWriter.cpp
+index 840c32f38c..14f4d7fc33 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLatLonQuadWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLatLonQuadWriter.cpp
+@@ -25,10 +25,10 @@ bool KmlLatLonQuadWriter::write( const GeoNode *node,
+     const GeoDataLatLonQuad *latLonQuad = static_cast<const GeoDataLatLonQuad*>( node );
+ 
+     if ( latLonQuad->isValid() ) {
+-        writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_LatLonQuad );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_LatLonQuad) );
+         KmlObjectTagWriter::writeIdentifiers( writer, latLonQuad );
+ 
+-        writer.writeStartElement( kml::kmlTag_coordinates );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_coordinates) );
+ 
+         writer.writeCharacters( QString::number( latLonQuad->bottomLeftLongitude( GeoDataCoordinates::Degree ) ) );
+         writer.writeCharacters( QString( ',' ) );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLineStringTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLineStringTagWriter.cpp
+index a426db819c..13a1be57fc 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLineStringTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLineStringTagWriter.cpp
+@@ -27,7 +27,7 @@ bool KmlLineStringTagWriter::write( const GeoNode *node, GeoWriter& writer ) con
+ 
+     if ( lineString->size() > 1 )
+     {
+-        writer.writeStartElement( kml::kmlTag_LineString );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_LineString) );
+         KmlObjectTagWriter::writeIdentifiers( writer, lineString );
+         writer.writeOptionalElement( kml::kmlTag_extrude, QString::number( lineString->extrude() ), "0" );
+         writer.writeOptionalElement( kml::kmlTag_tessellate, QString::number( lineString->tessellate() ), "0" );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLinearRingTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLinearRingTagWriter.cpp
+index 4b5cff4ccf..69b9f8ef80 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLinearRingTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLinearRingTagWriter.cpp
+@@ -27,7 +27,7 @@ bool KmlLinearRingTagWriter::write( const GeoNode *node, GeoWriter& writer ) con
+ 
+     if ( ring->size() > 1 )
+     {
+-        writer.writeStartElement( kml::kmlTag_LinearRing );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_LinearRing) );
+         KmlObjectTagWriter::writeIdentifiers( writer, ring );
+         writer.writeOptionalElement( kml::kmlTag_extrude, QString::number( ring->extrude() ), "0" );
+         writer.writeOptionalElement( kml::kmlTag_tessellate, QString::number( ring->tessellate() ), "0" );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLinkTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLinkTagWriter.cpp
+index 6e68ab5f2a..697eb4253a 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLinkTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLinkTagWriter.cpp
+@@ -22,7 +22,7 @@ bool KmlLinkTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataLink *link = static_cast<const GeoDataLink*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_Link );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Link) );
+     KmlObjectTagWriter::writeIdentifiers( writer, link );
+ 
+     writer.writeElement( kml::kmlTag_href, link->href() );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlListStyleTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlListStyleTagWriter.cpp
+index 307589c15e..7f24bd8555 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlListStyleTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlListStyleTagWriter.cpp
+@@ -28,7 +28,7 @@ bool KmlListStyleTagWriter::write( const GeoNode *node,
+     if ( isEmpty ) {
+         return true;
+     }
+-    writer.writeStartElement( kml::kmlTag_ListStyle );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_ListStyle) );
+ 
+     QString const itemType = itemTypeToString( listStyle->listItemType() );
+     writer.writeOptionalElement( kml::kmlTag_listItemType, itemType, "check" );
+@@ -36,7 +36,7 @@ bool KmlListStyleTagWriter::write( const GeoNode *node,
+     writer.writeOptionalElement( kml::kmlTag_bgColor, color, "ffffffff" );
+ 
+     for( GeoDataItemIcon* icon: listStyle->itemIconList() ) {
+-        writer.writeStartElement(kml::kmlTag_ItemIcon);
++        writer.writeStartElement(QString::fromUtf8(kml::kmlTag_ItemIcon));
+         QString const state = iconStateToString( icon->state() );
+         writer.writeOptionalElement( kml::kmlTag_state, state, "open" );
+         writer.writeOptionalElement( kml::kmlTag_href, icon->iconPath() );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLodTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLodTagWriter.cpp
+index dc7647f2a8..0ede28694d 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLodTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLodTagWriter.cpp
+@@ -23,12 +23,12 @@ bool KmlLodTagWriter::write( const GeoNode *node,
+ 				 GeoWriter& writer ) const
+ {
+     const GeoDataLod *lod = static_cast<const GeoDataLod*>( node );
+-    writer.writeStartElement(kml::kmlTag_Lod);
++    writer.writeStartElement(QString::fromUtf8(kml::kmlTag_Lod));
+     KmlObjectTagWriter::writeIdentifiers( writer, lod );
+-    writer.writeTextElement( kml::kmlTag_minLodPixels,  QString::number(lod->minLodPixels()) );
+-    writer.writeTextElement( kml::kmlTag_maxLodPixels,  QString::number(lod->maxLodPixels()) );
+-    writer.writeTextElement( kml::kmlTag_minFadeExtent, QString::number(lod->minFadeExtent()) );
+-    writer.writeTextElement( kml::kmlTag_maxFadeExtent, QString::number(lod->maxFadeExtent()) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_minLodPixels),  QString::number(lod->minLodPixels()) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_maxLodPixels),  QString::number(lod->maxLodPixels()) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_minFadeExtent), QString::number(lod->minFadeExtent()) );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_maxFadeExtent), QString::number(lod->maxFadeExtent()) );
+     writer.writeEndElement();
+     return true;
+ }
+diff --git a/src/lib/marble/geodata/writers/kml/KmlLookAtTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlLookAtTagWriter.cpp
+index e3ff35c101..07d0db3ebb 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlLookAtTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlLookAtTagWriter.cpp
+@@ -31,7 +31,7 @@ bool KmlLookAtTagWriter::write( const GeoNode *node,
+ {
+     const GeoDataLookAt *lookAt = static_cast<const GeoDataLookAt*>(node);
+ 
+-    writer.writeStartElement( kml::kmlTag_LookAt );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_LookAt) );
+     KmlObjectTagWriter::writeIdentifiers( writer, lookAt );
+ 
+     if (lookAt->timeStamp().when().isValid()) {
+diff --git a/src/lib/marble/geodata/writers/kml/KmlModelTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlModelTagWriter.cpp
+index 3bd4952e33..1bbc259692 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlModelTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlModelTagWriter.cpp
+@@ -30,14 +30,14 @@ bool KmlModelTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataModel *model = static_cast<const GeoDataModel*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_Model );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Model) );
+     KmlObjectTagWriter::writeIdentifiers( writer, model );
+ 
+     KmlGroundOverlayWriter::writeAltitudeMode( writer, model->altitudeMode());
+ 
+     const GeoDataLocation location = model->location() ;
+ 
+-    writer.writeStartElement( kml::kmlTag_Location );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Location) );
+ 
+     writer.writeOptionalElement( kml::kmlTag_longitude, QString::number( location.longitude( GeoDataCoordinates::Degree ) ), "0" );
+     writer.writeOptionalElement( kml::kmlTag_latitude, QString::number( location.latitude( GeoDataCoordinates::Degree ) ), "0" );
+@@ -47,7 +47,7 @@ bool KmlModelTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ 
+     const GeoDataOrientation orientation = model->orientation();
+ 
+-    writer.writeStartElement( kml::kmlTag_Orientation );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Orientation) );
+ 
+     writer.writeOptionalElement( kml::kmlTag_heading, QString::number( orientation.heading() ), "0" );
+     writer.writeOptionalElement( kml::kmlTag_tilt, QString::number( orientation.tilt() ), "0" );
+@@ -57,7 +57,7 @@ bool KmlModelTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ 
+     const GeoDataScale scale = model->scale() ;
+ 
+-    writer.writeStartElement( kml::kmlTag_Scale );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Scale) );
+ 
+     writer.writeOptionalElement( kml::kmlTag_x, QString::number( scale.x() ), "1" );
+     writer.writeOptionalElement( kml::kmlTag_y, QString::number( scale.y() ), "1" );
+@@ -69,13 +69,13 @@ bool KmlModelTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ 
+     const GeoDataResourceMap map = model->resourceMap() ;
+ 
+-    writer.writeStartElement( kml::kmlTag_ResourceMap );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_ResourceMap) );
+ 
+     const GeoDataAlias alias = map.alias() ;
+-    writer.writeStartElement( kml::kmlTag_Alias );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Alias) );
+ 
+-    writer.writeTextElement( kml::kmlTag_targetHref, alias.targetHref() );
+-    writer.writeTextElement( kml::kmlTag_sourceHref, alias.sourceHref() );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_targetHref), alias.targetHref() );
++    writer.writeTextElement( QString::fromUtf8(kml::kmlTag_sourceHref), alias.sourceHref() );
+ 
+     writer.writeEndElement();
+ 
+diff --git a/src/lib/marble/geodata/writers/kml/KmlMultiGeometryTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlMultiGeometryTagWriter.cpp
+index 52b39f4494..e7d4625ec9 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlMultiGeometryTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlMultiGeometryTagWriter.cpp
+@@ -23,7 +23,7 @@ bool KmlMultiGeometryTagWriter::write( const GeoNode *node, GeoWriter& writer )
+ {
+     const GeoDataMultiGeometry *geometry = static_cast<const GeoDataMultiGeometry*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_MultiGeometry );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_MultiGeometry) );
+     KmlObjectTagWriter::writeIdentifiers( writer, geometry );
+ 
+     for ( int i = 0; i < geometry->size(); ++i )
+diff --git a/src/lib/marble/geodata/writers/kml/KmlNetworkLinkControlTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlNetworkLinkControlTagWriter.cpp
+index 5543c10e89..f938517b39 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlNetworkLinkControlTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlNetworkLinkControlTagWriter.cpp
+@@ -25,7 +25,7 @@ bool KmlNetworkLinkControlTagWriter::write( const GeoNode *node, GeoWriter& writ
+ {
+     const GeoDataNetworkLinkControl *networkLinkControl = static_cast<const GeoDataNetworkLinkControl*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_NetworkLinkControl );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_NetworkLinkControl) );
+     writer.writeOptionalElement( kml::kmlTag_minRefreshPeriod, QString::number( networkLinkControl->minRefreshPeriod() ), "1" );
+     writer.writeOptionalElement( kml::kmlTag_maxSessionLength, QString::number( networkLinkControl->maxSessionLength() ), "2" );
+     writer.writeOptionalElement( kml::kmlTag_cookie, networkLinkControl->cookie() );
+@@ -33,7 +33,7 @@ bool KmlNetworkLinkControlTagWriter::write( const GeoNode *node, GeoWriter& writ
+     writer.writeOptionalElement( kml::kmlTag_linkName, networkLinkControl->linkName() );
+     writer.writeOptionalElement( kml::kmlTag_linkDescription, networkLinkControl->linkDescription() );
+ 
+-    writer.writeStartElement( kml::kmlTag_linkSnippet );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_linkSnippet) );
+ 
+     if( networkLinkControl->maxLines() > 0 ) {
+         writer.writeAttribute( "maxLines", QString::number( networkLinkControl->maxLines() ) );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlNetworkLinkTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlNetworkLinkTagWriter.cpp
+index 61b3f13e66..0f2042c634 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlNetworkLinkTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlNetworkLinkTagWriter.cpp
+@@ -24,7 +24,7 @@ bool KmlNetworkLinkTagWriter::write( const GeoNode *node, GeoWriter& writer ) co
+ 
+     const GeoDataNetworkLink *networkLink = static_cast<const GeoDataNetworkLink*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_NetworkLink );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_NetworkLink) );
+ 
+     writer.writeOptionalElement( kml::kmlTag_name, networkLink->name() );
+ 
+diff --git a/src/lib/marble/geodata/writers/kml/KmlOsmPlacemarkDataTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlOsmPlacemarkDataTagWriter.cpp
+index 13c3198e5d..e1c643161f 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlOsmPlacemarkDataTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlOsmPlacemarkDataTagWriter.cpp
+@@ -33,10 +33,10 @@ bool KmlOsmPlacemarkDataTagWriter::write( const GeoDataFeature *feature,
+         return true;
+     }
+ 
+-    writer.writeStartElement( kml::kmlTag_ExtendedData );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_ExtendedData) );
+ 
+     // We declare the "mx" namespace for the custom osmPlacemarkData XML schema
+-    writer.writeNamespace( kml::kmlTag_nameSpaceMx, "mx" );
++    writer.writeNamespace( QString::fromUtf8(kml::kmlTag_nameSpaceMx), "mx" );
+ 
+     KmlOsmPlacemarkDataTagWriter::writeOsmData( placemark->geometry(), osmData, writer );
+ 
+@@ -48,7 +48,7 @@ bool KmlOsmPlacemarkDataTagWriter::writeOsmData( const GeoDataGeometry *geometry
+                                                  const OsmPlacemarkData &osmData,
+                                                  GeoWriter& writer )
+ {
+-    writer.writeStartElement( kml::kmlTag_nameSpaceMx, kml::kmlTag_OsmPlacemarkData );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceMx), QString::fromUtf8(kml::kmlTag_OsmPlacemarkData) );
+ 
+     // Writing the attributes
+     writer.writeAttribute( "id", QString::number( osmData.id() ) );
+@@ -64,7 +64,7 @@ bool KmlOsmPlacemarkDataTagWriter::writeOsmData( const GeoDataGeometry *geometry
+     QHash<QString, QString>::const_iterator tagsIt = osmData.tagsBegin();
+     QHash<QString, QString>::const_iterator tagsEnd = osmData.tagsEnd();
+     for ( ; tagsIt != tagsEnd; ++tagsIt ) {
+-        writer.writeStartElement( kml::kmlTag_nameSpaceMx, "tag" );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceMx), "tag" );
+         writer.writeAttribute( "k", tagsIt.key() );
+         writer.writeAttribute( "v", tagsIt.value() );
+         writer.writeEndElement();
+@@ -80,7 +80,7 @@ bool KmlOsmPlacemarkDataTagWriter::writeOsmData( const GeoDataGeometry *geometry
+             QVector<GeoDataCoordinates>::const_iterator nodeEnd = lineString->end();
+             for ( ; nodeIt != nodeEnd; ++nodeIt ) {
+                 const OsmPlacemarkData &nodeOsmData = osmData.nodeReference( *nodeIt );
+-                writer.writeStartElement( kml::kmlTag_nameSpaceMx, "nd" );
++                writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceMx), "nd" );
+                 writer.writeAttribute( "index", QString::number( ndIndex++ ) );
+                 writeOsmData( nullptr, nodeOsmData, writer );
+                 writer.writeEndElement();
+@@ -93,7 +93,7 @@ bool KmlOsmPlacemarkDataTagWriter::writeOsmData( const GeoDataGeometry *geometry
+             // Writing the outerBoundary osmData
+             const GeoDataLinearRing &outerRing = polygon->outerBoundary();
+             const OsmPlacemarkData &outerRingOsmData = osmData.memberReference( memberIndex );
+-            writer.writeStartElement( kml::kmlTag_nameSpaceMx, kml::kmlTag_member );
++            writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceMx), QString::fromUtf8(kml::kmlTag_member) );
+             writer.writeAttribute( "index", QString::number( memberIndex ) );
+             writeOsmData( &outerRing, outerRingOsmData, writer );
+             writer.writeEndElement();
+@@ -101,7 +101,7 @@ bool KmlOsmPlacemarkDataTagWriter::writeOsmData( const GeoDataGeometry *geometry
+             // Writing the innerBoundaries
+             for ( const GeoDataLinearRing &innerRing: polygon->innerBoundaries() ) {
+                 const OsmPlacemarkData &innerRingOsmData = osmData.memberReference( ++memberIndex );
+-                writer.writeStartElement( kml::kmlTag_nameSpaceMx, kml::kmlTag_member );
++                writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceMx), QString::fromUtf8(kml::kmlTag_member) );
+                 writer.writeAttribute( "index", QString::number( memberIndex ) );
+                 writeOsmData( &innerRing, innerRingOsmData, writer );
+                 writer.writeEndElement();
+diff --git a/src/lib/marble/geodata/writers/kml/KmlOverlayTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlOverlayTagWriter.cpp
+index f73c16919a..6074cdf3e6 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlOverlayTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlOverlayTagWriter.cpp
+@@ -30,8 +30,8 @@ bool KmlOverlayTagWriter::writeMid( const Marble::GeoNode *node, GeoWriter &writ
+     writer.writeOptionalElement( kml::kmlTag_drawOrder, drawOrder, "0" );
+ 
+     if ( !overlay->iconFile().isEmpty() ) {
+-        writer.writeStartElement( kml::kmlTag_Icon );
+-        writer.writeStartElement( kml::kmlTag_href );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Icon) );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_href) );
+         writer.writeCharacters( overlay->iconFile() );
+         writer.writeEndElement();
+         writer.writeEndElement();
+diff --git a/src/lib/marble/geodata/writers/kml/KmlPhotoOverlayWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlPhotoOverlayWriter.cpp
+index 51c873db25..cde3f53ba7 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlPhotoOverlayWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlPhotoOverlayWriter.cpp
+@@ -39,7 +39,7 @@ bool KmlPhotoOverlayWriter::writeMid( const GeoNode *node, GeoWriter &writer ) c
+     writer.writeOptionalElement( kml::kmlTag_rotation, rotation, "0.000" );
+ 
+     // ViewVolume
+-    writer.writeStartElement( kml::kmlTag_ViewVolume );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_ViewVolume) );
+     writer.writeOptionalElement<qreal>( kml::kmlTag_leftFov, photo_overlay->viewVolume().leftFov(), 0 );
+     writer.writeOptionalElement<qreal>( kml::kmlTag_rightFov, photo_overlay->viewVolume().rightFov(), 0 );
+     writer.writeOptionalElement<qreal>( kml::kmlTag_bottomFov, photo_overlay->viewVolume().bottomFov(), 0 );
+@@ -48,7 +48,7 @@ bool KmlPhotoOverlayWriter::writeMid( const GeoNode *node, GeoWriter &writer ) c
+     writer.writeEndElement();
+ 
+     // ImagePyramid
+-    writer.writeStartElement( kml::kmlTag_ImagePyramid );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_ImagePyramid) );
+     writer.writeOptionalElement<int>( kml::kmlTag_tileSize, photo_overlay->imagePyramid().tileSize(), 256 );
+     writer.writeOptionalElement<int>( kml::kmlTag_maxWidth, photo_overlay->imagePyramid().maxWidth() );
+     writer.writeOptionalElement<int>( kml::kmlTag_maxHeight, photo_overlay->imagePyramid().maxHeight() );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlPlaylistTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlPlaylistTagWriter.cpp
+index 8528c0505d..48c590d02d 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlPlaylistTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlPlaylistTagWriter.cpp
+@@ -27,7 +27,7 @@ bool KmlPlaylistTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataPlaylist *playlist = static_cast<const GeoDataPlaylist*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_Playlist );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_Playlist) );
+ 
+     for ( int i = 0; i < playlist->size(); i++ ) {
+         writeTourPrimitive( playlist->primitive( i ), writer );
+@@ -60,7 +60,7 @@ void KmlPlaylistTagWriter::writeTourPrimitive(const GeoDataTourPrimitive *primit
+ 
+ void KmlPlaylistTagWriter::writeTourControl(const GeoDataTourControl &tourControl, GeoWriter &writer)
+ {
+-    writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_TourControl );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_TourControl) );
+     KmlObjectTagWriter::writeIdentifiers(writer, &tourControl);
+ 
+     writer.writeElement(kml::kmlTag_nameSpaceGx22, kml::kmlTag_playMode, playModeToString(tourControl.playMode()));
+@@ -70,7 +70,7 @@ void KmlPlaylistTagWriter::writeTourControl(const GeoDataTourControl &tourContro
+ 
+ void KmlPlaylistTagWriter::writeWait(const GeoDataWait &wait, GeoWriter &writer)
+ {
+-    writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_Wait );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_Wait) );
+     KmlObjectTagWriter::writeIdentifiers(writer, &wait);
+ 
+     writer.writeElement(kml::kmlTag_nameSpaceGx22, kml::kmlTag_duration, QString::number(wait.duration()));
+@@ -80,7 +80,7 @@ void KmlPlaylistTagWriter::writeWait(const GeoDataWait &wait, GeoWriter &writer)
+ 
+ void KmlPlaylistTagWriter::writeSoundCue(const GeoDataSoundCue &cue, GeoWriter &writer)
+ {
+-    writer.writeStartElement( kml::kmlTag_nameSpaceGx22, kml::kmlTag_SoundCue );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), QString::fromUtf8(kml::kmlTag_SoundCue) );
+     KmlObjectTagWriter::writeIdentifiers(writer, &cue);
+ 
+     writer.writeElement(kml::kmlTag_href, cue.href());
+diff --git a/src/lib/marble/geodata/writers/kml/KmlPointTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlPointTagWriter.cpp
+index f24e8526e0..566812c866 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlPointTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlPointTagWriter.cpp
+@@ -30,7 +30,7 @@ bool KmlPointTagWriter::write( const GeoNode *node,
+         return true;
+     }
+ 
+-    writer.writeStartElement( kml::kmlTag_Point );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Point) );
+     KmlObjectTagWriter::writeIdentifiers( writer, point );
+     writer.writeOptionalElement( kml::kmlTag_extrude, QString::number( point->extrude() ), "0" );
+     writer.writeStartElement("coordinates");
+diff --git a/src/lib/marble/geodata/writers/kml/KmlPolygonTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlPolygonTagWriter.cpp
+index 3ea59a7a65..65b6493106 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlPolygonTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlPolygonTagWriter.cpp
+@@ -25,7 +25,7 @@ bool KmlPolygonTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataPolygon *polygon = static_cast<const GeoDataPolygon*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_Polygon );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Polygon) );
+     KmlObjectTagWriter::writeIdentifiers( writer, polygon );
+     writer.writeOptionalElement( kml::kmlTag_extrude, QString::number( polygon->extrude() ), "0" );
+ 
+diff --git a/src/lib/marble/geodata/writers/kml/KmlRegionTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlRegionTagWriter.cpp
+index f72abad598..a168d06125 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlRegionTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlRegionTagWriter.cpp
+@@ -26,7 +26,7 @@ static GeoTagWriterRegistrar s_writerRegion(
+ bool KmlRegionTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataRegion *region = static_cast<const GeoDataRegion*>( node );
+-    writer.writeStartElement( kml::kmlTag_Region );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Region) );
+     KmlObjectTagWriter::writeIdentifiers( writer, region );
+     writeElement( &region->latLonAltBox(), writer );
+     writeElement( &region->lod(), writer );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlSchemaDataTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlSchemaDataTagWriter.cpp
+index 3447e5aa2f..01e7e8646c 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlSchemaDataTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlSchemaDataTagWriter.cpp
+@@ -27,7 +27,7 @@ static GeoTagWriterRegistrar s_writerSchemaData(
+ bool KmlSchemaDataTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataSchemaData *schemaData = static_cast<const GeoDataSchemaData*>( node );
+-    writer.writeStartElement( kml::kmlTag_SchemaData );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_SchemaData) );
+     QString schemaUrl = schemaData->schemaUrl();
+     writer.writeAttribute( "schemaUrl", schemaUrl );
+ 
+diff --git a/src/lib/marble/geodata/writers/kml/KmlSchemaTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlSchemaTagWriter.cpp
+index 9ef6fcd125..aa81d3a7b1 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlSchemaTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlSchemaTagWriter.cpp
+@@ -23,7 +23,7 @@ static GeoTagWriterRegistrar s_writerSchema(
+ bool KmlSchemaTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataSchema *schema = static_cast<const GeoDataSchema*>( node );
+-    writer.writeStartElement( kml::kmlTag_Schema );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Schema) );
+     KmlObjectTagWriter::writeIdentifiers( writer, schema );
+     QString name = schema->schemaName();
+     writer.writeAttribute( "name", name );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlSimpleDataTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlSimpleDataTagWriter.cpp
+index 91ea7010f5..2f30a64d85 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlSimpleDataTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlSimpleDataTagWriter.cpp
+@@ -23,7 +23,7 @@ static GeoTagWriterRegistrar s_writerSimpleData(
+ bool KmlSimpleDataTagWriter::write( const GeoNode *node, GeoWriter &writer ) const
+ {
+     const GeoDataSimpleData *simpleData = static_cast<const GeoDataSimpleData*>( node );
+-    writer.writeStartElement( kml::kmlTag_SimpleData );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_SimpleData) );
+     writer.writeAttribute( "name", simpleData->name() );
+     writer.writeCharacters( simpleData->data() );
+     writer.writeEndElement();
+diff --git a/src/lib/marble/geodata/writers/kml/KmlSimpleFieldTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlSimpleFieldTagWriter.cpp
+index 9ae8e9d6e4..fe126f1b3a 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlSimpleFieldTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlSimpleFieldTagWriter.cpp
+@@ -22,7 +22,7 @@ static GeoTagWriterRegistrar s_writerSimpleField(
+ bool KmlSimpleFieldTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataSimpleField *simpleField = static_cast<const GeoDataSimpleField*>( node );
+-    writer.writeStartElement( kml::kmlTag_SimpleField );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_SimpleField) );
+     writer.writeAttribute( "name", simpleField->name() );
+     GeoDataSimpleField::SimpleFieldType simpleFieldType = simpleField->type();
+     QString type = resolveType( simpleFieldType );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlStyleMapTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlStyleMapTagWriter.cpp
+index a022be7063..520becc924 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlStyleMapTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlStyleMapTagWriter.cpp
+@@ -23,13 +23,13 @@ bool KmlStyleMapTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataStyleMap *map = static_cast<const GeoDataStyleMap*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_StyleMap );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_StyleMap) );
+     KmlObjectTagWriter::writeIdentifiers( writer, map );
+ 
+     QMapIterator<QString, QString> iter( *map );
+     while ( iter.hasNext() ) {
+         iter.next();
+-        writer.writeStartElement( kml::kmlTag_Pair );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Pair) );
+         writer.writeElement( kml::kmlTag_key, iter.key() );
+         writer.writeElement( kml::kmlTag_styleUrl, iter.value() );
+         writer.writeEndElement();
+diff --git a/src/lib/marble/geodata/writers/kml/KmlStyleTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlStyleTagWriter.cpp
+index dfc7c611cb..6541c77456 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlStyleTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlStyleTagWriter.cpp
+@@ -29,7 +29,7 @@ bool KmlStyleTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataStyle *style = static_cast<const GeoDataStyle*>( node );
+ 
+-    writer.writeStartElement( kml::kmlTag_Style );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Style) );
+     KmlObjectTagWriter::writeIdentifiers( writer, style );
+ 
+     writeElement( &style->iconStyle(), writer );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlTagWriter.cpp
+index f20588ba69..cf20b50744 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlTagWriter.cpp
+@@ -21,8 +21,8 @@ bool KmlTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     Q_UNUSED(node);
+ 
+-    writer.writeDefaultNamespace( kml::kmlTag_nameSpaceOgc22 );
+-    writer.writeNamespace( kml::kmlTag_nameSpaceGx22, "gx" );
++    writer.writeDefaultNamespace( QString::fromUtf8(kml::kmlTag_nameSpaceOgc22) );
++    writer.writeNamespace( QString::fromUtf8(kml::kmlTag_nameSpaceGx22), "gx" );
+     writer.writeStartElement( "kml" );
+ 
+     // Do not write an end element for document handlers
+diff --git a/src/lib/marble/geodata/writers/kml/KmlTimeSpanWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlTimeSpanWriter.cpp
+index 33018f452b..ecfc8600fe 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlTimeSpanWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlTimeSpanWriter.cpp
+@@ -26,7 +26,7 @@ bool KmlTimeSpanWriter::write( const GeoNode *node,
+     Q_ASSERT(dynamic_cast<const GeoDataTimeSpan *>(node));
+     const GeoDataTimeSpan *timespan = static_cast<const GeoDataTimeSpan *>(node);
+ 
+-    writer.writeStartElement( kml::kmlTag_TimeSpan );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_TimeSpan) );
+     KmlObjectTagWriter::writeIdentifiers( writer, timespan );
+ 
+     writer.writeTextElement( "begin", KmlTimeStampTagWriter::toString( timespan->begin() ) );
+diff --git a/src/lib/marble/geodata/writers/kml/KmlTimeStampTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlTimeStampTagWriter.cpp
+index f07c688faf..04f5f02d64 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlTimeStampTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlTimeStampTagWriter.cpp
+@@ -28,10 +28,10 @@ bool KmlTimeStampTagWriter::write( const GeoNode *node,
+ 
+     if( timestamp->when().isValid() )
+     {
+-        writer.writeStartElement( kml::kmlTag_TimeStamp );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_TimeStamp) );
+         KmlObjectTagWriter::writeIdentifiers( writer, timestamp );
+ 
+-        writer.writeStartElement( kml::kmlTag_when);
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_when));
+         writer.writeCharacters( toString( *timestamp ) );
+         writer.writeEndElement();
+ 
+diff --git a/src/lib/marble/geodata/writers/kml/KmlUpdateTagWriter.cpp b/src/lib/marble/geodata/writers/kml/KmlUpdateTagWriter.cpp
+index 268149a297..f4c3a2c982 100644
+--- a/src/lib/marble/geodata/writers/kml/KmlUpdateTagWriter.cpp
++++ b/src/lib/marble/geodata/writers/kml/KmlUpdateTagWriter.cpp
+@@ -24,11 +24,11 @@ bool KmlUpdateTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+ {
+     const GeoDataUpdate *update = static_cast<const GeoDataUpdate*>( node );
+     KmlObjectTagWriter::writeIdentifiers( writer, update );
+-    writer.writeStartElement( kml::kmlTag_Update );
++    writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Update) );
+     writer.writeElement( kml::kmlTag_targetHref, update->targetHref() );
+ 
+     if( update->change() && update->change()->size() > 0 ){
+-        writer.writeStartElement( kml::kmlTag_Change );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Change) );
+         QVector<GeoDataFeature*>::ConstIterator it =  update->change()->constBegin();
+         QVector<GeoDataFeature*>::ConstIterator const end = update->change()->constEnd();
+ 
+@@ -37,7 +37,7 @@ bool KmlUpdateTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+         }
+         writer.writeEndElement();
+     } else if( update->create() && update->create()->size() > 0 ){
+-        writer.writeStartElement( kml::kmlTag_Create );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Create) );
+         QVector<GeoDataFeature*>::ConstIterator it =  update->create()->constBegin();
+         QVector<GeoDataFeature*>::ConstIterator const end = update->create()->constEnd();
+ 
+@@ -46,7 +46,7 @@ bool KmlUpdateTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+         }
+         writer.writeEndElement();
+     } else if( update->getDelete() && update->getDelete()->size() > 0 ){
+-        writer.writeStartElement( kml::kmlTag_Delete );
++        writer.writeStartElement( QString::fromUtf8(kml::kmlTag_Delete) );
+         QVector<GeoDataFeature*>::ConstIterator it =  update->getDelete()->constBegin();
+         QVector<GeoDataFeature*>::ConstIterator const end = update->getDelete()->constEnd();
+ 
+-- 
+GitLab
+

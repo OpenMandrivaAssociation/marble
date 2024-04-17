@@ -1,0 +1,250 @@
+diff -up marble-24.02.2/src/lib/marble/HttpDownloadManager.cpp.3~ marble-24.02.2/src/lib/marble/HttpDownloadManager.cpp
+--- marble-24.02.2/src/lib/marble/HttpDownloadManager.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/HttpDownloadManager.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -114,7 +114,10 @@ HttpDownloadManager::~HttpDownloadManage
+ 
+ void HttpDownloadManager::setDownloadEnabled( const bool enable )
+ {
++/*
++    PORT_QT6
+     d->m_networkAccessManager.setNetworkAccessible( enable ? QNetworkAccessManager::Accessible : QNetworkAccessManager::NotAccessible );
++*/
+     d->m_acceptJobs = enable;
+     QList<QPair<DownloadPolicyKey, DownloadQueueSet *> >::iterator pos = d->m_queueSets.begin();
+     QList<QPair<DownloadPolicyKey, DownloadQueueSet *> >::iterator const end = d->m_queueSets.end();
+diff -up marble-24.02.2/src/lib/marble/MarbleDebug.cpp.3~ marble-24.02.2/src/lib/marble/MarbleDebug.cpp
+--- marble-24.02.2/src/lib/marble/MarbleDebug.cpp.3~	2024-04-16 17:17:59.647431970 +0200
++++ marble-24.02.2/src/lib/marble/MarbleDebug.cpp	2024-04-16 17:18:31.859761100 +0200
+@@ -5,6 +5,7 @@
+ 
+ #include "MarbleDebug.h"
+ 
++#include <QIODevice>
+ 
+ /**
+  * All of the logging categories supported by Marble.
+diff -up marble-24.02.2/src/lib/marble/MarbleDirs.h.3~ marble-24.02.2/src/lib/marble/MarbleDirs.h
+--- marble-24.02.2/src/lib/marble/MarbleDirs.h.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/MarbleDirs.h	2024-04-16 17:17:59.647431970 +0200
+@@ -10,9 +10,8 @@
+ #include "marble_export.h"
+ 
+ #include <QDir>
+-
+-class QString;
+-class QStringList;
++#include <QString>
++#include <QStringList>
+ 
+ namespace Marble
+ {
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataColorStyle.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataColorStyle.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataColorStyle.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataColorStyle.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -11,6 +11,7 @@
+ #include <cstdlib>
+ #include <QDataStream>
+ #include <QColor>
++#include <QRandomGenerator>
+ 
+ namespace Marble
+ {
+@@ -82,9 +83,9 @@ void GeoDataColorStyle::setColor( const
+     qreal blue = d->m_color.blueF();
+     d->m_randomColor = d->m_color;
+     qreal const randMax = RAND_MAX;
+-    d->m_randomColor.setRedF(red*(qrand()/randMax));
+-    d->m_randomColor.setGreenF(green*(qrand()/randMax));
+-    d->m_randomColor.setBlueF(blue*(qrand()/randMax));
++    d->m_randomColor.setRedF(red*(QRandomGenerator::global()->generate()/randMax));
++    d->m_randomColor.setGreenF(green*(QRandomGenerator::global()->generate()/randMax));
++    d->m_randomColor.setBlueF(blue*(QRandomGenerator::global()->generate()/randMax));
+ }
+ 
+ QColor GeoDataColorStyle::color() const
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataCoordinates.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataCoordinates.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataCoordinates.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataCoordinates.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -90,7 +90,7 @@ void GeoDataCoordinates::detach()
+     delete d->m_q;
+     d->m_q = nullptr;
+ 
+-    if(d->ref.load() == 1) {
++    if(d->ref.fetchAndAddRelaxed(0) == 1) {
+         return;
+     }
+ 
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataData.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataData.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataData.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataData.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -9,7 +9,7 @@
+ #include <QDataStream>
+ 
+ #include "GeoDataTypes.h"
+-#include "osm/OsmPlacemarkData.h"
++//#include "osm/OsmPlacemarkData.h"
+ 
+ namespace Marble
+ {
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataGeometry.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataGeometry.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataGeometry.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataGeometry.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -49,7 +49,7 @@ GeoDataGeometry::~GeoDataGeometry()
+ 
+ void GeoDataGeometry::detach()
+ {
+-    if(d_ptr->ref.load() == 1) {
++    if(d_ptr->ref.fetchAndAddRelaxed(0) == 1) {
+         return;
+     }
+ 
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataLineString.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataLineString.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataLineString.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataLineString.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -14,6 +14,7 @@
+ #include "MarbleDebug.h"
+ 
+ #include <QDataStream>
++#include <QVariant>
+ 
+ 
+ namespace Marble
+@@ -883,17 +884,17 @@ QVariantList GeoDataLineString::toVarian
+     QVariantList variantList;
+     for( const GeoDataCoordinates & itCoords : qAsConst(d->m_vector) ) {
+         QVariantMap map;
+-        map.insert("lon", itCoords.longitude(GeoDataCoordinates::Degree));
+-        map.insert("lat", itCoords.latitude(GeoDataCoordinates::Degree));
+-        map.insert("alt", itCoords.altitude());
++        map.insert(QLatin1String("lon"), itCoords.longitude(GeoDataCoordinates::Degree));
++        map.insert(QLatin1String("lat"), itCoords.latitude(GeoDataCoordinates::Degree));
++        map.insert(QLatin1String("alt"), itCoords.altitude());
+         variantList << map;
+     }
+ 
+     if (isClosed()) {
+         QVariantMap map;
+-        map.insert("lon", d->m_vector.first().longitude(GeoDataCoordinates::Degree));
+-        map.insert("lat", d->m_vector.first().latitude(GeoDataCoordinates::Degree));
+-        map.insert("alt", d->m_vector.first().altitude());
++        map.insert(QLatin1String("lon"), d->m_vector.first().longitude(GeoDataCoordinates::Degree));
++        map.insert(QLatin1String("lat"), d->m_vector.first().latitude(GeoDataCoordinates::Degree));
++        map.insert(QLatin1String("alt"), d->m_vector.first().altitude());
+         variantList << map;
+     }
+ 
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataObject.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataObject.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataObject.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataObject.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -100,7 +100,7 @@ QString GeoDataObject::resolvePath( cons
+         GeoDataDocument const * document = dynamic_cast<GeoDataDocument const*>( this );
+         if ( document ) {
+             QString const baseUri = document->baseUri();
+-            QFileInfo const documentRoot = baseUri.isEmpty() ? document->fileName() : baseUri;
++            QFileInfo const documentRoot = QFileInfo(baseUri.isEmpty() ? document->fileName() : baseUri);
+             QFileInfo const absoluteImage(documentRoot.absolutePath() + QLatin1Char('/') + url.path());
+             return absoluteImage.absoluteFilePath();
+         } else if ( d->m_parent ) {
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataPlacemark.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataPlacemark.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataPlacemark.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataPlacemark.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -23,6 +23,7 @@
+ #include "GeoDataTrack.h"
+ #include "GeoDataModel.h"
+ #include <QString>
++#include <QStringRef>
+ #include <QXmlStreamWriter>
+ 
+ namespace Marble
+@@ -293,7 +294,7 @@ QString GeoDataPlacemark::displayName()
+         for (const QString &uiLanguage: uiLanguages) {
+             for (auto tagIter = data.tagsBegin(), end = data.tagsEnd(); tagIter != end; ++tagIter) {
+                 if (tagIter.key().startsWith(QLatin1String("name:"))) {
+-                    QStringRef const tagLanguage = tagIter.key().midRef(5);
++                    QString const tagLanguage = tagIter.key().mid(5);
+                     if (tagLanguage == uiLanguage) {
+                         return tagIter.value();
+                     }
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataSimpleArrayData.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataSimpleArrayData.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataSimpleArrayData.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataSimpleArrayData.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -8,6 +8,8 @@
+ #include "GeoDataTypes.h"
+ #include "MarbleDebug.h"
+ 
++#include <QVariant>
++
+ namespace Marble {
+ 
+ class GeoDataSimpleArrayDataPrivate
+diff -up marble-24.02.2/src/lib/marble/geodata/data/GeoDataStyleMap.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/GeoDataStyleMap.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/GeoDataStyleMap.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/GeoDataStyleMap.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -60,8 +60,12 @@ GeoDataStyleMap& GeoDataStyleMap::operat
+ 
+ bool GeoDataStyleMap::operator==( const GeoDataStyleMap &other ) const
+ {
+-    if ( GeoDataStyleSelector::operator!=( other ) ||
+-         QMap<QString, QString>::operator!=( other ) )
++    if ( GeoDataStyleSelector::operator!=( other )
++/*
++         PORT_QT6
++         || QMap<QString, QString>::operator!=( other )
++*/
++       )
+     {
+         return false;
+     }
+diff -up marble-24.02.2/src/lib/marble/geodata/data/LonLatParser.cpp.3~ marble-24.02.2/src/lib/marble/geodata/data/LonLatParser.cpp
+--- marble-24.02.2/src/lib/marble/geodata/data/LonLatParser.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/data/LonLatParser.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -332,9 +332,9 @@ double LonLatParser::parseDouble(const Q
+ 
+ QString LonLatParser::createDecimalPointExp()
+ {
+-    const QChar decimalPoint = QLocale::system().decimalPoint();
++    const QString decimalPoint = QLocale::system().decimalPoint();
+ 
+-    return (decimalPoint == QLatin1Char('.')) ? QStringLiteral("\\.") :
++    return (decimalPoint == QLatin1String(".")) ? QStringLiteral("\\.") :
+         QLatin1String("[.") + decimalPoint + QLatin1Char(']');
+ }
+ 
+@@ -343,7 +343,7 @@ void LonLatParser::getLocaleList(QString
+ {
+     const QString lowerLocaleListString = localeListString.toLower();
+     if (lowerLocaleListString != placeholder) {
+-        localeList = lowerLocaleListString.split(separator, QString::SkipEmptyParts);
++        localeList = lowerLocaleListString.split(separator, Qt::SkipEmptyParts);
+     }
+ }
+ 
+diff -up marble-24.02.2/src/lib/marble/geodata/parser/GeoDataParser.cpp.3~ marble-24.02.2/src/lib/marble/geodata/parser/GeoDataParser.cpp
+--- marble-24.02.2/src/lib/marble/geodata/parser/GeoDataParser.cpp.3~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/lib/marble/geodata/parser/GeoDataParser.cpp	2024-04-16 17:17:59.647431970 +0200
+@@ -8,6 +8,8 @@
+ // Own
+ #include "GeoDataParser.h"
+ 
++#include <QStringView>
++
+ // Marble
+ #include "MarbleDebug.h"
+ 
+@@ -16,7 +18,6 @@
+ #include "GeoDocument.h"
+ #include "GeoTagHandler.h"
+ 
+-
+ // TODO: GeoRSS support
+ // #include "GeoRSSElementDictionary.h"
+ 
+@@ -67,7 +68,7 @@ bool GeoDataParser::isValidElement(const
+     switch ((GeoDataSourceType) m_source) {
+     // TODO: case GeoData_GeoRSS:
+     case GeoData_KML: {
+-        const QStringRef namespaceUri = this->namespaceUri();
++        const QStringView namespaceUri = this->namespaceUri();
+         return (namespaceUri == QLatin1String(kml::kmlTag_nameSpace20) ||
+                 namespaceUri == QLatin1String(kml::kmlTag_nameSpace21) ||
+                 namespaceUri == QLatin1String(kml::kmlTag_nameSpace22) ||

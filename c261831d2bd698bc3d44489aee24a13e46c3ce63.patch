@@ -1,0 +1,66 @@
+From c261831d2bd698bc3d44489aee24a13e46c3ce63 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Thu, 23 Nov 2023 04:28:49 +0100
+Subject: [PATCH] Qt6 port: compile the translations. The order of Qt6 find
+ rules must be changed a little bit, else Qt6LinguistTools is not found
+ properly
+
+---
+ CMakeLists.txt     | 10 +++++-----
+ MarbleMacros.cmake |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index db85d8283c..a06737a294 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -76,7 +76,6 @@ set ( CMAKE_MODULE_PATH
+ 
+ # add cmake macros
+ include(GenerateExportHeader)
+-include( MarbleMacros )
+ 
+ ####################################################
+ # Generate the tiles with the tilecreator at compile time
+@@ -104,13 +103,9 @@ if(ANDROID)
+    add_definitions(-DANDROID)
+ endif()
+ 
+-
+ #######################################################
+ # Find Qt dependencies
+ 
+-find_package(Protobuf)
+-set_package_properties(Protobuf PROPERTIES TYPE OPTIONAL PURPOSE "Parsing of OSM PBF files.")
+-
+ if(ANDROID)
+     set(REQUIRED_QT_VERSION 5.14.0)
+    # TODO: still needed with ECM toolchain?
+@@ -135,6 +130,11 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED
+         Core5Compat
+ )
+ 
++include( MarbleMacros )
++
++find_package(Protobuf)
++set_package_properties(Protobuf PROPERTIES TYPE OPTIONAL PURPOSE "Parsing of OSM PBF files.")
++
+ if(ANDROID)
+     find_package(Qt6Positioning ${REQUIRED_QT_VERSION} REQUIRED)
+     find_package(Qt6Multimedia ${REQUIRED_QT_VERSION} REQUIRED)
+diff --git a/MarbleMacros.cmake b/MarbleMacros.cmake
+index 7c5fe96c4d..1666da66a8 100644
+--- a/MarbleMacros.cmake
++++ b/MarbleMacros.cmake
+@@ -153,7 +153,7 @@ endif()
+ 
+ 
+ # Find Qt translation tools
+-#find_package(Qt6LinguistTools CONFIG)
++find_package(Qt6LinguistTools CONFIG)
+ 
+ if(NOT Qt6LinguistTools_FOUND)
+ 
+-- 
+GitLab
+

@@ -1,0 +1,144 @@
+From 39eea41edd09ffad74c21d91484bbeff192c70b0 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 14:50:45 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                                      | 50 +++++++++----------
+ .../gosmore-routing/GosmoreRoutingRunner.cpp  |  1 -
+ .../runner/monav/MonavConfigWidget.cpp        |  1 +
+ src/plugins/runner/monav/MonavMapsModel.cpp   |  3 +-
+ 4 files changed, 28 insertions(+), 27 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 5aca81ee88..cdd2cf7e39 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -71,35 +71,35 @@ DIRECTORIES                                         STATUS
+ │   │   ├── render
+ │   │   │   ├── annotate                            DONE
+ │   │   │   ├── aprs                                DONE
+-│   │   │   ├── atmosphere
+-│   │   │   ├── compass
+-│   │   │   ├── crosshairs
+-│   │   │   ├── earthquake
++│   │   │   ├── atmosphere                          DONE
++│   │   │   ├── compass                             DONE
++│   │   │   ├── crosshairs                          DONE
++│   │   │   ├── earthquake                          DONE
+ │   │   │   ├── eclipses                            DONE
+-│   │   │   ├── elevationprofilefloatitem
+-│   │   │   ├── elevationprofilemarker
++│   │   │   ├── elevationprofilefloatitem           DONE
++│   │   │   ├── elevationprofilemarker              DONE
+ │   │   │   ├── fileview
+ │   │   │   ├── foursquare                          DONE
+-│   │   │   ├── gpsinfo
+-│   │   │   ├── graticule
+-│   │   │   ├── license
+-│   │   │   ├── mapscale
+-│   │   │   ├── measure
++│   │   │   ├── gpsinfo                             DONE
++│   │   │   ├── graticule                           DONE
++│   │   │   ├── license                             DONE
++│   │   │   ├── mapscale                            DONE
++│   │   │   ├── measure                             DONE
+ │   │   │   ├── navigation                          DONE
+-│   │   │   ├── notes
++│   │   │   ├── notes                               DONE
+ │   │   │   ├── opencaching
+-│   │   │   ├── opendesktop
++│   │   │   ├── opendesktop                         DONE
+ │   │   │   ├── overviewmap                         DONE
+ │   │   │   ├── panoramio
+-│   │   │   ├── photo
++│   │   │   ├── photo                               DONE
+ │   │   │   ├── positionmarker                      DONE
+-│   │   │   ├── postalcode
+-│   │   │   ├── progress
+-│   │   │   ├── routing
++│   │   │   ├── postalcode                          DONE
++│   │   │   ├── progress                            DONE
++│   │   │   ├── routing                             DONE
+ │   │   │   ├── satellites                          DONE
+-│   │   │   ├── speedometer
+-│   │   │   ├── stars
+-│   │   │   ├── sun
++│   │   │   ├── speedometer                         DONE
++│   │   │   ├── stars                               DONE
++│   │   │   ├── sun                                 DONE
+ │   │   │   ├── test
+ │   │   │   ├── twitter
+ │   │   │   ├── weather                             DONE
+@@ -108,8 +108,8 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── cache
+ │   │   │   ├── cyclestreets
+ │   │   │   ├── geouri                              DONE
+-│   │   │   ├── gosmore-reversegeocoding
+-│   │   │   ├── gosmore-routing
++│   │   │   ├── gosmore-reversegeocoding            DONE
++│   │   │   ├── gosmore-routing                     DONE
+ │   │   │   ├── gpsbabel
+ │   │   │   ├── gpx                                 DISABLED: KDE BASED
+ │   │   │   ├── hostip                              DONE
+@@ -119,9 +119,9 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── localdatabase                       DONE
+ │   │   │   ├── local-osm-search                    DONE
+ │   │   │   ├── log
+-│   │   │   ├── mapquest
+-│   │   │   ├── monav
+-│   │   │   ├── nominatim-reversegeocoding
++│   │   │   ├── mapquest                            DONE
++│   │   │   ├── monav                               DONE
++│   │   │   ├── nominatim-reversegeocoding          DONE
+ │   │   │   ├── nominatim-search                    DONE
+ │   │   │   ├── openlocation-code-search            DONE
+ │   │   │   ├── openrouteservice
+diff --git a/src/plugins/runner/gosmore-routing/GosmoreRoutingRunner.cpp b/src/plugins/runner/gosmore-routing/GosmoreRoutingRunner.cpp
+index 8a7747fbd7..12fa1cd5bf 100644
+--- a/src/plugins/runner/gosmore-routing/GosmoreRoutingRunner.cpp
++++ b/src/plugins/runner/gosmore-routing/GosmoreRoutingRunner.cpp
+@@ -125,7 +125,6 @@ QVector<GeoDataPlacemark*> GosmoreRunnerPrivate::parseGosmoreInstructions( const
+ 
+     QVector<GeoDataPlacemark*> result;
+     QTextStream stream( content );
+-    stream.setCodec("UTF8");
+     stream.setAutoDetectUnicode( true );
+ 
+     RoutingInstructions directions = InstructionTransformation::process( m_parser.parse( stream ) );
+diff --git a/src/plugins/runner/monav/MonavConfigWidget.cpp b/src/plugins/runner/monav/MonavConfigWidget.cpp
+index bba6b2f062..c13762ad69 100644
+--- a/src/plugins/runner/monav/MonavConfigWidget.cpp
++++ b/src/plugins/runner/monav/MonavConfigWidget.cpp
+@@ -20,6 +20,7 @@
+ #include <QNetworkAccessManager>
+ #include <QNetworkReply>
+ #include <QDomDocument>
++#include <QRegExp>
+ 
+ namespace Marble
+ {
+diff --git a/src/plugins/runner/monav/MonavMapsModel.cpp b/src/plugins/runner/monav/MonavMapsModel.cpp
+index f905991fe3..f55ddb9b4f 100644
+--- a/src/plugins/runner/monav/MonavMapsModel.cpp
++++ b/src/plugins/runner/monav/MonavMapsModel.cpp
+@@ -5,6 +5,7 @@
+ 
+ #include "MonavMapsModel.h"
+ 
++#include <QLocale>
+ #include <QDate>
+ 
+ namespace Marble
+@@ -87,7 +88,7 @@ QVariant MonavMapsModel::data ( const QModelIndex & index, int role ) const
+                         // Qt interprets 11 as 1911
+                         date.setDate( date.year() + 100, date.month(), date.day() );
+                     }
+-                    return date.toString( Qt::SystemLocaleShortDate );
++                    return QLocale().toString(date, QLocale::ShortFormat);
+                 }
+             }
+     }
+-- 
+GitLab
+

@@ -1,0 +1,90 @@
+diff -up marble-24.02.2/PORT.QT6.23~ marble-24.02.2/PORT.QT6
+--- marble-24.02.2/PORT.QT6.23~	2024-04-16 17:20:39.261062357 +0200
++++ marble-24.02.2/PORT.QT6	2024-04-16 17:20:39.265062399 +0200
+@@ -126,10 +126,7 @@ DIRECTORIES
+ │   │               └── ui
+ │   ├── plasmarunner
+ │   ├── plugins
+-│   │   ├── designer
+-│   │   │   ├── latloneditwidget
+-│   │   │   ├── marblewidget
+-│   │   │   └── navigator
++│   │   ├── designer                                DISABLED: NOT USED IN DIGIKAM
+ │   │   ├── positionprovider
+ │   │   │   ├── flightgear
+ │   │   │   ├── geoclue
+@@ -206,57 +203,7 @@ DIRECTORIES
+ │   │   │   ├── shp
+ │   │   │   ├── traveling-salesman
+ │   │   │   └── yours
+-│   │   └── templates
+-│   │       └── floatitem
++│   │   └── templates                               DISABLED: NOT USED IN DIGIKAM
+ │   └── thumbnailer
+-├── tests
+-└── tools
+-    ├── add_kml
+-    ├── asc2kml
+-    ├── cloudtiles
+-    ├── constellations2kml
+-    ├── dateline
+-    ├── dso2kml
+-    ├── gen-sat-catalog
+-    │   └── lib
+-    ├── iau2kml
+-    ├── kml2cache
+-    ├── kml2kml
+-    ├── mapreproject
+-    ├── maptheme-previewimage
+-    ├── mbtile-import
+-    ├── natural-earth-vector-tiling
+-    ├── osm-addresses
+-    │   ├── pbf
+-    │   └── xml
+-    ├── osm-sisyphus
+-    ├── packaging
+-    ├── pnt2svg
+-    ├── pntdel
+-    ├── pntreplace
+-    ├── poly2kml
+-    ├── qt-components
+-    ├── routing-instructions
+-    ├── sentineltile
+-    ├── shp2osm
+-    ├── shp2pn2
+-    ├── speaker-files
+-    ├── stars
+-    ├── svg2pnt
+-    ├── tilecreator
+-    ├── tilecreator-srtm2
+-    ├── vectorosm-tilecreator
+-    │   ├── clipper
+-    │   ├── setup
+-    │   │   ├── build
+-    │   │   └── etc
+-    │   │       ├── apache2
+-    │   │       └── tirex
+-    │   │           └── renderer
+-    │   │               ├── marble
+-    │   │               └── marble-dev
+-    │   └── tools
+-    ├── vectortilecreator
+-    │   ├── levels
+-    │   └── regions
+-    └── version
++├── tests                                           -
++└── tools                                           -
+diff -up marble-24.02.2/src/plugins/CMakeLists.txt.23~ marble-24.02.2/src/plugins/CMakeLists.txt
+--- marble-24.02.2/src/plugins/CMakeLists.txt.23~	2024-04-16 17:20:39.265062399 +0200
++++ marble-24.02.2/src/plugins/CMakeLists.txt	2024-04-16 17:21:11.041386854 +0200
+@@ -10,8 +10,8 @@ endif()
+ add_definitions("-DLOGGING_IDENTIFIER=MARBLE_PLUGINS")
+ 
+ if(NOT ANDROID)
+-    add_subdirectory( designer )
+-    add_subdirectory( templates )
++#    add_subdirectory( designer )
++#    add_subdirectory( templates )
+ endif()
+ 
+ add_subdirectory( render )

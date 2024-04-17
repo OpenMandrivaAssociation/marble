@@ -1,0 +1,29 @@
+From 6b7758b80586fe2b0bda0e68b691052bd82ad82e Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Tue, 19 Sep 2023 15:58:18 +0200
+Subject: [PATCH] update
+
+---
+ PORT.QT6 | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 22fbf4b6d6..9421b2e14a 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -8,11 +8,10 @@ Environment: Kubuntu 23.04 + Qt 6.4.2 + KF6 from master (https://invent.kde.org/
+ Port Details:
+ -------------
+ 
+-Only pure Qt codes are ported.
++Plasma relevant code not ported.
+ Qt5 support is dropped.
+ Qt6Core5Compat still used (Xml, StringRef, and RegExp).
+ "PORT_QT6" annotation is used in source code when port to Qt6 needs to be double checked.
+-KDE API based codes are disabled.
+ 
+ Screenshots:
+ ------------
+-- 
+GitLab
+

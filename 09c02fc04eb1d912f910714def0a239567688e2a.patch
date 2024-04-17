@@ -1,0 +1,157 @@
+diff -up marble-24.02.2/PORT.QT6.54~ marble-24.02.2/PORT.QT6
+--- marble-24.02.2/PORT.QT6.54~	2024-04-16 17:25:40.444136357 +0200
++++ marble-24.02.2/PORT.QT6	2024-04-16 17:25:40.448136397 +0200
+@@ -156,6 +156,6 @@ DIRECTORIES
+ │   │   │   ├── traveling-salesman                  - Originally commented in CMakeLists.txt
+ │   │   │   └── yours                               DONE
+ │   │   └── templates                               - Originally commented in CMakeLists.txt
+-│   └── thumbnailer                                 DISABLED: KDE BASED
++│   └── thumbnailer                                 DONE
+ ├── tests                                           DONE
+ └── tools                                           DONE
+diff -up marble-24.02.2/src/CMakeLists.txt.54~ marble-24.02.2/src/CMakeLists.txt
+--- marble-24.02.2/src/CMakeLists.txt.54~	2024-04-16 17:25:40.452136438 +0200
++++ marble-24.02.2/src/CMakeLists.txt	2024-04-16 17:26:03.320369746 +0200
+@@ -76,9 +76,9 @@ if(APPLE)
+   add_subdirectory( mac )
+ endif(APPLE)
+ 
+-#add_subdirectory( plasma )
+-#add_subdirectory( plasmarunner )
+-#add_subdirectory( thumbnailer )
++add_subdirectory( plasma )
++add_subdirectory( plasmarunner )
++add_subdirectory( thumbnailer )
+ 
+ if(ECM_FOUND)
+   # Default logging for where no specific category is set
+diff -up marble-24.02.2/src/thumbnailer/CMakeLists.txt.54~ marble-24.02.2/src/thumbnailer/CMakeLists.txt
+--- marble-24.02.2/src/thumbnailer/CMakeLists.txt.54~	2024-04-16 17:25:40.116133010 +0200
++++ marble-24.02.2/src/thumbnailer/CMakeLists.txt	2024-04-16 17:25:40.452136438 +0200
+@@ -21,6 +21,6 @@ set(marblethumbnail_SRCS
+ add_library(marblethumbnail MODULE ${marblethumbnail_SRCS})
+ target_link_libraries(marblethumbnail
+   marblewidget
+-  KF6::KIOWidgets
++  KF6::KIOGui
+ )
+ install(TARGETS marblethumbnail  DESTINATION ${KDE_INSTALL_PLUGINDIR})
+diff -up marble-24.02.2/src/thumbnailer/main.cpp.54~ marble-24.02.2/src/thumbnailer/main.cpp
+--- marble-24.02.2/src/thumbnailer/main.cpp.54~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/thumbnailer/main.cpp	2024-04-16 17:25:40.452136438 +0200
+@@ -7,7 +7,7 @@
+ extern "C"
+ {
+ 
+-Q_DECL_EXPORT ThumbCreator *new_creator()
++Q_DECL_EXPORT ThumbnailCreator *new_creator()
+ {
+     return new Marble::GeoDataThumbnailer;
+ }
+diff -up marble-24.02.2/src/thumbnailer/thumbnailer.cpp.54~ marble-24.02.2/src/thumbnailer/thumbnailer.cpp
+--- marble-24.02.2/src/thumbnailer/thumbnailer.cpp.54~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/thumbnailer/thumbnailer.cpp	2024-04-16 17:25:40.452136438 +0200
+@@ -18,7 +18,7 @@ static const int timeoutTime = 5000; //
+ namespace Marble {
+ 
+ GeoDataThumbnailer::GeoDataThumbnailer()
+-  : ThumbCreator()
++  : ThumbnailCreator(nullptr, QVariantList())
+   , m_marbleMap()
+ {
+     m_marbleMap.setMapThemeId(QStringLiteral("earth/openstreetmap/openstreetmap.dgml"));
+@@ -36,7 +36,7 @@ GeoDataThumbnailer::GeoDataThumbnailer()
+     MarbleModel *const model = m_marbleMap.model();
+     connect(model->treeModel(), &GeoDataTreeModel::added, this, &GeoDataThumbnailer::onGeoDataObjectAdded);
+     connect(model->fileManager(), &FileManager::fileError, this,
+-        [this](const QString& path, const QString& error) {
++        [this](const QString& /*path*/, const QString& /*error*/) {
+            m_hadErrors = true;
+            m_outtimer.stop();
+            m_eventLoop.quit();
+@@ -48,9 +48,9 @@ GeoDataThumbnailer::~GeoDataThumbnailer(
+ {
+ }
+ 
+-bool GeoDataThumbnailer::create(const QString &path, int width, int height, QImage &image)
++ThumbnailResult GeoDataThumbnailer::create(const ThumbnailRequest& request)
+ {
+-    m_marbleMap.setSize(width, height);
++    m_marbleMap.setSize(request.targetSize());
+ 
+     MarbleModel *const model = m_marbleMap.model();
+ 
+@@ -58,6 +58,8 @@ bool GeoDataThumbnailer::create(const QS
+     m_loadingCompleted = false;
+     m_hadErrors = false;
+ 
++    QString path = request.url().toLocalFile();
++
+     m_currentFilename = path;
+     model->addGeoDataFile(path);
+ 
+@@ -69,9 +71,11 @@ bool GeoDataThumbnailer::create(const QS
+         m_eventLoop.exec(QEventLoop::ExcludeUserInputEvents);
+     }
+ 
++    QImage image;
++
+     if (m_loadingCompleted) {
+         // TODO: limit to shown map, if full earth is used
+-        image = QImage(width, height, QImage::Format_ARGB32);
++        image = QImage(request.targetSize(), QImage::Format_ARGB32);
+         image.fill(qRgba(0, 0, 0, 0));
+ 
+         // Create a painter that will do the painting.
+@@ -81,10 +85,12 @@ bool GeoDataThumbnailer::create(const QS
+         m_marbleMap.paint( geoPainter, QRect() ); // TODO: dirtyRect seems currently unused, make sure it is
+     }
+ 
++    ThumbnailResult result = ThumbnailResult::pass(image);
++
+     model->removeGeoData(path);
+     m_currentFilename.clear();
+ 
+-    return m_loadingCompleted;
++    return result;
+ }
+ 
+ static qreal radius(qreal zoom)
+diff -up marble-24.02.2/src/thumbnailer/thumbnailer.h.54~ marble-24.02.2/src/thumbnailer/thumbnailer.h
+--- marble-24.02.2/src/thumbnailer/thumbnailer.h.54~	2024-04-08 17:10:38.000000000 +0200
++++ marble-24.02.2/src/thumbnailer/thumbnailer.h	2024-04-16 17:25:40.452136438 +0200
+@@ -9,19 +9,21 @@
+ #include "MarbleMap.h"
+ 
+ // KF
+-#include <KIOWidgets/kio/thumbcreator.h>
++#include <kio/thumbnailcreator.h>
+ 
+ // Qt
+ #include <QEventLoop>
+ #include <QTimer>
+ 
++using namespace KIO;
++
+ namespace Marble
+ {
+ 
+ class GeoDataObject;
+ 
+ 
+-class GeoDataThumbnailer : public QObject, public ThumbCreator
++class GeoDataThumbnailer : public ThumbnailCreator
+ {
+     Q_OBJECT
+ 
+@@ -29,8 +31,8 @@ public:
+     GeoDataThumbnailer();
+     ~GeoDataThumbnailer() override;
+ 
+-public: // ThumbCreator API
+-    bool create(const QString &path, int width, int height, QImage &image) override;
++public: // ThumbnailCreator API
++    ThumbnailResult create(const ThumbnailRequest& request) override;
+ 
+ private:
+     void onGeoDataObjectAdded(GeoDataObject *object);

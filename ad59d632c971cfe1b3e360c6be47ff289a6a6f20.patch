@@ -1,0 +1,112 @@
+From ad59d632c971cfe1b3e360c6be47ff289a6a6f20 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 14:26:57 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                                            |  6 +++---
+ src/plugins/render/satellites/SatellitesModel.cpp   |  4 ++--
+ src/plugins/render/satellites/SatellitesTLEItem.cpp | 12 ++++++------
+ src/plugins/render/weather/AbstractWeatherService.h |  3 ++-
+ 4 files changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index d943d6c058..9c84fb28f2 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -79,7 +79,7 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── elevationprofilefloatitem
+ │   │   │   ├── elevationprofilemarker
+ │   │   │   ├── fileview
+-│   │   │   ├── foursquare
++│   │   │   ├── foursquare                          DONE
+ │   │   │   ├── gpsinfo
+ │   │   │   ├── graticule
+ │   │   │   ├── license
+@@ -96,13 +96,13 @@ DIRECTORIES                                         STATUS
+ │   │   │   ├── postalcode
+ │   │   │   ├── progress
+ │   │   │   ├── routing
+-│   │   │   ├── satellites
++│   │   │   ├── satellites                          DONE
+ │   │   │   ├── speedometer
+ │   │   │   ├── stars
+ │   │   │   ├── sun
+ │   │   │   ├── test
+ │   │   │   ├── twitter
+-│   │   │   ├── weather
++│   │   │   ├── weather                             DONE
+ │   │   │   └── wikipedia
+ │   │   ├── runner
+ │   │   │   ├── cache
+diff --git a/src/plugins/render/satellites/SatellitesModel.cpp b/src/plugins/render/satellites/SatellitesModel.cpp
+index cf44268381..325d79376e 100644
+--- a/src/plugins/render/satellites/SatellitesModel.cpp
++++ b/src/plugins/render/satellites/SatellitesModel.cpp
+@@ -180,10 +180,10 @@ void SatellitesModel::parseCatalog( const QString &id,
+ 
+         QDateTime missionStart, missionEnd;
+         if( elms[3].toUInt() > 0 ) {
+-            missionStart = QDateTime::fromTime_t( elms[3].toUInt() );
++            missionStart = QDateTime::fromSecsSinceEpoch( elms[3].toUInt() );
+         }
+         if( elms[4].toUInt() > 0 ) {
+-            missionEnd = QDateTime::fromTime_t( elms[4].toUInt() );
++            missionEnd = QDateTime::fromSecsSinceEpoch( elms[4].toUInt() );
+         }
+ 
+         SatellitesMSCItem *item = new SatellitesMSCItem( name, category, body, id,
+diff --git a/src/plugins/render/satellites/SatellitesTLEItem.cpp b/src/plugins/render/satellites/SatellitesTLEItem.cpp
+index dbadf36c90..33fd67c70a 100644
+--- a/src/plugins/render/satellites/SatellitesTLEItem.cpp
++++ b/src/plugins/render/satellites/SatellitesTLEItem.cpp
+@@ -88,21 +88,21 @@ void SatellitesTLEItem::update()
+     // time interval between each point in the track, in seconds
+     double step = period() / 100.0;
+ 
+-    for ( double i = startTime.toTime_t(); i < endTime.toTime_t(); i += step ) {
++    for ( double i = startTime.toSecsSinceEpoch(); i < endTime.toSecsSinceEpoch(); i += step ) {
+         // No need to add points in this interval
+-        if ( i >= m_track->firstWhen().toTime_t() ) {
+-            i = m_track->lastWhen().toTime_t() + step;
++        if ( i >= m_track->firstWhen().toSecsSinceEpoch() ) {
++            i = m_track->lastWhen().toSecsSinceEpoch() + step;
+         }
+ 
+-        addPointAt( QDateTime::fromTime_t( i ) );
++        addPointAt( QDateTime::fromSecsSinceEpoch( i ) );
+     }
+ }
+ 
+ void SatellitesTLEItem::addPointAt( const QDateTime &dateTime )
+ {
+     // in minutes
+-    double timeSinceEpoch = (double)( dateTime.toTime_t() -
+-        timeAtEpoch().toTime_t() ) / 60.0;
++    double timeSinceEpoch = (double)( dateTime.toSecsSinceEpoch() -
++        timeAtEpoch().toSecsSinceEpoch() ) / 60.0;
+ 
+     double r[3], v[3];
+     sgp4( wgs84, m_satrec, timeSinceEpoch, r, v );
+diff --git a/src/plugins/render/weather/AbstractWeatherService.h b/src/plugins/render/weather/AbstractWeatherService.h
+index 52fbb2a909..d510f8b869 100644
+--- a/src/plugins/render/weather/AbstractWeatherService.h
++++ b/src/plugins/render/weather/AbstractWeatherService.h
+@@ -9,12 +9,13 @@
+ #include <QObject>
+ #include <QStringList>
+ 
++#include "AbstractDataPluginItem.h"
++
+ class QUrl;
+ 
+ namespace Marble
+ {
+ 
+-class AbstractDataPluginItem;
+ class GeoDataLatLonAltBox;
+ class MarbleModel;
+ class MarbleWidget;
+-- 
+GitLab
+

@@ -1,0 +1,51 @@
+From 5a0b2fd4ab8b12d372ed2cbcb49ed28d796ad618 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Tue, 19 Sep 2023 08:09:06 +0200
+Subject: [PATCH] qt6++
+
+---
+ tests/MarbleRunnerManagerTest.cpp | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/tests/MarbleRunnerManagerTest.cpp b/tests/MarbleRunnerManagerTest.cpp
+index dc1c404342..7db7734c18 100644
+--- a/tests/MarbleRunnerManagerTest.cpp
++++ b/tests/MarbleRunnerManagerTest.cpp
+@@ -19,6 +19,7 @@
+ #include <QSignalSpy>
+ #include <QMetaType>
+ #include <QThreadPool>
++#include <QElapsedTimer>
+ 
+ Q_DECLARE_METATYPE( QList<Marble::GeoDataCoordinates> )
+ 
+@@ -63,7 +64,7 @@ public:
+     GeoDataCoordinates m_coords;
+     GeoDataCoordinates m_coords2;
+     RouteRequest m_request;
+-    QTime t;
++    QElapsedTimer t;
+ };
+ 
+ void MarbleRunnerManagerTest::initTestCase()
+@@ -102,7 +103,7 @@ void MarbleRunnerManagerTest::testSyncPlacemarks()
+     QCOMPARE( finishSpy.count(), 0 );
+     QCOMPARE( resultSpy.count(), 0 );
+ 
+-    QTime timer;
++    QElapsedTimer timer;
+     timer.start();
+     QVector<GeoDataPlacemark*> placemarks = m_runnerManager.searchPlacemarks(m_name);
+ 
+@@ -166,7 +167,7 @@ void MarbleRunnerManagerTest::testSyncReverse()
+     QCOMPARE( finishSpy.count(), 0 );
+     QCOMPARE( resultSpy.count(), 0 );
+ 
+-    QTime timer;
++    QElapsedTimer timer;
+     timer.start();
+     QString placemark = m_runnerManager.searchReverseGeocoding( m_coords );
+ 
+-- 
+GitLab
+

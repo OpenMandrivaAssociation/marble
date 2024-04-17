@@ -1,0 +1,114 @@
+From 447f123a2c87a6712896becc91efea95b27e5c66 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Thu, 21 Sep 2023 10:59:12 +0200
+Subject: [PATCH] fix broken compilation with Qt 6.5.2
+
+---
+ src/plugins/runner/osm/writers/OsmNodeTagWriter.cpp     | 2 +-
+ src/plugins/runner/osm/writers/OsmRelationTagWriter.cpp | 6 +++---
+ src/plugins/runner/osm/writers/OsmTagTagWriter.cpp      | 2 +-
+ src/plugins/runner/osm/writers/OsmTagWriter.cpp         | 2 +-
+ src/plugins/runner/osm/writers/OsmWayTagWriter.cpp      | 6 +++---
+ 5 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/src/plugins/runner/osm/writers/OsmNodeTagWriter.cpp b/src/plugins/runner/osm/writers/OsmNodeTagWriter.cpp
+index a3a3abeaf8..9865dedb66 100644
+--- a/src/plugins/runner/osm/writers/OsmNodeTagWriter.cpp
++++ b/src/plugins/runner/osm/writers/OsmNodeTagWriter.cpp
+@@ -28,7 +28,7 @@ void OsmNodeTagWriter::writeNode( const OsmConverter::Node &node, GeoWriter& wri
+     QString lat = QString::number( node.first.latitude( GeoDataCoordinates::Degree ), 'f', 7 );
+     QString lon = QString::number( node.first.longitude( GeoDataCoordinates::Degree ), 'f', 7 );
+ 
+-    writer.writeStartElement( osm::osmTag_node );
++    writer.writeStartElement( QString::fromUtf8(osm::osmTag_node) );
+ 
+     writer.writeAttribute( "lat", lat );
+     writer.writeAttribute( "lon", lon );
+diff --git a/src/plugins/runner/osm/writers/OsmRelationTagWriter.cpp b/src/plugins/runner/osm/writers/OsmRelationTagWriter.cpp
+index 0841f483f7..4084bf82f9 100644
+--- a/src/plugins/runner/osm/writers/OsmRelationTagWriter.cpp
++++ b/src/plugins/runner/osm/writers/OsmRelationTagWriter.cpp
+@@ -24,12 +24,12 @@ namespace Marble
+ void OsmRelationTagWriter::writeMultipolygon( const GeoDataPolygon& polygon,
+                                               const OsmPlacemarkData& osmData, GeoWriter& writer )
+ {
+-    writer.writeStartElement( osm::osmTag_relation );
++    writer.writeStartElement( QString::fromUtf8(osm::osmTag_relation) );
+ 
+     OsmObjectAttributeWriter::writeAttributes( osmData, writer );
+     OsmTagTagWriter::writeTags( osmData, writer );
+ 
+-    writer.writeStartElement( osm::osmTag_member );
++    writer.writeStartElement( QString::fromUtf8(osm::osmTag_member) );
+     QString memberId = QString::number( osmData.memberReference( -1 ).id() );
+     writer.writeAttribute( "type", "way" );
+     writer.writeAttribute( "ref", memberId );
+@@ -37,7 +37,7 @@ void OsmRelationTagWriter::writeMultipolygon( const GeoDataPolygon& polygon,
+     writer.writeEndElement();
+ 
+     for ( int index = 0; index < polygon.innerBoundaries().size(); ++index ) {
+-        writer.writeStartElement( osm::osmTag_member );
++        writer.writeStartElement( QString::fromUtf8(osm::osmTag_member) );
+         QString memberId = QString::number( osmData.memberReference( index ).id() );
+         writer.writeAttribute( "type", "way" );
+         writer.writeAttribute( "ref", memberId );
+diff --git a/src/plugins/runner/osm/writers/OsmTagTagWriter.cpp b/src/plugins/runner/osm/writers/OsmTagTagWriter.cpp
+index 3684baa9b6..d212808c28 100644
+--- a/src/plugins/runner/osm/writers/OsmTagTagWriter.cpp
++++ b/src/plugins/runner/osm/writers/OsmTagTagWriter.cpp
+@@ -33,7 +33,7 @@ void OsmTagTagWriter::writeTags( const OsmPlacemarkData& osmData, GeoWriter &wri
+ 
+     for ( ; it != end; ++it ) {
+         if (!m_blacklist.contains(it.key())) {
+-            writer.writeStartElement( osm::osmTag_tag );
++            writer.writeStartElement( QString::fromUtf8(osm::osmTag_tag) );
+             writer.writeAttribute( "k", it.key() );
+             writer.writeAttribute( "v", it.value() );
+             writer.writeEndElement();
+diff --git a/src/plugins/runner/osm/writers/OsmTagWriter.cpp b/src/plugins/runner/osm/writers/OsmTagWriter.cpp
+index 1f11bc1c39..60f8e2de68 100644
+--- a/src/plugins/runner/osm/writers/OsmTagWriter.cpp
++++ b/src/plugins/runner/osm/writers/OsmTagWriter.cpp
+@@ -22,7 +22,7 @@ bool OsmTagWriter::write( const GeoNode *node, GeoWriter& writer ) const
+     Q_UNUSED( node );
+ 
+     writer.writeStartElement( "osm" );
+-    writer.writeAttribute( "version", osm::osmTag_version06 );
++    writer.writeAttribute( "version", QString::fromUtf8(osm::osmTag_version06) );
+     writer.writeAttribute("generator", QLatin1String("Marble ") + Marble::MARBLE_VERSION_STRING);
+ 
+     return true;
+diff --git a/src/plugins/runner/osm/writers/OsmWayTagWriter.cpp b/src/plugins/runner/osm/writers/OsmWayTagWriter.cpp
+index 44ccff898f..9190a9774e 100644
+--- a/src/plugins/runner/osm/writers/OsmWayTagWriter.cpp
++++ b/src/plugins/runner/osm/writers/OsmWayTagWriter.cpp
+@@ -24,7 +24,7 @@ void OsmWayTagWriter::writeWay( const GeoDataLineString& lineString,
+                                 const OsmPlacemarkData& osmData, GeoWriter& writer )
+ {
+ 
+-    writer.writeStartElement( osm::osmTag_way );
++    writer.writeStartElement( QString::fromUtf8(osm::osmTag_way) );
+ 
+     OsmObjectAttributeWriter::writeAttributes( osmData, writer );
+     OsmTagTagWriter::writeTags( osmData, writer );
+@@ -35,7 +35,7 @@ void OsmWayTagWriter::writeWay( const GeoDataLineString& lineString,
+ 
+     for ( ; it != end; ++it ) {
+         QString ndId = QString::number( osmData.nodeReference( *it ).id() );
+-        writer.writeStartElement( osm::osmTag_nd );
++        writer.writeStartElement( QString::fromUtf8(osm::osmTag_nd) );
+         writer.writeAttribute( "ref", ndId );
+         writer.writeEndElement();
+     }
+@@ -44,7 +44,7 @@ void OsmWayTagWriter::writeWay( const GeoDataLineString& lineString,
+         auto const startId = osmData.nodeReference(lineString.first()).id();
+         auto const endId = osmData.nodeReference(lineString.last()).id();
+         if (startId != endId) {
+-            writer.writeStartElement( osm::osmTag_nd );
++            writer.writeStartElement( QString::fromUtf8(osm::osmTag_nd) );
+             writer.writeAttribute( "ref", QString::number(startId));
+             writer.writeEndElement();
+         }
+-- 
+GitLab
+

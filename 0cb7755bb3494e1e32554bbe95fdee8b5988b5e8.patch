@@ -1,0 +1,39 @@
+From 0cb7755bb3494e1e32554bbe95fdee8b5988b5e8 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 13:32:32 +0200
+Subject: [PATCH] qt6++
+
+---
+ src/plugins/render/foursquare/FoursquareItem.h | 2 +-
+ src/plugins/render/notes/NotesItem.cpp         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/plugins/render/foursquare/FoursquareItem.h b/src/plugins/render/foursquare/FoursquareItem.h
+index 3836c446ec..0ee462e73c 100644
+--- a/src/plugins/render/foursquare/FoursquareItem.h
++++ b/src/plugins/render/foursquare/FoursquareItem.h
+@@ -21,7 +21,7 @@ class FoursquareItem : public AbstractDataPluginItem
+     Q_PROPERTY( QString address READ address NOTIFY addressChanged )
+     Q_PROPERTY( QString city READ city NOTIFY cityChanged )
+     Q_PROPERTY( QString country READ country NOTIFY countryChanged )
+-    Q_PROPERTY( QString usersCount READ usersCount NOTIFY usersCountChanged )
++    Q_PROPERTY( int usersCount READ usersCount NOTIFY usersCountChanged )
+     Q_PROPERTY( QString categoryIconUrl READ categoryIconUrl NOTIFY categoryIconUrlChanged )
+     Q_PROPERTY( QString categoryLargeIconUrl READ categoryLargeIconUrl NOTIFY categoryLargeIconUrlChanged )
+     
+diff --git a/src/plugins/render/notes/NotesItem.cpp b/src/plugins/render/notes/NotesItem.cpp
+index 8b02ea92d6..f00ade04a8 100644
+--- a/src/plugins/render/notes/NotesItem.cpp
++++ b/src/plugins/render/notes/NotesItem.cpp
+@@ -95,7 +95,7 @@ void NotesItem::addComment(const Comment& comment)
+ 
+     QStringList toolTip;
+     for (auto const &entry: m_commentsList) {
+-        QString const date = QLocale((entry.date()).toString(QLocale::ShortFormat);
++        QString const date = QLocale().toString(entry.date(), QLocale::ShortFormat);
+         QString const user = entry.user().isEmpty() ? tr("anonymous", "The author name is not known") : entry.user();
+         toolTip << QStringLiteral("%1\n--%2, %3").arg(entry.text().trimmed()).arg(user).arg(date);
+     }
+-- 
+GitLab
+

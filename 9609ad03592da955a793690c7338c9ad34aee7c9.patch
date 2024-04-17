@@ -1,0 +1,51 @@
+From 9609ad03592da955a793690c7338c9ad34aee7c9 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Mon, 18 Sep 2023 18:04:38 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                                             | 6 +++---
+ src/plugins/positionprovider/gpsd/GpsdConnection.cpp | 3 ++-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 086623091c..d1713a3daa 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -63,9 +63,9 @@ DIRECTORIES                                         STATUS
+ │   │   ├── designer                                DISABLED: NOT USED IN DIGIKAM
+ │   │   ├── positionprovider
+ │   │   │   ├── flightgear                          DONE
+-│   │   │   ├── geoclue
+-│   │   │   │   └── GeoCute
+-│   │   │   ├── gpsd
++│   │   │   ├── geoclue                             - Annotated experimental and commented in CMakeLists.txt
++│   │   │   │   └── GeoCute                         -
++│   │   │   ├── gpsd                                DONE
+ │   │   │   ├── qtpositioning                       DONE
+ │   │   │   └── wlocate
+ │   │   ├── render
+diff --git a/src/plugins/positionprovider/gpsd/GpsdConnection.cpp b/src/plugins/positionprovider/gpsd/GpsdConnection.cpp
+index 244af33309..0f1e9de80d 100644
+--- a/src/plugins/positionprovider/gpsd/GpsdConnection.cpp
++++ b/src/plugins/positionprovider/gpsd/GpsdConnection.cpp
+@@ -9,6 +9,7 @@
+ #include "MarbleDebug.h"
+ 
+ #include <QTime>
++#include <QElapsedTimer>
+ 
+ #include <cerrno>
+ #include <clocale>
+@@ -111,7 +112,7 @@ void GpsdConnection::update()
+ #if defined( GPSD_API_MAJOR_VERSION ) && ( GPSD_API_MAJOR_VERSION >= 4 ) && defined( PACKET_SET )
+     gps_data_t *data = nullptr;
+ 
+-    QTime watchdog;
++    QElapsedTimer watchdog;
+     watchdog.start();
+ 
+ #if defined( GPSD_API_MAJOR_VERSION ) && ( GPSD_API_MAJOR_VERSION >= 5 )
+-- 
+GitLab
+

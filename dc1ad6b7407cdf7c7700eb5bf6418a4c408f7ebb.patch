@@ -1,0 +1,50 @@
+From dc1ad6b7407cdf7c7700eb5bf6418a4c408f7ebb Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Tue, 19 Sep 2023 10:32:04 +0200
+Subject: [PATCH] qt6++
+
+---
+ PORT.QT6                           | 5 ++---
+ examples/cpp/marbleQuick2/main.cpp | 1 -
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 5c844d90a7..e2d9e84dee 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -10,10 +10,9 @@ Port Details:
+ 
+ Only pure Qt codes are ported.
+ Qt5 support is dropped.
+-Qt6Core5Compat still used.
++Qt6Core5Compat still used (Xml and RegExp).
+ "PORT_QT6" annotation is used in source code when port to Qt6 needs to be double checked.
+ KDE API based codes are disabled.
+-Examples codes not ported.
+ 
+ Screenshots:
+ ------------
+@@ -35,7 +34,7 @@ DIRECTORIES                                         STATUS
+ ├── data                                            -
+ ├── doc                                             -
+ ├── docs                                            -
+-├── examples                                        -
++├── examples                                        DONE
+ ├── install                                         -
+ ├── LICENSES                                        -
+ ├── po                                              -
+diff --git a/examples/cpp/marbleQuick2/main.cpp b/examples/cpp/marbleQuick2/main.cpp
+index f9df02c0dc..4d792f2398 100644
+--- a/examples/cpp/marbleQuick2/main.cpp
++++ b/examples/cpp/marbleQuick2/main.cpp
+@@ -73,7 +73,6 @@ public:
+         QSurfaceFormat format;
+         format.setAlphaBufferSize(8);
+         setFormat(format);
+-        setClearBeforeRendering(true);
+         setColor(QColor(Qt::transparent));
+         setTitle(QStringLiteral("Marble in QML 2.0 demo"));
+ 
+-- 
+GitLab
+

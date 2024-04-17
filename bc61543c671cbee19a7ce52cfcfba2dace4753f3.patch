@@ -1,0 +1,78 @@
+From bc61543c671cbee19a7ce52cfcfba2dace4753f3 Mon Sep 17 00:00:00 2001
+From: Gilles Caulier <caulier.gilles@gmail.com>
+Date: Tue, 19 Sep 2023 07:44:34 +0200
+Subject: [PATCH] qt6++ : compile with phononQt6 support
+
+---
+ PORT.QT6                                  | 1 -
+ bootstrap-marble.sh                       | 2 +-
+ examples/cpp/marbleQuick2/CMakeLists.txt  | 2 +-
+ src/lib/marble/CMakeLists.txt             | 2 +-
+ src/plugins/render/routing/CMakeLists.txt | 2 +-
+ 5 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/PORT.QT6 b/PORT.QT6
+index 951e50422d..f56fb4a571 100644
+--- a/PORT.QT6
++++ b/PORT.QT6
+@@ -9,7 +9,6 @@ Qt6Core5Compat still used.
+ KDE API based codes are disabled.
+ Test codes not ported.
+ Example codes not ported.
+-PhononQt6 feature not compiled.
+ 
+ DIRECTORIES                                         STATUS
+ .
+diff --git a/bootstrap-marble.sh b/bootstrap-marble.sh
+index 33d1a4ea03..008b8cacf0 100755
+--- a/bootstrap-marble.sh
++++ b/bootstrap-marble.sh
+@@ -22,7 +22,7 @@ cmake -G "$MAKEFILES_TYPE" \
+       -DWITH_DESIGNER_PLUGIN=ON \
+       -DBUILD_MARBLE_TESTS=OFF \
+       -DBUILD_MARBLE_TOOLS=ON \
+-      -DBUILD_MARBLE_EXAMPLES=OFF \
++      -DBUILD_MARBLE_EXAMPLES=ON \
+       -DBUILD_MARBLE_APPS=ON \
+       -DBUILD_WITH_DBUS=ON \
+       -DQTONLY=ON \
+diff --git a/examples/cpp/marbleQuick2/CMakeLists.txt b/examples/cpp/marbleQuick2/CMakeLists.txt
+index fd4bab7873..f428dddece 100644
+--- a/examples/cpp/marbleQuick2/CMakeLists.txt
++++ b/examples/cpp/marbleQuick2/CMakeLists.txt
+@@ -8,7 +8,7 @@ include_directories(
+ 
+ set( ${TARGET}_SRC main.cpp)
+ 
+-qt5_add_resources(marble_QRCS marbleQuick2.qrc)
++qt6_add_resources(marble_QRCS marbleQuick2.qrc)
+ add_executable( ${TARGET} ${${TARGET}_SRC} ${marble_QRCS} )
+ 
+ target_link_libraries( ${TARGET}
+diff --git a/src/lib/marble/CMakeLists.txt b/src/lib/marble/CMakeLists.txt
+index 9a8dfee727..15f11649ba 100644
+--- a/src/lib/marble/CMakeLists.txt
++++ b/src/lib/marble/CMakeLists.txt
+@@ -412,7 +412,7 @@ endif ()
+ if (Phonon4Qt6_FOUND)
+     target_link_libraries(marblewidget
+         PRIVATE
+-            Phonon::phonon4qt5
++            Phonon::phonon4qt6
+     )
+ endif()
+ 
+diff --git a/src/plugins/render/routing/CMakeLists.txt b/src/plugins/render/routing/CMakeLists.txt
+index 2de8ceae60..728f40caf7 100644
+--- a/src/plugins/render/routing/CMakeLists.txt
++++ b/src/plugins/render/routing/CMakeLists.txt
+@@ -24,5 +24,5 @@ qt_add_resources(routing_SRCS routing.qrc)
+ 
+ marble_add_plugin( RoutingPlugin ${routing_SRCS} )
+ if(Phonon4Qt6_FOUND)
+-    target_link_libraries(RoutingPlugin Phonon::phonon4qt5)
++    target_link_libraries(RoutingPlugin Phonon::phonon4qt6)
+ endif()
+-- 
+GitLab
+
