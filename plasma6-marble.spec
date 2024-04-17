@@ -1,5 +1,6 @@
 # filter plugin provides
 %global __provides_exclude_from ^(%{_libdir}/marble/plugins/.*\\.so)$
+%global __requires_exclude cmake.*Qt6WebEngine\)
 
 Summary:	A virtual globe and world atlas
 Name:		plasma6-marble
