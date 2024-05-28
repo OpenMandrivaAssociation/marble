@@ -1,6 +1,6 @@
-diff -up marble-24.02.2/CMakeLists.txt.6~ marble-24.02.2/CMakeLists.txt
---- marble-24.02.2/CMakeLists.txt.6~	2024-04-16 17:18:50.391950431 +0200
-+++ marble-24.02.2/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/CMakeLists.txt.6~ marble-24.05.0/CMakeLists.txt
+--- marble-24.05.0/CMakeLists.txt.6~	2024-05-28 20:28:59.201515437 +0200
++++ marble-24.05.0/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -110,7 +110,7 @@ set_package_properties(Protobuf PROPERTI
  if(ANDROID)
      set(REQUIRED_QT_VERSION 5.14.0)
@@ -39,9 +39,9 @@ diff -up marble-24.02.2/CMakeLists.txt.6~ marble-24.02.2/CMakeLists.txt
  # Currently these are:
  # src/apps/marble-kde
  # src/plasmarunner
-diff -up marble-24.02.2/MarbleMacros.cmake.6~ marble-24.02.2/MarbleMacros.cmake
---- marble-24.02.2/MarbleMacros.cmake.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/MarbleMacros.cmake	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/MarbleMacros.cmake.6~ marble-24.05.0/MarbleMacros.cmake
+--- marble-24.05.0/MarbleMacros.cmake.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/MarbleMacros.cmake	2024-05-28 20:28:59.229515740 +0200
 @@ -82,7 +82,7 @@ macro( marble_add_test TEST_NAME )
          add_executable( ${TEST_NAME} ${${TEST_NAME}_SRCS} )
          target_link_libraries(${TEST_NAME}
@@ -88,9 +88,9 @@ diff -up marble-24.02.2/MarbleMacros.cmake.6~ marble-24.02.2/MarbleMacros.cmake
              ARGS -removeidentical -nounfinished -silent ${ts_file} -qm ${qm_file}
          DEPENDS ${po_file}
      )
-diff -up marble-24.02.2/bootstrap-marble.sh.6~ marble-24.02.2/bootstrap-marble.sh
---- marble-24.02.2/bootstrap-marble.sh.6~	2024-04-16 17:18:50.411950636 +0200
-+++ marble-24.02.2/bootstrap-marble.sh	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/bootstrap-marble.sh.6~ marble-24.05.0/bootstrap-marble.sh
+--- marble-24.05.0/bootstrap-marble.sh.6~	2024-05-28 20:28:59.221515654 +0200
++++ marble-24.05.0/bootstrap-marble.sh	2024-05-28 20:28:59.229515740 +0200
 @@ -17,20 +17,16 @@ fi
  
  cd build
@@ -120,9 +120,9 @@ diff -up marble-24.02.2/bootstrap-marble.sh.6~ marble-24.02.2/bootstrap-marble.s
 -      $MarbleOptions \
        ..
  
-diff -up marble-24.02.2/doc/CMakeLists.txt.6~ marble-24.02.2/doc/CMakeLists.txt
---- marble-24.02.2/doc/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/doc/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/doc/CMakeLists.txt.6~ marble-24.05.0/doc/CMakeLists.txt
+--- marble-24.05.0/doc/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/doc/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,8 +9,8 @@ endif()
  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
  include(KDEInstallDirs)
@@ -134,9 +134,9 @@ diff -up marble-24.02.2/doc/CMakeLists.txt.6~ marble-24.02.2/doc/CMakeLists.txt
 +if(KF6_FOUND)
      kdoctools_create_handbook(index.docbook INSTALL_DESTINATION ${KDE_INSTALL_DOCBUNDLEDIR}/en SUBDIR marble)
  endif()
-diff -up marble-24.02.2/examples/cpp/animation-video/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/animation-video/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/animation-video/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/animation-video/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/animation-video/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/animation-video/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/animation-video/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/animation-video/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,19 +2,19 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
  SET (TARGET animation-video)
  PROJECT (${TARGET})
@@ -162,9 +162,9 @@ diff -up marble-24.02.2/examples/cpp/animation-video/CMakeLists.txt.external.6~ 
  
  ADD_EXECUTABLE (${TARGET} main.cpp)
  TARGET_LINK_LIBRARIES (${TARGET} ${LIBS})
-diff -up marble-24.02.2/examples/cpp/basic-routing/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/basic-routing/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/basic-routing/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/basic-routing/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/basic-routing/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/basic-routing/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/basic-routing/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/basic-routing/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(basic-routing)
@@ -176,9 +176,9 @@ diff -up marble-24.02.2/examples/cpp/basic-routing/CMakeLists.txt.external.6~ ma
  add_executable(basic-routing  main.cpp)
 -target_link_libraries(basic-routing  Marble Qt5::Widgets)
 +target_link_libraries(basic-routing  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/drawing-places/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/drawing-places/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/drawing-places/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/drawing-places/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/drawing-places/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/drawing-places/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/drawing-places/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/drawing-places/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(drawing-places)
@@ -190,9 +190,9 @@ diff -up marble-24.02.2/examples/cpp/drawing-places/CMakeLists.txt.external.6~ m
  add_executable(drawing-places main.cpp)
 -target_link_libraries(drawing-places  Marble Qt5::Widgets)
 +target_link_libraries(drawing-places  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/geopainter/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/geopainter/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/geopainter/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/geopainter/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/geopainter/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/geopainter/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/geopainter/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/geopainter/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(geopainter)
@@ -204,9 +204,9 @@ diff -up marble-24.02.2/examples/cpp/geopainter/CMakeLists.txt.external.6~ marbl
  add_executable(geopainter  main.cpp)
 -target_link_libraries(geopainter  Marble Qt5::Widgets)
 +target_link_libraries(geopainter  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/hello-marble/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/hello-marble/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/hello-marble/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/hello-marble/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/hello-marble/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/hello-marble/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/hello-marble/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/hello-marble/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(hello-marble)
@@ -218,9 +218,9 @@ diff -up marble-24.02.2/examples/cpp/hello-marble/CMakeLists.txt.external.6~ mar
  add_executable(hello-marble  main.cpp)
 -target_link_libraries(hello-marble  Marble Qt5::Widgets)
 +target_link_libraries(hello-marble  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/kml-inspector/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/kml-inspector/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/kml-inspector/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/kml-inspector/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/kml-inspector/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/kml-inspector/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/kml-inspector/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/kml-inspector/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(kml-inspector)
@@ -232,9 +232,9 @@ diff -up marble-24.02.2/examples/cpp/kml-inspector/CMakeLists.txt.external.6~ ma
  add_executable(kml-inspector  main.cpp)
 -target_link_libraries(kml-inspector  Marble Qt5::Widgets)
 +target_link_libraries(kml-inspector  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/map-controls/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/map-controls/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/map-controls/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/map-controls/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/map-controls/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/map-controls/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/map-controls/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/map-controls/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(map-controls)
@@ -246,9 +246,9 @@ diff -up marble-24.02.2/examples/cpp/map-controls/CMakeLists.txt.external.6~ mar
  add_executable(map-controls  main.cpp)
 -target_link_libraries(map-controls  Marble Qt5::Widgets)
 +target_link_libraries(map-controls  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/map-properties/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/map-properties/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/map-properties/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/map-properties/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/map-properties/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/map-properties/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/map-properties/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/map-properties/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(map-properties)
@@ -260,9 +260,9 @@ diff -up marble-24.02.2/examples/cpp/map-properties/CMakeLists.txt.external.6~ m
  add_executable(map-properties  main.cpp)
 -target_link_libraries(map-properties  Marble Qt5::Widgets)
 +target_link_libraries(map-properties  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.6~ marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt
---- marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt.6~ marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt
+--- marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -33,7 +33,7 @@ target_link_libraries(
      ${TARGET}
      marblewidget
@@ -272,9 +272,9 @@ diff -up marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.6~ marble-24.02.
  )
  
  install( TARGETS ${TARGET} RUNTIME DESTINATION ${MARBLE_EXAMPLES_INSTALL_DIR}/${TARGET} )
-diff -up marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/marble-game/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(marble-game)
@@ -295,9 +295,9 @@ diff -up marble-24.02.2/examples/cpp/marble-game/CMakeLists.txt.external.6~ marb
 +    Qt6::Widgets
 +    Qt6::Quick
  )
-diff -up marble-24.02.2/examples/cpp/marbleQuick2/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/marbleQuick2/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/marbleQuick2/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/marbleQuick2/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/marbleQuick2/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/marbleQuick2/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/marbleQuick2/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/marbleQuick2/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(marbleQuick)
@@ -311,9 +311,9 @@ diff -up marble-24.02.2/examples/cpp/marbleQuick2/CMakeLists.txt.external.6~ mar
  add_executable(marbleQuick  main.cpp)
 -target_link_libraries(marbleQuick  Marble Qt5::Widgets Qt5::Quick)
 +target_link_libraries(marbleQuick  Marble Qt6::Widgets Qt6::Quick)
-diff -up marble-24.02.2/examples/cpp/overlay-rendering/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/overlay-rendering/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/overlay-rendering/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/overlay-rendering/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/overlay-rendering/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/overlay-rendering/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/overlay-rendering/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/overlay-rendering/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(overlay-rendering)
@@ -325,9 +325,9 @@ diff -up marble-24.02.2/examples/cpp/overlay-rendering/CMakeLists.txt.external.6
  add_executable(overlay-rendering  main.cpp)
 -target_link_libraries(overlay-rendering  Marble Qt5::Widgets)
 +target_link_libraries(overlay-rendering  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/reverse-geocoding/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/reverse-geocoding/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/reverse-geocoding/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/reverse-geocoding/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/reverse-geocoding/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/reverse-geocoding/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/reverse-geocoding/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/reverse-geocoding/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(reverse-geocoding)
@@ -339,9 +339,9 @@ diff -up marble-24.02.2/examples/cpp/reverse-geocoding/CMakeLists.txt.external.6
  add_executable(reverse-geocoding  main.cpp)
 -target_link_libraries(reverse-geocoding  Marble Qt5::Widgets)
 +target_link_libraries(reverse-geocoding  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/search/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/search/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/search/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/search/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/search/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/search/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/search/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/search/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(search)
@@ -353,9 +353,9 @@ diff -up marble-24.02.2/examples/cpp/search/CMakeLists.txt.external.6~ marble-24
  add_executable(search  main.cpp)
 -target_link_libraries(search  Marble Qt5::Widgets)
 +target_link_libraries(search  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/squad-interpolation/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/squad-interpolation/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/squad-interpolation/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/squad-interpolation/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/squad-interpolation/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/squad-interpolation/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/squad-interpolation/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/squad-interpolation/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(squad-interpolation)
@@ -369,9 +369,9 @@ diff -up marble-24.02.2/examples/cpp/squad-interpolation/CMakeLists.txt.external
  add_executable(squad-interpolation  squad-interpolation.cpp)
 -target_link_libraries(squad-interpolation  Marble Qt5::Widgets)
 +target_link_libraries(squad-interpolation  Marble Qt6::Widgets)
-diff -up marble-24.02.2/examples/cpp/tour-preview/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/tour-preview/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/tour-preview/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/tour-preview/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/tour-preview/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/tour-preview/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/tour-preview/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/tour-preview/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,19 +2,19 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
  SET (TARGET tour-preview)
  PROJECT (${TARGET})
@@ -397,9 +397,9 @@ diff -up marble-24.02.2/examples/cpp/tour-preview/CMakeLists.txt.external.6~ mar
  
  ADD_EXECUTABLE (${TARGET} tour-preview.cpp)
  TARGET_LINK_LIBRARIES (${TARGET} ${LIBS})
-diff -up marble-24.02.2/examples/cpp/vehicletracking/CMakeLists.txt.external.6~ marble-24.02.2/examples/cpp/vehicletracking/CMakeLists.txt.external
---- marble-24.02.2/examples/cpp/vehicletracking/CMakeLists.txt.external.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/examples/cpp/vehicletracking/CMakeLists.txt.external	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/examples/cpp/vehicletracking/CMakeLists.txt.external.6~ marble-24.05.0/examples/cpp/vehicletracking/CMakeLists.txt.external
+--- marble-24.05.0/examples/cpp/vehicletracking/CMakeLists.txt.external.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/examples/cpp/vehicletracking/CMakeLists.txt.external	2024-05-28 20:28:59.229515740 +0200
 @@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 2.8.12)
  
  project(vehicletracking)
@@ -413,9 +413,9 @@ diff -up marble-24.02.2/examples/cpp/vehicletracking/CMakeLists.txt.external.6~ 
  add_executable(vehicletracking  vehicletracking.cpp)
 -target_link_libraries(vehicletracking  Marble Qt5::Widgets)
 +target_link_libraries(vehicletracking  Marble Qt6::Widgets)
-diff -up marble-24.02.2/install/INSTALL.6~ marble-24.02.2/install/INSTALL
---- marble-24.02.2/install/INSTALL.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/install/INSTALL	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/install/INSTALL.6~ marble-24.05.0/install/INSTALL
+--- marble-24.05.0/install/INSTALL.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/install/INSTALL	2024-05-28 20:28:59.229515740 +0200
 @@ -16,7 +16,7 @@ NOTE: This file describes how to build M
  Prerequisites for building Marble are:
   - Qt 5.3 or newer
@@ -475,9 +475,9 @@ diff -up marble-24.02.2/install/INSTALL.6~ marble-24.02.2/install/INSTALL
  
  3.2 "At Runtime"
  
-diff -up marble-24.02.2/src/CMakeLists.txt.6~ marble-24.02.2/src/CMakeLists.txt
---- marble-24.02.2/src/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/CMakeLists.txt.6~ marble-24.05.0/src/CMakeLists.txt
+--- marble-24.05.0/src/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -10,7 +10,7 @@ endif()
  # disabled for now:
  # no public Marble QML plugins are installed, libmarbledeclarative is only a shared lib
@@ -487,9 +487,9 @@ diff -up marble-24.02.2/src/CMakeLists.txt.6~ marble-24.02.2/src/CMakeLists.txt
    OPTION(IGNORE_CMAKE_INSTALL_PREFIX_FOR_DECLARATIVE_PLUGINS "Install Marble Qt Declarative plugins to QT_IMPORTS_DIR even if that is out of the CMAKE_INSTALL_PREFIX")
    IF(QT_IMPORTS_DIR)
      SET(MARBLE_QT_IMPORTS_DIR ${QT_IMPORTS_DIR})
-diff -up marble-24.02.2/src/apps/CMakeLists.txt.6~ marble-24.02.2/src/apps/CMakeLists.txt
---- marble-24.02.2/src/apps/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/CMakeLists.txt.6~ marble-24.05.0/src/apps/CMakeLists.txt
+--- marble-24.05.0/src/apps/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -7,7 +7,7 @@ if(BUILD_MARBLE_APPS)
      endif()
  
@@ -499,9 +499,9 @@ diff -up marble-24.02.2/src/apps/CMakeLists.txt.6~ marble-24.02.2/src/apps/CMake
          add_subdirectory(marble-maps)
      endif()
  endif()
-diff -up marble-24.02.2/src/apps/behaim/CMakeLists.txt.6~ marble-24.02.2/src/apps/behaim/CMakeLists.txt
---- marble-24.02.2/src/apps/behaim/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/behaim/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/behaim/CMakeLists.txt.6~ marble-24.05.0/src/apps/behaim/CMakeLists.txt
+--- marble-24.05.0/src/apps/behaim/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/behaim/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_BINA
  if (ANDROID)
      set(TARGET MarbleBehaim)
@@ -553,9 +553,9 @@ diff -up marble-24.02.2/src/apps/behaim/CMakeLists.txt.6~ marble-24.02.2/src/app
      set(ANDROID_SDK_ROOT $ENV{ANDROID_SDK_ROOT})
      set(ANDROID_NDK_ROOT $ENV{ANDROID_NDK_ROOT})
      set(QT_ANDROID_APP_PATH "${ABSOLUTE_INSTALL_PATH}/libs/${ANDROID_ABI}/libMarbleBehaim.so")
-diff -up marble-24.02.2/src/apps/behaim/create-apk.py.6~ marble-24.02.2/src/apps/behaim/create-apk.py
---- marble-24.02.2/src/apps/behaim/create-apk.py.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/behaim/create-apk.py	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/behaim/create-apk.py.6~ marble-24.05.0/src/apps/behaim/create-apk.py
+--- marble-24.05.0/src/apps/behaim/create-apk.py.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/behaim/create-apk.py	2024-05-28 20:28:59.229515740 +0200
 @@ -65,9 +65,9 @@ class Filter(object):
  
          return []
@@ -568,9 +568,9 @@ diff -up marble-24.02.2/src/apps/behaim/create-apk.py.6~ marble-24.02.2/src/apps
      sys.exit(1)
  
  parser = argparse.ArgumentParser(description='Create an Android application package (APK) for Marble Maps')
-diff -up marble-24.02.2/src/apps/marble-kde/CMakeLists.txt.6~ marble-24.02.2/src/apps/marble-kde/CMakeLists.txt
---- marble-24.02.2/src/apps/marble-kde/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-kde/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-kde/CMakeLists.txt.6~ marble-24.05.0/src/apps/marble-kde/CMakeLists.txt
+--- marble-24.05.0/src/apps/marble-kde/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-kde/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -2,9 +2,9 @@ if(NOT ECM_FOUND)
      return()
  endif()
@@ -622,9 +622,9 @@ diff -up marble-24.02.2/src/apps/marble-kde/CMakeLists.txt.6~ marble-24.02.2/src
 +if (KF6DocTools_FOUND)
      kdoctools_install(${CMAKE_SOURCE_DIR}/po)
  endif()
-diff -up marble-24.02.2/src/apps/marble-kde/kdemain.cpp.6~ marble-24.02.2/src/apps/marble-kde/kdemain.cpp
---- marble-24.02.2/src/apps/marble-kde/kdemain.cpp.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-kde/kdemain.cpp	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-kde/kdemain.cpp.6~ marble-24.05.0/src/apps/marble-kde/kdemain.cpp
+--- marble-24.05.0/src/apps/marble-kde/kdemain.cpp.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-kde/kdemain.cpp	2024-05-28 20:28:59.229515740 +0200
 @@ -83,7 +83,7 @@ int main ( int argc, char *argv[] )
  
      // Load Qt translation system catalog for the plugins and libmarblewidget
@@ -634,9 +634,9 @@ diff -up marble-24.02.2/src/apps/marble-kde/kdemain.cpp.6~ marble-24.02.2/src/ap
      KLocalizedString::setApplicationDomain("marble");
  
  
-diff -up marble-24.02.2/src/apps/marble-kde/marble_part.cpp.6~ marble-24.02.2/src/apps/marble-kde/marble_part.cpp
---- marble-24.02.2/src/apps/marble-kde/marble_part.cpp.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-kde/marble_part.cpp	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-kde/marble_part.cpp.6~ marble-24.05.0/src/apps/marble-kde/marble_part.cpp
+--- marble-24.05.0/src/apps/marble-kde/marble_part.cpp.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-kde/marble_part.cpp	2024-05-28 20:28:59.229515740 +0200
 @@ -132,7 +132,7 @@ MarblePart::MarblePart( QWidget *parentW
      // This has to happen before any initialization so plugins (for example) can
      // use it during initialization.
@@ -646,9 +646,9 @@ diff -up marble-24.02.2/src/apps/marble-kde/marble_part.cpp.6~ marble-24.02.2/sr
      //           and enable translations
      //     KLocale *kLocale = KGlobal::locale();
  //     if ( kLocale->measureSystem() == KLocale::Metric ) {
-diff -up marble-24.02.2/src/apps/marble-maps/CMakeLists.txt.6~ marble-24.02.2/src/apps/marble-maps/CMakeLists.txt
---- marble-24.02.2/src/apps/marble-maps/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-maps/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-maps/CMakeLists.txt.6~ marble-24.05.0/src/apps/marble-maps/CMakeLists.txt
+--- marble-24.05.0/src/apps/marble-maps/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-maps/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_BINA
  add_executable(marble-maps ${marble_SRCS} ${marble_QRCS})
  
@@ -693,9 +693,9 @@ diff -up marble-24.02.2/src/apps/marble-maps/CMakeLists.txt.6~ marble-24.02.2/sr
      endif()
  endif()
  
-diff -up marble-24.02.2/src/apps/marble-maps/create-apk.py.6~ marble-24.02.2/src/apps/marble-maps/create-apk.py
---- marble-24.02.2/src/apps/marble-maps/create-apk.py.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-maps/create-apk.py	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-maps/create-apk.py.6~ marble-24.05.0/src/apps/marble-maps/create-apk.py
+--- marble-24.05.0/src/apps/marble-maps/create-apk.py.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-maps/create-apk.py	2024-05-28 20:28:59.229515740 +0200
 @@ -66,9 +66,9 @@ class Filter(object):
  
          return []
@@ -708,9 +708,9 @@ diff -up marble-24.02.2/src/apps/marble-maps/create-apk.py.6~ marble-24.02.2/src
      sys.exit(1)
  
  parser = argparse.ArgumentParser(description='Create an Android application package (APK) for Marble Maps')
-diff -up marble-24.02.2/src/apps/marble-qt/CMakeLists.txt.6~ marble-24.02.2/src/apps/marble-qt/CMakeLists.txt
---- marble-24.02.2/src/apps/marble-qt/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-qt/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-qt/CMakeLists.txt.6~ marble-24.05.0/src/apps/marble-qt/CMakeLists.txt
+--- marble-24.05.0/src/apps/marble-qt/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-qt/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -25,9 +25,9 @@ endif (WIN32)
  
  target_link_libraries (
@@ -724,9 +724,9 @@ diff -up marble-24.02.2/src/apps/marble-qt/CMakeLists.txt.6~ marble-24.02.2/src/
  marbleui
  marblewidget
  astro)
-diff -up marble-24.02.2/src/apps/marble-ui/CMakeLists.txt.6~ marble-24.02.2/src/apps/marble-ui/CMakeLists.txt
---- marble-24.02.2/src/apps/marble-ui/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/apps/marble-ui/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/apps/marble-ui/CMakeLists.txt.6~ marble-24.05.0/src/apps/marble-ui/CMakeLists.txt
+--- marble-24.05.0/src/apps/marble-ui/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/apps/marble-ui/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -15,15 +15,15 @@ target_link_libraries (
      marbleui
      PUBLIC
@@ -747,9 +747,9 @@ diff -up marble-24.02.2/src/apps/marble-ui/CMakeLists.txt.6~ marble-24.02.2/src/
      )
  endif ()
  
-diff -up marble-24.02.2/src/bindings/CMakeLists.txt.6~ marble-24.02.2/src/bindings/CMakeLists.txt
---- marble-24.02.2/src/bindings/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/bindings/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/bindings/CMakeLists.txt.6~ marble-24.05.0/src/bindings/CMakeLists.txt
+--- marble-24.05.0/src/bindings/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/bindings/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -12,9 +12,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
  
  include(KDEInstallDirs)
@@ -762,9 +762,9 @@ diff -up marble-24.02.2/src/bindings/CMakeLists.txt.6~ marble-24.02.2/src/bindin
    return()
  endif()
  
-diff -up marble-24.02.2/src/lib/marble/CMakeLists.txt.6~ marble-24.02.2/src/lib/marble/CMakeLists.txt
---- marble-24.02.2/src/lib/marble/CMakeLists.txt.6~	2024-04-16 17:18:50.391950431 +0200
-+++ marble-24.02.2/src/lib/marble/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/lib/marble/CMakeLists.txt.6~ marble-24.05.0/src/lib/marble/CMakeLists.txt
+--- marble-24.05.0/src/lib/marble/CMakeLists.txt.6~	2024-05-28 20:28:59.201515437 +0200
++++ marble-24.05.0/src/lib/marble/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -1,14 +1,14 @@
  PROJECT(marblewidget VERSION ${RELEASE_SERVICE_VERSION})
  set(MARBLE_CMAKECONFIGNAME Marble)
@@ -828,9 +828,9 @@ diff -up marble-24.02.2/src/lib/marble/CMakeLists.txt.6~ marble-24.02.2/src/lib/
      target_link_libraries(marblewidget
          PRIVATE
              Phonon::phonon4qt5
-diff -up marble-24.02.2/src/lib/marble/MarbleConfig.cmake.in.6~ marble-24.02.2/src/lib/marble/MarbleConfig.cmake.in
---- marble-24.02.2/src/lib/marble/MarbleConfig.cmake.in.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/lib/marble/MarbleConfig.cmake.in	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/lib/marble/MarbleConfig.cmake.in.6~ marble-24.05.0/src/lib/marble/MarbleConfig.cmake.in
+--- marble-24.05.0/src/lib/marble/MarbleConfig.cmake.in.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/lib/marble/MarbleConfig.cmake.in	2024-05-28 20:28:59.229515740 +0200
 @@ -5,18 +5,18 @@ set(MARBLE_NO_WEBKITWIDGETS @MARBLE_NO_W
  include(CMakeFindDependencyMacro OPTIONAL RESULT_VARIABLE _CMakeFindDependencyMacro_FOUND)
  
@@ -858,9 +858,9 @@ diff -up marble-24.02.2/src/lib/marble/MarbleConfig.cmake.in.6~ marble-24.02.2/s
      endif()
  endif()
  
-diff -up marble-24.02.2/src/lib/marble/MarbleDirs.h.6~ marble-24.02.2/src/lib/marble/MarbleDirs.h
---- marble-24.02.2/src/lib/marble/MarbleDirs.h.6~	2024-04-16 17:18:50.395950471 +0200
-+++ marble-24.02.2/src/lib/marble/MarbleDirs.h	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/lib/marble/MarbleDirs.h.6~ marble-24.05.0/src/lib/marble/MarbleDirs.h
+--- marble-24.05.0/src/lib/marble/MarbleDirs.h.6~	2024-05-28 20:28:59.205515479 +0200
++++ marble-24.05.0/src/lib/marble/MarbleDirs.h	2024-05-28 20:28:59.229515740 +0200
 @@ -20,7 +20,7 @@ namespace Marble
   * @short A class that manages data look-up for Marble.
   *
@@ -870,9 +870,9 @@ diff -up marble-24.02.2/src/lib/marble/MarbleDirs.h.6~ marble-24.02.2/src/lib/ma
   * comes with its own model and data we need this class.
   *
   * The class needs to respect the requirements of the different plattforms,
-diff -up marble-24.02.2/src/lib/marble/declarative/CMakeLists.txt.6~ marble-24.02.2/src/lib/marble/declarative/CMakeLists.txt
---- marble-24.02.2/src/lib/marble/declarative/CMakeLists.txt.6~	2024-04-16 17:18:50.391950431 +0200
-+++ marble-24.02.2/src/lib/marble/declarative/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/lib/marble/declarative/CMakeLists.txt.6~ marble-24.05.0/src/lib/marble/declarative/CMakeLists.txt
+--- marble-24.05.0/src/lib/marble/declarative/CMakeLists.txt.6~	2024-05-28 20:28:59.201515437 +0200
++++ marble-24.05.0/src/lib/marble/declarative/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -48,12 +48,12 @@ marble_add_project_resources(qmldir)
  target_link_libraries( marbledeclarative
      PUBLIC
@@ -889,9 +889,9 @@ diff -up marble-24.02.2/src/lib/marble/declarative/CMakeLists.txt.6~ marble-24.0
      )
  endif()
  
-diff -up marble-24.02.2/src/lib/marble/kdescendantsproxymodel.h.6~ marble-24.02.2/src/lib/marble/kdescendantsproxymodel.h
---- marble-24.02.2/src/lib/marble/kdescendantsproxymodel.h.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/lib/marble/kdescendantsproxymodel.h	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/lib/marble/kdescendantsproxymodel.h.6~ marble-24.05.0/src/lib/marble/kdescendantsproxymodel.h
+--- marble-24.05.0/src/lib/marble/kdescendantsproxymodel.h.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/lib/marble/kdescendantsproxymodel.h	2024-05-28 20:28:59.229515740 +0200
 @@ -11,7 +11,7 @@
  
  #include "marble_export.h"
@@ -901,9 +901,9 @@ diff -up marble-24.02.2/src/lib/marble/kdescendantsproxymodel.h.6~ marble-24.02.
  namespace Marble
  {
  
-diff -up marble-24.02.2/src/plasma/CMakeLists.txt.6~ marble-24.02.2/src/plasma/CMakeLists.txt
---- marble-24.02.2/src/plasma/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plasma/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plasma/CMakeLists.txt.6~ marble-24.05.0/src/plasma/CMakeLists.txt
+--- marble-24.05.0/src/plasma/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plasma/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -13,9 +13,9 @@ set(SERVICES_INSTALL_DIR ${KDE_INSTALL_K
  set(DATA_INSTALL_DIR ${KDE_INSTALL_DATADIR})
  include(KDECMakeSettings)
@@ -916,9 +916,9 @@ diff -up marble-24.02.2/src/plasma/CMakeLists.txt.6~ marble-24.02.2/src/plasma/C
    return()
  endif()
  
-diff -up marble-24.02.2/src/plasmarunner/CMakeLists.txt.6~ marble-24.02.2/src/plasmarunner/CMakeLists.txt
---- marble-24.02.2/src/plasmarunner/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plasmarunner/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plasmarunner/CMakeLists.txt.6~ marble-24.05.0/src/plasmarunner/CMakeLists.txt
+--- marble-24.05.0/src/plasmarunner/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plasmarunner/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -12,9 +12,9 @@ include(KDEInstallDirs)
  set(LIB_INSTALL_DIR ${KDE_INSTALL_LIBDIR})
  include(KDECMakeSettings)
@@ -947,9 +947,9 @@ diff -up marble-24.02.2/src/plasmarunner/CMakeLists.txt.6~ marble-24.02.2/src/pl
    install(FILES plasma-runner-marble.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
  else()
    kcoreaddons_desktop_to_json(plasma_runner_marble plasma-runner-marble.desktop)
-diff -up marble-24.02.2/src/plugins/designer/CMakeLists.txt.6~ marble-24.02.2/src/plugins/designer/CMakeLists.txt
---- marble-24.02.2/src/plugins/designer/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/designer/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/designer/CMakeLists.txt.6~ marble-24.05.0/src/plugins/designer/CMakeLists.txt
+--- marble-24.05.0/src/plugins/designer/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/designer/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -1,21 +1,21 @@
  if (WITH_DESIGNER_PLUGIN)
  
@@ -983,9 +983,9 @@ diff -up marble-24.02.2/src/plugins/designer/CMakeLists.txt.6~ marble-24.02.2/sr
  endif()
  
    if (DesignerPluginDeps_FOUND)
-diff -up marble-24.02.2/src/plugins/designer/latloneditwidget/CMakeLists.txt.6~ marble-24.02.2/src/plugins/designer/latloneditwidget/CMakeLists.txt
---- marble-24.02.2/src/plugins/designer/latloneditwidget/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/designer/latloneditwidget/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/designer/latloneditwidget/CMakeLists.txt.6~ marble-24.05.0/src/plugins/designer/latloneditwidget/CMakeLists.txt
+--- marble-24.05.0/src/plugins/designer/latloneditwidget/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/designer/latloneditwidget/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -3,8 +3,8 @@ PROJECT( LatLonEditPlugin )
  INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -997,9 +997,9 @@ diff -up marble-24.02.2/src/plugins/designer/latloneditwidget/CMakeLists.txt.6~ 
  )
  
  set( latloneditplugin_SRCS LatLonEditPlugin.cpp )
-diff -up marble-24.02.2/src/plugins/designer/marblewidget/CMakeLists.txt.6~ marble-24.02.2/src/plugins/designer/marblewidget/CMakeLists.txt
---- marble-24.02.2/src/plugins/designer/marblewidget/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/designer/marblewidget/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/designer/marblewidget/CMakeLists.txt.6~ marble-24.05.0/src/plugins/designer/marblewidget/CMakeLists.txt
+--- marble-24.05.0/src/plugins/designer/marblewidget/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/designer/marblewidget/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -3,8 +3,8 @@ PROJECT( MarbleWidgetPlugin )
  INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -1011,9 +1011,9 @@ diff -up marble-24.02.2/src/plugins/designer/marblewidget/CMakeLists.txt.6~ marb
  )
  
  set( marbleplugin_SRCS MarbleWidgetPlugin.cpp )
-diff -up marble-24.02.2/src/plugins/designer/navigator/CMakeLists.txt.6~ marble-24.02.2/src/plugins/designer/navigator/CMakeLists.txt
---- marble-24.02.2/src/plugins/designer/navigator/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/designer/navigator/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/designer/navigator/CMakeLists.txt.6~ marble-24.05.0/src/plugins/designer/navigator/CMakeLists.txt
+--- marble-24.05.0/src/plugins/designer/navigator/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/designer/navigator/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -3,8 +3,8 @@ PROJECT(MarbleNavigatorPlugin)
  INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -1025,9 +1025,9 @@ diff -up marble-24.02.2/src/plugins/designer/navigator/CMakeLists.txt.6~ marble-
  )
  
  set( marblenavigator_SRCS MarbleNavigatorPlugin.cpp )
-diff -up marble-24.02.2/src/plugins/positionprovider/CMakeLists.txt.6~ marble-24.02.2/src/plugins/positionprovider/CMakeLists.txt
---- marble-24.02.2/src/plugins/positionprovider/CMakeLists.txt.6~	2024-04-16 17:18:50.391950431 +0200
-+++ marble-24.02.2/src/plugins/positionprovider/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/positionprovider/CMakeLists.txt.6~ marble-24.05.0/src/plugins/positionprovider/CMakeLists.txt
+--- marble-24.05.0/src/plugins/positionprovider/CMakeLists.txt.6~	2024-05-28 20:28:59.201515437 +0200
++++ marble-24.05.0/src/plugins/positionprovider/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -12,9 +12,9 @@ find_package(Qt6 ${REQUIRED_QT_VERSION}
      OPTIONAL_COMPONENTS
          Positioning
@@ -1041,9 +1041,9 @@ diff -up marble-24.02.2/src/plugins/positionprovider/CMakeLists.txt.6~ marble-24
  if(Qt6Positioning_FOUND)
     ADD_SUBDIRECTORY( qtpositioning )
  endif()
-diff -up marble-24.02.2/src/plugins/positionprovider/qtpositioning/CMakeLists.txt.6~ marble-24.02.2/src/plugins/positionprovider/qtpositioning/CMakeLists.txt
---- marble-24.02.2/src/plugins/positionprovider/qtpositioning/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/positionprovider/qtpositioning/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/positionprovider/qtpositioning/CMakeLists.txt.6~ marble-24.05.0/src/plugins/positionprovider/qtpositioning/CMakeLists.txt
+--- marble-24.05.0/src/plugins/positionprovider/qtpositioning/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/positionprovider/qtpositioning/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,6 +9,6 @@ SET( qtpositioning_SRCS
   QtPositioningPositionProviderPlugin.cpp
  )
@@ -1052,9 +1052,9 @@ diff -up marble-24.02.2/src/plugins/positionprovider/qtpositioning/CMakeLists.tx
 +SET( QtPositioningPositionProviderPlugin_LIBS Qt6::Positioning )
  
  MARBLE_ADD_PLUGIN( QtPositioningPositionProviderPlugin ${qtpositioning_SRCS} )
-diff -up marble-24.02.2/src/plugins/positionprovider/wlocate/CMakeLists.txt.6~ marble-24.02.2/src/plugins/positionprovider/wlocate/CMakeLists.txt
---- marble-24.02.2/src/plugins/positionprovider/wlocate/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/positionprovider/wlocate/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/positionprovider/wlocate/CMakeLists.txt.6~ marble-24.05.0/src/plugins/positionprovider/wlocate/CMakeLists.txt
+--- marble-24.05.0/src/plugins/positionprovider/wlocate/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/positionprovider/wlocate/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(
   ${LIBWLOCATE_INCLUDE_DIR}
  )
@@ -1064,9 +1064,9 @@ diff -up marble-24.02.2/src/plugins/positionprovider/wlocate/CMakeLists.txt.6~ m
  
  set( wlocate_SRCS
   WlocatePositionProviderPlugin.cpp
-diff -up marble-24.02.2/src/plugins/render/aprs/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/aprs/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/aprs/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/aprs/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/aprs/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/aprs/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/aprs/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/aprs/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -1,18 +1,18 @@
  PROJECT(AprsPlugin)
  
@@ -1092,9 +1092,9 @@ diff -up marble-24.02.2/src/plugins/render/aprs/CMakeLists.txt.6~ marble-24.02.2
    set (HAVE_QTSERIALPORT TRUE)
  endif ()
  
-diff -up marble-24.02.2/src/plugins/render/compass/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/compass/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/compass/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/compass/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/compass/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/compass/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/compass/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/compass/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -10,6 +10,6 @@ set( compass_UI CompassConfigWidget.ui )
  qt_wrap_ui( compass_SRCS ${compass_UI} )
  qt_add_resources( compass_SRCS compass.qrc )
@@ -1103,9 +1103,9 @@ diff -up marble-24.02.2/src/plugins/render/compass/CMakeLists.txt.6~ marble-24.0
 +set( CompassFloatItem_LIBS Qt6::Svg )
  
  marble_add_plugin( CompassFloatItem ${compass_SRCS} )
-diff -up marble-24.02.2/src/plugins/render/crosshairs/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/crosshairs/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/crosshairs/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/crosshairs/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/crosshairs/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/crosshairs/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/crosshairs/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/crosshairs/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -10,6 +10,6 @@ set( crosshairs_UI CrosshairsConfigWidge
  qt_wrap_ui( crosshairs_SRCS ${crosshairs_UI} )
  qt_add_resources( crosshairs_SRCS crosshairs.qrc )
@@ -1114,9 +1114,9 @@ diff -up marble-24.02.2/src/plugins/render/crosshairs/CMakeLists.txt.6~ marble-2
 +set( CrosshairsPlugin_LIBS Qt6::Svg )
  
  marble_add_plugin( CrosshairsPlugin ${crosshairs_SRCS} )
-diff -up marble-24.02.2/src/plugins/render/earthquake/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/earthquake/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/earthquake/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/earthquake/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/earthquake/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/earthquake/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/earthquake/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/earthquake/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -15,6 +15,6 @@ set( earthquake_UI EarthquakeConfigWidge
  qt_wrap_ui(my_SRCS ${earthquake_UI})
  qt_add_resources(my_SRCS earthquake.qrc)
@@ -1125,9 +1125,9 @@ diff -up marble-24.02.2/src/plugins/render/earthquake/CMakeLists.txt.6~ marble-2
 +set(EarthquakePlugin_LIBS Qt6::Svg)
  
  marble_add_plugin( EarthquakePlugin ${my_SRCS} )
-diff -up marble-24.02.2/src/plugins/render/graticule/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/graticule/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/graticule/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/graticule/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/graticule/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/graticule/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/graticule/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/graticule/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,6 +9,6 @@ set( graticule_SRCS GraticulePlugin.cpp
  set( graticule_UI GraticuleConfigWidget.ui )
  qt_wrap_ui( graticule_SRCS ${graticule_UI} )
@@ -1136,9 +1136,9 @@ diff -up marble-24.02.2/src/plugins/render/graticule/CMakeLists.txt.6~ marble-24
 +set( GraticulePlugin_LIBS Qt6::Svg )
  
  marble_add_plugin( GraticulePlugin ${graticule_SRCS} )
-diff -up marble-24.02.2/src/plugins/render/overviewmap/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/overviewmap/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/overviewmap/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/overviewmap/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/overviewmap/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/overviewmap/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/overviewmap/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/overviewmap/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -10,6 +10,6 @@ set( overviewmap_UI OverviewMapConfigWid
  
  qt_wrap_ui(overviewmap_SRCS ${overviewmap_UI})
@@ -1147,9 +1147,9 @@ diff -up marble-24.02.2/src/plugins/render/overviewmap/CMakeLists.txt.6~ marble-
 +set( OverviewMap_LIBS Qt6::Svg )
  
  marble_add_plugin( OverviewMap ${overviewmap_SRCS} )
-diff -up marble-24.02.2/src/plugins/render/routing/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/routing/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/routing/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/routing/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/routing/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/routing/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/routing/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/routing/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -1,7 +1,7 @@
  PROJECT(RoutingPlugin)
  
@@ -1177,9 +1177,9 @@ diff -up marble-24.02.2/src/plugins/render/routing/CMakeLists.txt.6~ marble-24.0
 +if(Phonon4Qt6_FOUND)
      target_link_libraries(RoutingPlugin Phonon::phonon4qt5)
  endif()
-diff -up marble-24.02.2/src/plugins/render/weather/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/weather/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/weather/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/weather/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/weather/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/weather/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/weather/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/weather/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -25,6 +25,6 @@ set( weather_UI WeatherConfigWidget.ui )
  qt_wrap_ui( weather_SRCS ${weather_UI} )
  qt_add_resources( weather_SRCS weather.qrc )
@@ -1188,9 +1188,9 @@ diff -up marble-24.02.2/src/plugins/render/weather/CMakeLists.txt.6~ marble-24.0
 +set(Weather_LIBS Qt6::Svg)
  
  marble_add_plugin( Weather ${weather_SRCS} )
-diff -up marble-24.02.2/src/plugins/render/wikipedia/CMakeLists.txt.6~ marble-24.02.2/src/plugins/render/wikipedia/CMakeLists.txt
---- marble-24.02.2/src/plugins/render/wikipedia/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/render/wikipedia/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/render/wikipedia/CMakeLists.txt.6~ marble-24.05.0/src/plugins/render/wikipedia/CMakeLists.txt
+--- marble-24.05.0/src/plugins/render/wikipedia/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/render/wikipedia/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -13,6 +13,6 @@ set( wikipedia_UI WikipediaConfigWidget.
  
  qt_wrap_ui(wikipedia_SRCS ${wikipedia_UI})
@@ -1199,9 +1199,9 @@ diff -up marble-24.02.2/src/plugins/render/wikipedia/CMakeLists.txt.6~ marble-24
 +set( Wikipedia_LIBS Qt6::Svg )
  
  marble_add_plugin( Wikipedia ${wikipedia_SRCS} )
-diff -up marble-24.02.2/src/plugins/runner/gpx/CMakeLists.txt.6~ marble-24.02.2/src/plugins/runner/gpx/CMakeLists.txt
---- marble-24.02.2/src/plugins/runner/gpx/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/runner/gpx/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/runner/gpx/CMakeLists.txt.6~ marble-24.05.0/src/plugins/runner/gpx/CMakeLists.txt
+--- marble-24.05.0/src/plugins/runner/gpx/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/runner/gpx/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -40,7 +40,7 @@ if( BUILD_MARBLE_TESTS )
      set( TestTrack_SRCS TestTrack.moc ${TestTrack_SRCS} )
  
@@ -1222,9 +1222,9 @@ diff -up marble-24.02.2/src/plugins/runner/gpx/CMakeLists.txt.6~ marble-24.02.2/
      return()
  endif()
  
-diff -up marble-24.02.2/src/plugins/runner/json/CMakeLists.txt.6~ marble-24.02.2/src/plugins/runner/json/CMakeLists.txt
---- marble-24.02.2/src/plugins/runner/json/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/runner/json/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/runner/json/CMakeLists.txt.6~ marble-24.05.0/src/plugins/runner/json/CMakeLists.txt
+--- marble-24.05.0/src/plugins/runner/json/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/runner/json/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -18,8 +18,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
  
  include(KDEInstallDirs)
@@ -1236,9 +1236,9 @@ diff -up marble-24.02.2/src/plugins/runner/json/CMakeLists.txt.6~ marble-24.02.2
      return()
  endif()
  
-diff -up marble-24.02.2/src/plugins/runner/kml/CMakeLists.txt.6~ marble-24.02.2/src/plugins/runner/kml/CMakeLists.txt
---- marble-24.02.2/src/plugins/runner/kml/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/runner/kml/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/runner/kml/CMakeLists.txt.6~ marble-24.05.0/src/plugins/runner/kml/CMakeLists.txt
+--- marble-24.05.0/src/plugins/runner/kml/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/runner/kml/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -20,22 +20,22 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
  
  include(KDEInstallDirs)
@@ -1270,18 +1270,18 @@ diff -up marble-24.02.2/src/plugins/runner/kml/CMakeLists.txt.6~ marble-24.02.2/
 +    install(FILES marble_kml.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
 +    install(FILES marble_kmz.desktop DESTINATION ${KDE_INSTALL_FULL_APPDIR})
  endif()
-diff -up marble-24.02.2/src/plugins/runner/local-osm-search/CMakeLists.txt.6~ marble-24.02.2/src/plugins/runner/local-osm-search/CMakeLists.txt
---- marble-24.02.2/src/plugins/runner/local-osm-search/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/runner/local-osm-search/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/runner/local-osm-search/CMakeLists.txt.6~ marble-24.05.0/src/plugins/runner/local-osm-search/CMakeLists.txt
+--- marble-24.05.0/src/plugins/runner/local-osm-search/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/runner/local-osm-search/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -14,4 +14,4 @@ DatabaseQuery.cpp
   )
  
  marble_add_plugin( LocalOsmSearchPlugin ${localOsmSearch_SRCS} )
 -target_link_libraries( LocalOsmSearchPlugin Qt5::Sql )
 +target_link_libraries( LocalOsmSearchPlugin Qt6::Sql )
-diff -up marble-24.02.2/src/plugins/runner/osm/CMakeLists.txt.6~ marble-24.02.2/src/plugins/runner/osm/CMakeLists.txt
---- marble-24.02.2/src/plugins/runner/osm/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/runner/osm/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/runner/osm/CMakeLists.txt.6~ marble-24.05.0/src/plugins/runner/osm/CMakeLists.txt
+--- marble-24.05.0/src/plugins/runner/osm/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/runner/osm/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -61,8 +61,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
  
  include(KDEInstallDirs)
@@ -1293,9 +1293,9 @@ diff -up marble-24.02.2/src/plugins/runner/osm/CMakeLists.txt.6~ marble-24.02.2/
      return()
  endif()
  
-diff -up marble-24.02.2/src/plugins/runner/shp/CMakeLists.txt.6~ marble-24.02.2/src/plugins/runner/shp/CMakeLists.txt
---- marble-24.02.2/src/plugins/runner/shp/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/plugins/runner/shp/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/plugins/runner/shp/CMakeLists.txt.6~ marble-24.05.0/src/plugins/runner/shp/CMakeLists.txt
+--- marble-24.05.0/src/plugins/runner/shp/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/plugins/runner/shp/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -22,8 +22,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PAT
  
  include(KDEInstallDirs)
@@ -1307,9 +1307,9 @@ diff -up marble-24.02.2/src/plugins/runner/shp/CMakeLists.txt.6~ marble-24.02.2/
      return()
  endif()
  
-diff -up marble-24.02.2/src/thumbnailer/CMakeLists.txt.6~ marble-24.02.2/src/thumbnailer/CMakeLists.txt
---- marble-24.02.2/src/thumbnailer/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/src/thumbnailer/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/src/thumbnailer/CMakeLists.txt.6~ marble-24.05.0/src/thumbnailer/CMakeLists.txt
+--- marble-24.05.0/src/thumbnailer/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/src/thumbnailer/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -8,9 +8,9 @@ endif()
  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
  include(KDEInstallDirs)
@@ -1330,9 +1330,9 @@ diff -up marble-24.02.2/src/thumbnailer/CMakeLists.txt.6~ marble-24.02.2/src/thu
 +  KF6::KIOWidgets
  )
  install(TARGETS marblethumbnail  DESTINATION ${KDE_INSTALL_PLUGINDIR})
-diff -up marble-24.02.2/tests/CTestNightlyScript.cmake.in.6~ marble-24.02.2/tests/CTestNightlyScript.cmake.in
---- marble-24.02.2/tests/CTestNightlyScript.cmake.in.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tests/CTestNightlyScript.cmake.in	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tests/CTestNightlyScript.cmake.in.6~ marble-24.05.0/tests/CTestNightlyScript.cmake.in
+--- marble-24.05.0/tests/CTestNightlyScript.cmake.in.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tests/CTestNightlyScript.cmake.in	2024-05-28 20:28:59.229515740 +0200
 @@ -6,7 +6,7 @@ set( CTEST_BINARY_DIRECTORY "@PROJECT_BI
  set ( CTEST_COMMAND "@CMAKE_CTEST_COMMAND@ -D Nightly --verbose" )
  
@@ -1342,45 +1342,45 @@ diff -up marble-24.02.2/tests/CTestNightlyScript.cmake.in.6~ marble-24.02.2/test
  
  #wipe the binary tree before running
  set ( CTEST_START_WITH_EMPTY_BINARY_DIRECTORY TRUE )
-diff -up marble-24.02.2/tools/asc2kml/CMakeLists.txt.6~ marble-24.02.2/tools/asc2kml/CMakeLists.txt
---- marble-24.02.2/tools/asc2kml/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/asc2kml/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/asc2kml/CMakeLists.txt.6~ marble-24.05.0/tools/asc2kml/CMakeLists.txt
+--- marble-24.05.0/tools/asc2kml/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/asc2kml/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC asc2kml.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core )
 +target_link_libraries( ${TARGET} Qt6::Core )
-diff -up marble-24.02.2/tools/dso2kml/CMakeLists.txt.6~ marble-24.02.2/tools/dso2kml/CMakeLists.txt
---- marble-24.02.2/tools/dso2kml/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/dso2kml/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/dso2kml/CMakeLists.txt.6~ marble-24.05.0/tools/dso2kml/CMakeLists.txt
+--- marble-24.05.0/tools/dso2kml/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/dso2kml/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC dso2kml.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core )
 +target_link_libraries( ${TARGET} Qt6::Core )
-diff -up marble-24.02.2/tools/iau2kml/CMakeLists.txt.6~ marble-24.02.2/tools/iau2kml/CMakeLists.txt
---- marble-24.02.2/tools/iau2kml/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/iau2kml/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/iau2kml/CMakeLists.txt.6~ marble-24.05.0/tools/iau2kml/CMakeLists.txt
+--- marble-24.05.0/tools/iau2kml/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/iau2kml/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC iau2kml.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core )
 +target_link_libraries( ${TARGET} Qt6::Core )
-diff -up marble-24.02.2/tools/mbtile-import/CMakeLists.txt.6~ marble-24.02.2/tools/mbtile-import/CMakeLists.txt
---- marble-24.02.2/tools/mbtile-import/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/mbtile-import/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/mbtile-import/CMakeLists.txt.6~ marble-24.05.0/tools/mbtile-import/CMakeLists.txt
+--- marble-24.05.0/tools/mbtile-import/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/mbtile-import/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC mbtile-import.cpp MbTileWriter.cpp)
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries(${TARGET} marblewidget Qt5::Sql)
 +target_link_libraries(${TARGET} marblewidget Qt6::Sql)
-diff -up marble-24.02.2/tools/osm-addresses/CMakeLists.txt.6~ marble-24.02.2/tools/osm-addresses/CMakeLists.txt
---- marble-24.02.2/tools/osm-addresses/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/osm-addresses/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/osm-addresses/CMakeLists.txt.6~ marble-24.05.0/tools/osm-addresses/CMakeLists.txt
+--- marble-24.05.0/tools/osm-addresses/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/osm-addresses/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -29,7 +29,7 @@ add_executable( ${TARGET} ${${TARGET}_SR
  
  target_link_libraries( ${TARGET}
@@ -1390,96 +1390,96 @@ diff -up marble-24.02.2/tools/osm-addresses/CMakeLists.txt.6~ marble-24.02.2/too
      ${PROTOBUF_LIBRARIES}
      ${ZLIB_LIBRARIES}
  )
-diff -up marble-24.02.2/tools/osm-sisyphus/CMakeLists.txt.6~ marble-24.02.2/tools/osm-sisyphus/CMakeLists.txt
---- marble-24.02.2/tools/osm-sisyphus/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/osm-sisyphus/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/osm-sisyphus/CMakeLists.txt.6~ marble-24.05.0/tools/osm-sisyphus/CMakeLists.txt
+--- marble-24.05.0/tools/osm-sisyphus/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/osm-sisyphus/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -18,4 +18,4 @@ main.cpp
  )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries(${TARGET} marblewidget Qt5::Sql)
 +target_link_libraries(${TARGET} marblewidget Qt6::Sql)
-diff -up marble-24.02.2/tools/pnt2svg/CMakeLists.txt.6~ marble-24.02.2/tools/pnt2svg/CMakeLists.txt
---- marble-24.02.2/tools/pnt2svg/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/pnt2svg/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/pnt2svg/CMakeLists.txt.6~ marble-24.05.0/tools/pnt2svg/CMakeLists.txt
+--- marble-24.05.0/tools/pnt2svg/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/pnt2svg/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC pnt2svg.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core )
 +target_link_libraries( ${TARGET} Qt6::Core )
-diff -up marble-24.02.2/tools/pntdel/CMakeLists.txt.6~ marble-24.02.2/tools/pntdel/CMakeLists.txt
---- marble-24.02.2/tools/pntdel/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/pntdel/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/pntdel/CMakeLists.txt.6~ marble-24.05.0/tools/pntdel/CMakeLists.txt
+--- marble-24.05.0/tools/pntdel/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/pntdel/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC pntdel.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core )
 +target_link_libraries( ${TARGET} Qt6::Core )
-diff -up marble-24.02.2/tools/pntreplace/CMakeLists.txt.6~ marble-24.02.2/tools/pntreplace/CMakeLists.txt
---- marble-24.02.2/tools/pntreplace/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/pntreplace/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/pntreplace/CMakeLists.txt.6~ marble-24.05.0/tools/pntreplace/CMakeLists.txt
+--- marble-24.05.0/tools/pntreplace/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/pntreplace/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC pntreplace.cpp svgxmlhandler.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Xml Qt5::Widgets )
 +target_link_libraries( ${TARGET} Qt6::Xml Qt6::Widgets )
-diff -up marble-24.02.2/tools/routing-instructions/CMakeLists.txt.6~ marble-24.02.2/tools/routing-instructions/CMakeLists.txt
---- marble-24.02.2/tools/routing-instructions/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/routing-instructions/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/routing-instructions/CMakeLists.txt.6~ marble-24.05.0/tools/routing-instructions/CMakeLists.txt
+--- marble-24.05.0/tools/routing-instructions/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/routing-instructions/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -15,4 +15,4 @@ set( routing-instructions_SRC
  
  add_executable( routing-instructions ${routing-instructions_SRC} )
  
 -target_link_libraries( routing-instructions Qt5::Core )
 +target_link_libraries( routing-instructions Qt6::Core )
-diff -up marble-24.02.2/tools/sentineltile/CMakeLists.txt.6~ marble-24.02.2/tools/sentineltile/CMakeLists.txt
---- marble-24.02.2/tools/sentineltile/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/sentineltile/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/sentineltile/CMakeLists.txt.6~ marble-24.05.0/tools/sentineltile/CMakeLists.txt
+--- marble-24.05.0/tools/sentineltile/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/sentineltile/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC sentineltile.cpp tileprocessor.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET}  Qt5::Core Qt5::Widgets )
 +target_link_libraries( ${TARGET}  Qt6::Core Qt6::Widgets )
-diff -up marble-24.02.2/tools/speaker-files/CMakeLists.txt.6~ marble-24.02.2/tools/speaker-files/CMakeLists.txt
---- marble-24.02.2/tools/speaker-files/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/speaker-files/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/speaker-files/CMakeLists.txt.6~ marble-24.05.0/tools/speaker-files/CMakeLists.txt
+--- marble-24.05.0/tools/speaker-files/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/speaker-files/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC main.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core Qt5::Sql )
 +target_link_libraries( ${TARGET} Qt6::Core Qt6::Sql )
-diff -up marble-24.02.2/tools/stars/CMakeLists.txt.6~ marble-24.02.2/tools/stars/CMakeLists.txt
---- marble-24.02.2/tools/stars/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/stars/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/stars/CMakeLists.txt.6~ marble-24.05.0/tools/stars/CMakeLists.txt
+--- marble-24.05.0/tools/stars/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/stars/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -10,4 +10,4 @@ set( ${TARGET}_SRC stars.cpp )
  add_definitions( -D_USE_MATH_DEFINES=1 )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET} Qt5::Core )
 +target_link_libraries( ${TARGET} Qt6::Core )
-diff -up marble-24.02.2/tools/svg2pnt/CMakeLists.txt.6~ marble-24.02.2/tools/svg2pnt/CMakeLists.txt
---- marble-24.02.2/tools/svg2pnt/CMakeLists.txt.6~	2024-04-08 17:10:38.000000000 +0200
-+++ marble-24.02.2/tools/svg2pnt/CMakeLists.txt	2024-04-16 17:18:50.419950717 +0200
+diff -up marble-24.05.0/tools/svg2pnt/CMakeLists.txt.6~ marble-24.05.0/tools/svg2pnt/CMakeLists.txt
+--- marble-24.05.0/tools/svg2pnt/CMakeLists.txt.6~	2024-05-17 00:07:47.000000000 +0200
++++ marble-24.05.0/tools/svg2pnt/CMakeLists.txt	2024-05-28 20:28:59.229515740 +0200
 @@ -9,4 +9,4 @@ include_directories(
  set( ${TARGET}_SRC svg2pnt.cpp svgxmlhandler.cpp )
  add_executable( ${TARGET} ${${TARGET}_SRC} )
  
 -target_link_libraries( ${TARGET}  Qt5::Core Qt5::Xml )
 +target_link_libraries( ${TARGET}  Qt6::Core Qt6::Xml )
-diff -up marble-24.02.2/tools/vectorosm-tilecreator/CMakeLists.txt.6~ marble-24.02.2/tools/vectorosm-tilecreator/CMakeLists.txt
---- marble-24.02.2/tools/vectorosm-tilecreator/CMakeLists.txt.6~	2024-04-16 17:18:50.419950717 +0200
-+++ marble-24.02.2/tools/vectorosm-tilecreator/CMakeLists.txt	2024-04-16 17:19:11.584166916 +0200
-@@ -28,7 +28,7 @@ WayConcatenator.cpp
- WayChunk.cpp
+diff -up marble-24.05.0/tools/vectorosm-tilecreator/CMakeLists.txt.6~ marble-24.05.0/tools/vectorosm-tilecreator/CMakeLists.txt
+--- marble-24.05.0/tools/vectorosm-tilecreator/CMakeLists.txt.6~	2024-05-28 20:28:59.229515740 +0200
++++ marble-24.05.0/tools/vectorosm-tilecreator/CMakeLists.txt	2024-05-28 20:33:51.868718703 +0200
+@@ -25,7 +25,7 @@ TileDirectory.cpp
+ VectorClipper.cpp
  )
  target_compile_definitions(vectorosm-toolchain PUBLIC USINGZ=1)
 -target_link_libraries(vectorosm-toolchain marblewidget Qt5::Sql)
 +target_link_libraries(vectorosm-toolchain marblewidget Qt6::Sql)
  
  add_executable(marble-vectorosm-tilecreator
-     ../mbtile-import/MbTileWriter.cpp
+     SpellChecker.cpp
