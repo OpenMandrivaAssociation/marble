@@ -5,7 +5,7 @@
 Summary:	A virtual globe and world atlas
 Name:		plasma6-marble
 Version:	24.05.0
-Release:	1
+Release:	2
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		http://edu.kde.org
