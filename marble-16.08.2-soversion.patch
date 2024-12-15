@@ -1,8 +1,8 @@
-diff -Naur marble-17.04.1/src/lib/marble/declarative/CMakeLists.txt marble-17.04.1.tpg/src/lib/marble/declarative/CMakeLists.txt
---- marble-17.04.1/src/lib/marble/declarative/CMakeLists.txt	2017-05-07 13:57:55.000000000 +0000
-+++ marble-17.04.1.tpg/src/lib/marble/declarative/CMakeLists.txt	2017-05-12 17:23:29.272944523 +0000
-@@ -30,6 +30,13 @@
-     RouteRelationModel.cpp
+diff -up marble-24.12.0/src/lib/marble/declarative/CMakeLists.txt.1~ marble-24.12.0/src/lib/marble/declarative/CMakeLists.txt
+--- marble-24.12.0/src/lib/marble/declarative/CMakeLists.txt.1~	2024-12-15 18:53:06.189062227 +0100
++++ marble-24.12.0/src/lib/marble/declarative/CMakeLists.txt	2024-12-15 18:55:30.520339348 +0100
+@@ -74,6 +74,13 @@ target_sources(marbledeclarative PRIVATE
+     RouteRelationModel.h
  )
  
 +if(NOT CMAKE_SYSTEM_NAME STREQUAL Android)
@@ -12,6 +12,6 @@ diff -Naur marble-17.04.1/src/lib/marble/declarative/CMakeLists.txt marble-17.04
 +  )
 +endif()
 +
- generate_export_header(marbledeclarative BASE_NAME marble_declarative)
- target_include_directories(marbledeclarative PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
- 
+ target_link_libraries(marbledeclarative PUBLIC
+     marblewidget
+     Qt6::Quick
