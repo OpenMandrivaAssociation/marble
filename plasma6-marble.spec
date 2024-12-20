@@ -38,6 +38,7 @@ BuildRequires:	cmake(KF6Runner)
 BuildRequires:	cmake(KF6Service)
 BuildRequires:	cmake(KF6Wallet)
 BuildRequires:	cmake(Plasma) >= 6.0.0-1
+BuildRequires:	cmake(PlasmaQuick)
 BuildRequires:	cmake(Phonon4Qt6)
 BuildRequires:	cmake(Phonon4Qt6Experimental)
 BuildRequires:	pkgconfig(shared-mime-info)
