@@ -4,8 +4,8 @@
 
 Summary:	A virtual globe and world atlas
 Name:		plasma6-marble
-Version:	24.12.3
-Release:	3
+Version:	25.03.80
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		https://edu.kde.org
@@ -42,7 +42,7 @@ BuildRequires:	cmake(PlasmaQuick)
 BuildRequires:	cmake(Phonon4Qt6)
 BuildRequires:	cmake(Phonon4Qt6Experimental)
 BuildRequires:	pkgconfig(shared-mime-info)
-BuildRequires:	kdoctools-devel
+BuildRequires:	cmake(KF6DocTools)
 BuildRequires:	pkgconfig(Qt6Core)
 BuildRequires:	pkgconfig(Qt6Xml)
 BuildRequires:	pkgconfig(Qt6Network)
@@ -169,6 +169,7 @@ sed -i -e 's,CMAKE_CXX_STANDARD 17,CMAKE_CXX_STANDARD 20,' CMakeLists.txt
 	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON \
 	-DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
 	-DBUILD_MARBLE_APPS=ON \
+	-DBUILD_MARBLE_TOOLS=ON \
 	-DBUILD_WITH_DBUS=ON \
 	-DBUILD_MARBLE_TESTS=OFF \
 	-DBUILD_TESTING=OFF \
