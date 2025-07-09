@@ -3,7 +3,7 @@
 %global __requires_exclude cmake.*Qt6WebEngine\)
 
 Summary:	A virtual globe and world atlas
-Name:		plasma6-marble
+Name:		marble
 Version:	25.04.0
 Release:	1
 Group:		Graphical desktop/KDE
