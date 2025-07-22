@@ -128,6 +128,7 @@ Summary:	A virtual globe and world atlas
 Group:		Graphical desktop/KDE
 Obsoletes:	marble-common-qt4 < 15.12.1
 Provides:	marble-common-qt4 = 15.12.1
+%rename plasma6-marble-common
 
 %description common
 Marble is a Virtual Globe and World Atlas that you can use to learn more
