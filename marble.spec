@@ -4,7 +4,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	25.04.0
+Version:	25.04.3
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -73,6 +73,25 @@ Provides:	%{mklibname marblewidget 22} = 15.12.1
 Obsoletes:	%{mklibname marblewidget -d} < 15.12.1
 Obsoletes:	%{mklibname marblewidget -d} = 15.12.1
 
+%rename plasma6-marble
+
+BuildSystem:	cmake
+BuildOption:	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
+BuildOption:	-DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data"
+BuildOption:	-DBUILD_MARBLE_APPS=ON
+BuildOption:	-DBUILD_MARBLE_TOOLS=ON
+BuildOption:	-DBUILD_WITH_DBUS=ON
+BuildOption:	-DBUILD_MARBLE_TESTS=OFF
+BuildOption:	-DBUILD_TESTING=OFF
+BuildOption:	-DWITH_DESIGNER_PLUGIN=OFF
+BuildOption:	-DKDE_INSTALL_CONFDIR=%{_sysconfdir}/xdg
+# As of 20.08.0, the only effect of -DMOBILE is installing a smaller
+# location cache. Given we target only higher end mobile devices for
+# the moment, we can live with (and actually want) that.
+# We may want to enable -DMOBILE=ON if it ever starts doing something
+# more...
+BuildOption:	-DMOBILE=OFF
+
 %patchlist
 marble-16.08.2-soversion.patch
 
@@ -136,6 +155,7 @@ Wikipedia article.
 Summary:	Devel stuff for %{name}
 Group:		Development/KDE and Qt
 Requires:	%{name}-common = %{EVRD}
+%rename plasma6-marble-devel
 
 %description devel
 Files needed to build applications based on %{name}.
@@ -152,41 +172,12 @@ Files needed to build applications based on %{name}.
 
 #----------------------------------------------------------------------
 
-%prep
-%autosetup -p1 -n marble-%{version}
-
+%prep -a
 mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
 
 # Make current absl happy
 sed -i -e 's,CMAKE_CXX_STANDARD 17,CMAKE_CXX_STANDARD 20,' CMakeLists.txt
 
-# As of 20.08.0, the only effect of -DMOBILE is installing a smaller
-# location cache. Given we target only higher end mobile devices for
-# the moment, we can live with (and actually want) that.
-# We may want to enable -DMOBILE=ON if it ever starts doing something
-# more...
-
-%cmake \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON \
-	-DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-	-DBUILD_MARBLE_APPS=ON \
-	-DBUILD_MARBLE_TOOLS=ON \
-	-DBUILD_WITH_DBUS=ON \
-	-DBUILD_MARBLE_TESTS=OFF \
-	-DBUILD_TESTING=OFF \
-	-DWITH_DESIGNER_PLUGIN=OFF \
-	-DKDE_INSTALL_CONFDIR=%{_sysconfdir}/xdg \
-	-DMOBILE=OFF \
-	-G Ninja
-
-%build
-%ninja_build -C build
-
-%install
-
-%ninja_install -C build
-
+%install -a
 # qmake is obsolete-ish... And this location is just wrong
 rm -rf %{buildroot}%{_prefix}/mkspecs
-
-%find_lang marble --with-html --with-qt --all-name
