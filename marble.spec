@@ -4,7 +4,7 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	25.08.1
+Version:	25.08.2
 Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
@@ -117,8 +117,6 @@ Wikipedia article.
 %{_datadir}/metainfo/org.kde.marble.appdata.xml
 %{_datadir}/metainfo/org.kde.marble.behaim.appdata.xml
 %{_datadir}/metainfo/org.kde.marble.maps.appdata.xml
-%{_datadir}/metainfo/org.kde.plasma.worldclock.appdata.xml
-%{_datadir}/metainfo/org.kde.plasma.worldmap.appdata.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock
 %{_datadir}/plasma/wallpapers/org.kde.plasma.worldmap
 #---------------------------------------------
