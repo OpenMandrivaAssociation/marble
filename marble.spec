@@ -4,8 +4,8 @@
 
 Summary:	A virtual globe and world atlas
 Name:		marble
-Version:	25.08.3
-Release:	3
+Version:	25.12.0
+Release:	1
 Group:		Graphical desktop/KDE
 License:	LGPLv2
 Url:		https://edu.kde.org
@@ -141,12 +141,17 @@ Wikipedia article.
 %{_datadir}/applications/marble_*.desktop
 %{_libdir}/libmarblewidget-qt6.so.*
 %{_libdir}/libastro.so.*
-%{_qtdir}/plugins/marblethumbnail.so
 %{_qtdir}/plugins/kf6/krunner/plasma_runner_marble.so
 %{_qtdir}/plugins/libmarble_part.so
 %{_qtdir}/qml/org/kde/marble
 %{_datadir}/config.kcfg/marble.kcfg
 %{_datadir}/kxmlgui5/marble
+%{_qtdir}/plugins/kf6/thumbcreator/marble_thumbnail_geojson.so
+%{_qtdir}/plugins/kf6/thumbcreator/marble_thumbnail_gpx.so
+%{_qtdir}/plugins/kf6/thumbcreator/marble_thumbnail_kml.so
+%{_qtdir}/plugins/kf6/thumbcreator/marble_thumbnail_kmz.so
+%{_qtdir}/plugins/kf6/thumbcreator/marble_thumbnail_osm.so
+%{_qtdir}/plugins/kf6/thumbcreator/marble_thumbnail_shp.so
 
 #---------------------------------------------
 
